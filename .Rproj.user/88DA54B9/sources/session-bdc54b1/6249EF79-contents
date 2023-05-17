@@ -1,0 +1,41 @@
+---
+title: "Reproducible Documents using Quarto & Rmarkdown"
+format: 
+  revealjs:
+    theme: simple
+execute: 
+  echo: true
+  
+---
+
+
+# Working with .qmd and .rmd files
+
+Quarto vs. Rmarkdown
+
+https://quarto.org/docs/faq/rmarkdown.html
+
+
+
+
+Tables:
+the flextable package
+
+
+## Working in RMarkdown
+
+Rmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive. 
+
+There's a ton of stuff to learn with rmarkdown. Get inspiration [here](https://rmarkdown.rstudio.com/index.html)
+
+## Brief intro to RMarkdown
+
+Rmarkdown documents have 3 basic ingredients
+
+-   *a YAML header* - specifying general output options
+-   *Text in markdown format* - any explanatory text you like to add, e.g. documentation
+-   *Code chunks* - your R code (can also run python, Stan, ...)
+
+## Work with an example
+
+open up `example_rmd_file.Rmd` and `example_rmd_file.html`

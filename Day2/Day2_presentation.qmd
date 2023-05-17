@@ -1,0 +1,98 @@
+---
+title: "Day2_presentation"
+format: revealjs
+editor: source
+---
+
+
+# Data cleaning & manipulation in the tidyverse
+
+a.	Basics (mutate, summarise, group_by, pivot_longer, pivot_wider, …
+b.	Advanced concepts (across, rowwise, tidyselect methods (e.g. everything())
+c.	Working with nested data
+d.	Text data (Stringr package, Glue package, Regular expressions)
+
+
+
+# Recap around most important tidyverse syntax and functions
+
+
+## Bread and butter functions
+
+- `mutate()`
+- `group_by()`
+- `summarise()`
+- `filter()`
+- `select()`
+
+## Reshaping
+
+- `pivot_wider()`
+- `pivot_longer()`
+
+## Joining
+
+- `left_join()`
+- `right_join()`
+- `inner_join()`
+- `full_join()`
+
+
+## Le "Pipe"
+
+- `%>%()`
+- `|>()`
+
+
+# Important helper functions
+
+- the fct_ family helps dealing with factor variables, e.g. fct_reorder, fct_recode, fct_relevel, fct_collapse, fct_lump, ... (not always the most helpful naming conventions, but good documentation)
+
+- case_when()
+
+
+
+## Tidyselection
+
+https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html
+
+
+- contains()
+- starts_with()
+- ends_with()
+- everything()
+- last_col()
+
+- all_of()
+- any_of()
+
+
+## Across()
+
+https://dplyr.tidyverse.org/reference/across.html
+
+do multiple function in the same across call:
+
+```{r}
+data %>%
+  mutate(across(starts_with("something"),
+                list(mean = mean,
+                     sd = sd),
+                .names = "{col}_{fn}"))
+```
+
+
+## Purrr style lambda
+
+purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
+
+
+
+## Rowwise()
+
+
+# Purrr
+
+# Nested data
+
+# Regex

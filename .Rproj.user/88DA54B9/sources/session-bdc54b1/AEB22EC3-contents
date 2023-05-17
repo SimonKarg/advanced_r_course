@@ -1,0 +1,23 @@
+---
+title: "Advanced_concepts"
+format: revealjs
+---
+
+Day 4: Advanced R Programming 
+
+
+
+--> Draw inspiration from Advanced R:
+
+    In Section 6.2.3, you learned about R’s first-class functions. In R, you bind a function to a name in the same way as you bind any object to a name: with <-.
+
+    In Section 7.4.2, you learned that a function captures (encloses) the environment in which it is created.
+
+    In Section 7.4.4, you learned that a function creates a new execution environment every time it is run. This environment is usually ephemeral, but here it becomes the enclosing environment of the manufactured function.
+
+
+--> also here: https://bookdown.org/rdpeng/rprogdatascience/functions.html#lazy-evaluation
+
+
+
+--> crossing() function

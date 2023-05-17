@@ -1,0 +1,140 @@
+---
+title: "Good Code"
+format: 
+  revealjs:
+    theme: simple
+execute: 
+  echo: true
+  
+---
+
+
+## What is good code?
+
+[10 minute discussion]
+
+## {background-iframe="https://style.tidyverse.org/index.html" background-interactive="true"}
+
+## A quick tip: automatic formatting
+
+- For mac: Cmd + Shift + A 
+- For windows: Ctrl + Shift + A 
+
+Helps with many things, but not a magic bullet.. 
+
+:::{.fragment}
+```{r}
+#| eval: false
+# before automatic formatting
+a_random_function <- function(something, something_else){result <- do_something(something) %>% 
+  do_something_new(something_else)}
+```
+:::
+
+<nb>
+
+:::{.fragment}
+```{r}
+#| eval: false
+# after automatic formatting
+a_random_function <-
+  function(something, something_else) {
+    result <- do_something(something) %>%
+      do_something_new(something_else)
+  }
+```
+:::
+
+
+## Naming conventions
+
+Consistency is key! Use one system and stick to it. This will help not only in readibility, but also writing code to for example select key variables of interest.
+
+Compare:
+
+```{r}
+#| eval: false
+my_data %>% 
+  select(starts_with("scale_name"))
+```
+
+<nb>
+
+:::{.fragment}
+```{r}
+#| eval: false
+my_data %>% 
+  select("item_1", "Item_2", "This_is_the_3_item", "Yet_another_item", "What.is.this.item?")
+```
+:::
+
+## Naming conventions (continued)
+ 
+I like the following:
+
+- small case for all variables
+- snake_case 
+- nouns for variables and datasets, verbs for functions
+
+## Code commenting practices
+
+- more is not always better
+- comments shouldn't focus on the how, but the why
+
+```{r}
+#| eval: false
+# load in data
+df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv')
+```
+
+<p></p>
+
+:::{.fragment}
+
+```{r}
+#| eval: false
+# get tidytuesday dataset on artists
+# see documentation: https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-17/readme.md
+df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+
+```
+
+:::
+
+## Code commenting exercise (15 min?)
+
+Go back to an old script (e.g. for data cleaning, ...) of yours (preferably older than 6 months) and take a look it 
+- What have you commented, what haven't you commented?
+- Which comments make sense to you? Which don't?
+- Show the code to your neighbor without explaining it. What can they understand, what don't they understand?
+
+
+
+## Other tricks
+
+- multiline editing
+
+
+## Workflow
+
+data cleaning / manipulation then analyses.
+
+Keep data cleaning and analysis separate. Create all necessary variables at the start of your script, then move on to analyses.
+
+
+
+## Load all necessary packages at the start
+
+- makes it easier to understand which packages are needed
+
+- for big packages, do not necessary load in all packages, you can also just "require" a package to indicate that you need a function from it later
+
+```{r}
+#| eval: false
+# at the start of your document
+require(MASS)
+
+# somewhere later
+MASS::bcv()
+```
+

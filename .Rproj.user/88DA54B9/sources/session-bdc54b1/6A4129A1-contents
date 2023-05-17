@@ -1,0 +1,49 @@
+---
+title: "Day1_afternoon_session"
+format: 
+  revealjs:
+    theme: simple
+execute: 
+  echo: true
+
+---
+
+# Recap around most important tidyverse syntax and functions
+
+
+## Bread and butter functions
+
+- `mutate()`
+- `group_by()`
+- `summarise()`
+- `filter()`
+- `select()`
+
+## Reshaping
+
+- `pivot_wider()`
+- `pivot_longer()`
+
+## Joining
+
+- `left_join()`
+- `right_join()`
+- `inner_join()`
+- `full_join()`
+
+
+## Le "Pipe"
+
+- `%>%()`
+- `|>()`
+
+
+# Exercise
+
+Get some data, produce some new columns... do whatever?
+
+```{r}
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+```
+
+
