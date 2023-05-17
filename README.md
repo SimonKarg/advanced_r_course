@@ -4,4 +4,3 @@ This is a repository with all course material for the Advanced R Programming Cou
 
 The different folders contain all presentations and exercise files for the course.
 
-another line
