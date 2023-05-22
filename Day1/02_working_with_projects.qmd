@@ -8,7 +8,7 @@ execute:
   
 ---
 
-# Why do we need a principled approach to project organization
+# Why we need a principled approach to project organization
 
 - helps you structure your work
 - helps working faster and safer
@@ -78,8 +78,21 @@ Additional keyboard shortcuts make it easy to restart development where you left
 
 `rm(list = ls())` does not remove everything in your environment (e.g. library calls, setting of working environment..)! 
 
-Therefore, it does not guarantee reproducibility. Instead, just make sure that you are working from a restarted R session, and don't save your workspace.
+<br>
 
+--> does *not* guarantee reproducibility. 
+
+--> Instead, just make sure that you are working from a restarted R session, and don't save your workspace.
+
+
+## Exercise
+
+- How have you organized your projects in the past?
+- Have you ever lost track of things? If so, how and why?
+- What changes are you thinking about implementing?
+
+
+# File paths
 
 ## Use relative file paths
 
@@ -155,3 +168,10 @@ getwd()
 The output differs because the working directory changes when the document is knitted by knitr. The `here()` function still produces the expected output.
 
 :::
+
+
+## Exercise
+
+- What's your previous way to specify paths for reading and saving files?
+- Try and implement the here::here() function in an existing (or new) script
+

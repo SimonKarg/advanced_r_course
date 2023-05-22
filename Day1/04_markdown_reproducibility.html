@@ -7,7 +7,7 @@
 <link href="04_markdown_reproducibility_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="04_markdown_reproducibility_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="04_markdown_reproducibility_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.335">
+  <meta name="generator" content="quarto-1.2.475">
 
   <title>Reproducible Documents using Quarto &amp; Rmarkdown</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,6 +27,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="04_markdown_reproducibility_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="04_markdown_reproducibility_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -329,12 +393,19 @@
 </div>
 
 </section>
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+</section>
 <section>
-<section id="working-with-.qmd-and-.rmd-files" class="title-slide slide level1 center">
-<h1>Working with .qmd and .rmd files</h1>
-<p>Quarto vs.&nbsp;Rmarkdown</p>
-<p>https://quarto.org/docs/faq/rmarkdown.html</p>
-<p>Tables: the flextable package</p>
+<section id="what-are-your-previous-experiences" class="title-slide slide level1 center">
+<h1>What are your previous experiences?</h1>
+<ul>
+<li>are you using rmarkdown / quarto documents?</li>
+<li>what do you think is good / bad about them? When do you prefer using .r scripts?</li>
+</ul>
 </section>
 <section id="working-in-rmarkdown" class="slide level2">
 <h2>Working in RMarkdown</h2>
@@ -350,9 +421,232 @@
 <li><em>Code chunks</em> - your R code (can also run python, Stan, …)</li>
 </ul>
 </section>
-<section id="work-with-an-example" class="slide level2">
-<h2>Work with an example</h2>
+<section id="quarto-vs.-rmarkdown" class="slide level2">
+<h2>Quarto vs.&nbsp;Rmarkdown</h2>
+<p>Quarto is the new cool kid in town.</p>
+<p>For all intends and purposes, quarto and rmarkdown are practically interchangeable. Rmarkdown will not be deprecated, but Quarto is likely to see more development in the future than rmarkdown. Right now, rmarkdown has a bit more user friendliness within RStudio (clearing knitr cache, and setting knitr working directory), but quarto has nicer defaults regarding outputs</p>
+<p>See also: https://quarto.org/docs/faq/rmarkdown.html</p>
+<p>I will use Quarto going forward (.qmd). But it’s totally fine for you to continue rmarkdown.</p>
+</section>
+<section id="look-at-an-example" class="slide level2">
+<h2>Look at an example</h2>
 <p>open up <code>example_rmd_file.Rmd</code> and <code>example_rmd_file.html</code></p>
+</section>
+<section id="markdown-syntax-basics" class="slide level2">
+<h2>Markdown syntax basics</h2>
+<ul>
+<li><code>#</code> is used to define headlines</li>
+<li><code>-</code> creates an unordered list</li>
+<li><code>1.</code> creates ordererd lists</li>
+<li><code>*one asterisk*</code> makes text <em>italics</em></li>
+<li><code>**two astersisks**</code> makes text <strong>bold</strong></li>
+<li>NB: for html documents, you can also use <code>&lt;html&gt;</code> tags if you prefer (e.g.&nbsp;I often use <code>&lt;br&gt;</code> to add a line break)</li>
+</ul>
+<p>for more, see: https://www.markdownguide.org/basic-syntax/</p>
+</section>
+<section id="a-neat-feature-tabbed-content" class="slide level2">
+<h2>A neat feature: Tabbed Content</h2>
+<p>Html Documents allow you to use tabs to let viewers compare different types of things.</p>
+<p>I love this feature to contrast and compare plots or models that rely on similar but different data, e.g.&nbsp;subsamples, or robustness checks.</p>
+<p>For .rmd documents you can use tabs by writing {.tabset} after a heading. Then, the next sub-headings after this will be tabbed:</p>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<p><code># My Heading {.tabset}</code></p>
+<p><code>## This is tab 1</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>lm(mpg ~ cyl + gear, data = mtcars) %&gt;% summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>## This is tab 2</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>lm(mpg ~ cyl + gear + wt, data = mtcars) %&gt;% summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="my-heading" class="slide level2 smaller">
+<h2>My Heading</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">This is tab 1</a></li><li><a href="#tabset-1-2">This is tab 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> gear, <span class="at">data =</span> mtcars) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ cyl + gear, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.8949 -1.9353 -0.0725  1.3648  7.6051 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  34.6595     4.9369   7.020 1.01e-07 ***
+cyl          -2.7431     0.3735  -7.344 4.32e-08 ***
+gear          0.6519     0.9041   0.721    0.477    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.232 on 29 degrees of freedom
+Multiple R-squared:  0.731, Adjusted R-squared:  0.7125 
+F-statistic:  39.4 on 2 and 29 DF,  p-value: 5.387e-09</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> gear <span class="sc">+</span> wt, <span class="at">data =</span> mtcars) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ cyl + gear + wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.8443 -1.5455 -0.3932  1.4220  5.9416 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  42.3864     4.3790   9.679 1.97e-10 ***
+cyl          -1.5280     0.4198  -3.640 0.001093 ** 
+gear         -0.5229     0.7789  -0.671 0.507524    
+wt           -3.3921     0.8208  -4.133 0.000294 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.592 on 28 degrees of freedom
+Multiple R-squared:  0.8329,    Adjusted R-squared:  0.815 
+F-statistic: 46.53 on 3 and 28 DF,  p-value: 5.262e-11</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="my-go-to-rmarkdown-file-snippets" class="slide level2 scrollable smaller">
+<h2>My go to rmarkdown file snippets:</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">---</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Title..."</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"--redacted for anonymous peer review--"</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"date"</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="at">      </span><span class="fu">collapsed</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="at">    </span><span class="fu">toc_depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> flatly</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="at">    </span><span class="fu">code_folding</span><span class="kw">:</span><span class="at"> show</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="at">    </span><span class="fu">number_sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="at">    </span><span class="fu">keep_md</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="at">    </span><span class="fu">df_print</span><span class="kw">:</span><span class="at"> paged</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">editor_options</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="at">  </span><span class="fu">chunk_output_type</span><span class="kw">:</span><span class="at"> console </span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="in">```{=html}</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="in">&lt;style type="text/css"&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="in">.main-container {</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="in">  max-width: 1400px !important;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="in">  width: 1400px !important;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="in">  margin-left: auto;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="in">  margin-right: auto;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="in">}</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="in">body {</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="in">  font-size: 14pt;</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="in">  max-width: 1400px !important;</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="in">  width: 1400px;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="in">}</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="in">p {</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="in">  padding-bottom: 12px;</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="in">  padding-top: 12px;</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="in">  line-height: 1.15em;</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="in">}</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="in">&lt;/style&gt;</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>                      <span class="at">message =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb9-4"><a href="#cb9-4"></a>                      <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>                      <span class="at">fig.width =</span> <span class="dv">10</span>, </span>
+<span id="cb9-6"><a href="#cb9-6"></a>                      <span class="at">fig.height =</span> <span class="dv">7</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>                      <span class="at">cache =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-8"><a href="#cb9-8"></a>                      <span class="co"># this requires "styler" package</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>                      <span class="at">tidy =</span> <span class="st">"styler"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">200</span>)</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="my-go-to-qmd-snippet-yaml-header" class="slide level2">
+<h2>My go to qmd snippet yaml header</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="pp">---</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Title"</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="at">    </span><span class="fu">self-contained</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="at">    </span><span class="fu">code-tools</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="fu">editor</span><span class="kw">:</span><span class="at"> source</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Author</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> flatly</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="fu">execute</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="at">  </span><span class="fu">cache</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="at">  </span><span class="fu">fig-width</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span><span class="at"> </span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="at">  </span><span class="fu">fig-height</span><span class="kw">:</span><span class="at"> </span><span class="dv">9</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="reproducibility" class="title-slide slide level1 center">
+<h1>Reproducibility</h1>
+
+</section>
+<section id="a-minimal-effort-requirement-sessioninfo" class="slide level2">
+<h2>a minimal effort requirement: <code>sessionInfo()</code></h2>
+<p>prints information about your R session.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.0 (2023-04-21)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.3.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Copenhagen
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2    
+ [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
+ [9] ggplot2_3.4.2   tidyverse_2.0.0
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.3     jsonlite_1.8.4   compiler_4.3.0   tidyselect_1.2.0
+ [5] scales_1.2.1     yaml_2.3.7       fastmap_1.1.1    R6_2.5.1        
+ [9] generics_0.1.3   knitr_1.42       munsell_0.5.0    pillar_1.9.0    
+[13] tzdb_0.4.0       rlang_1.1.1      utf8_1.2.3       stringi_1.7.12  
+[17] xfun_0.39        timechange_0.2.0 cli_3.6.1        withr_2.5.0     
+[21] magrittr_2.0.3   digest_0.6.31    grid_4.3.0       rstudioapi_0.14 
+[25] hms_1.1.3        lifecycle_1.0.3  vctrs_0.6.2      evaluate_0.21   
+[29] glue_1.6.2       fansi_1.0.4      colorspace_2.1-0 rmarkdown_2.21  
+[33] tools_4.3.0      pkgconfig_2.0.3  htmltools_0.5.5 </code></pre>
+</div>
+</div>
+</section>
+<section id="the-maximum-effort-approach" class="slide level2">
+<h2>the maximum effort approach:</h2>
+<p>https://pure.mpg.de/rest/items/item_3178013/component/file_3319563/content</p>
+</section>
+<section id="a-golden-middle" class="slide level2">
+<h2>a golden middle?</h2>
 <div class="footer footer-default">
 
 </div>
@@ -568,6 +862,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

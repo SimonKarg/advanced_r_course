@@ -8,14 +8,19 @@ execute:
   
 ---
 
+```{r}
+#| include: false
+library(tidyverse)
+```
 
-## What is good code?
+
+# What is good code?
 
 [10 minute discussion]
 
 ## {background-iframe="https://style.tidyverse.org/index.html" background-interactive="true"}
 
-## A quick tip: automatic formatting
+## Tip: automatic formatting
 
 - For mac: Cmd + Shift + A 
 - For windows: Ctrl + Shift + A 
@@ -46,7 +51,25 @@ a_random_function <-
 :::
 
 
-## Naming conventions
+## Tip: the {styler} package
+
+You can also automatically style code and entire scripts using the styler package.
+
+This is especially handy for using rmarkdown files.
+Here, you can simply specify the tidier as a knitr chunk option. 
+
+```{r}
+knitr::opts_chunk$set(tidy = "styler")
+```
+
+Note that this doesn't affect the source document (i.e. the script), but only affects the knitted document.
+
+```{r}
+an_unstylized_example<-"asdf"
+```
+
+
+# Naming conventions
 
 Consistency is key! Use one system and stick to it. This will help not only in readibility, but also writing code to for example select key variables of interest.
 
@@ -55,7 +78,7 @@ Compare:
 ```{r}
 #| eval: false
 my_data %>% 
-  select(starts_with("scale_name"))
+  select("item_1", "Item_2", "This_is_the_3_item", "Yet_another_item", "What.is.this.item?")
 ```
 
 <nb>
@@ -63,8 +86,8 @@ my_data %>%
 :::{.fragment}
 ```{r}
 #| eval: false
-my_data %>% 
-  select("item_1", "Item_2", "This_is_the_3_item", "Yet_another_item", "What.is.this.item?")
+my_data %>%
+  select(starts_with("scale_name"))
 ```
 :::
 
@@ -76,10 +99,39 @@ I like the following:
 - snake_case 
 - nouns for variables and datasets, verbs for functions
 
+## Tip: use the `clean_names()` function
+
+This function from the {janitor} package provides great help with cleaning up names from messy datafiles.
+
+```{r}
+data_with_bad_names <- tibble(
+  BAD_NAME = 1,
+  `really bad name` = 2,
+  `1 - another bad (name)` = 3
+)
+
+data_with_bad_names %>% 
+  janitor::clean_names() %>% 
+  names()
+```
+
+<nb>
+
+:::{.fragment}
+```{r}
+# also works with other cases, if you prefer those (see ?sankecase::to_any_case)
+data_with_bad_names %>% 
+  janitor::clean_names(case = "upper_camel") %>% 
+  names()
+```
+:::
+
+# Commenting code
+
 ## Code commenting practices
 
 - more is not always better
-- comments shouldn't focus on the how, but the why
+- general advice: comments shouldn't focus on the how, but the why
 
 ```{r}
 #| eval: false
@@ -109,11 +161,7 @@ Go back to an old script (e.g. for data cleaning, ...) of yours (preferably olde
 - Show the code to your neighbor without explaining it. What can they understand, what don't they understand?
 
 
-
-## Other tricks
-
-- multiline editing
-
+# Script etiquette
 
 ## Workflow
 
@@ -127,7 +175,7 @@ Keep data cleaning and analysis separate. Create all necessary variables at the 
 
 - makes it easier to understand which packages are needed
 
-- for big packages, do not necessary load in all packages, you can also just "require" a package to indicate that you need a function from it later
+- for big packages, do not necessary load in all packages, you can also just "require" a package to indicate that you need a function from it later. 
 
 ```{r}
 #| eval: false
@@ -137,4 +185,11 @@ require(MASS)
 # somewhere later
 MASS::bcv()
 ```
+
+(This has become less relevant in new versions of Rstudio, which will tell you when a script contains package that you haven't installed yet).
+
+
+## Other tricks
+
+- multiline editing
 

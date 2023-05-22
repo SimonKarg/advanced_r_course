@@ -5,26 +5,22 @@ format:
     theme: simple
 execute: 
   echo: true
-  
 ---
 
-
-# Working with .qmd and .rmd files
-
-Quarto vs. Rmarkdown
-
-https://quarto.org/docs/faq/rmarkdown.html
+```{r}
+#| echo: false
+library(tidyverse)
+```
 
 
+# What are your previous experiences?
 
-
-Tables:
-the flextable package
-
+-   are you using rmarkdown / quarto documents?
+-   what do you think is good / bad about them? When do you prefer using .r scripts?
 
 ## Working in RMarkdown
 
-Rmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive. 
+Rmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.
 
 There's a ton of stuff to learn with rmarkdown. Get inspiration [here](https://rmarkdown.rstudio.com/index.html)
 
@@ -36,6 +32,183 @@ Rmarkdown documents have 3 basic ingredients
 -   *Text in markdown format* - any explanatory text you like to add, e.g. documentation
 -   *Code chunks* - your R code (can also run python, Stan, ...)
 
-## Work with an example
+## Quarto vs. Rmarkdown
+
+Quarto is the new cool kid in town.
+
+For all intends and purposes, quarto and rmarkdown are practically interchangeable. Rmarkdown will not be deprecated, but Quarto is likely to see more development in the future than rmarkdown. Right now, rmarkdown has a bit more user friendliness within RStudio (clearing knitr cache, and setting knitr working directory), but quarto has nicer defaults regarding outputs
+
+See also: https://quarto.org/docs/faq/rmarkdown.html
+
+I will use Quarto going forward (.qmd). But it's totally fine for you to continue rmarkdown.
+
+## Look at an example
 
 open up `example_rmd_file.Rmd` and `example_rmd_file.html`
+
+## Markdown syntax basics
+
+-   `#` is used to define headlines
+-   `-` creates an unordered list
+-   `1.` creates ordererd lists
+-  `*one asterisk*` makes text *italics*
+-  `**two astersisks**` makes text **bold**
+- NB: for html documents, you can also use `<html>` tags if you prefer (e.g. I often use `<br>` to add a line break)
+
+for more, see: https://www.markdownguide.org/basic-syntax/ 
+
+## A neat feature: Tabbed Content
+
+Html Documents allow you to use tabs to let viewers compare different types of things.
+
+I love this feature to contrast and compare plots or models that rely on similar but different data, e.g. subsamples, or robustness checks.
+
+For .rmd documents you can use tabs by writing {.tabset} after a heading. Then, the next sub-headings after this will be tabbed:
+
+## Example
+
+`# My Heading {.tabset}`
+
+`## This is tab 1`
+
+```{{r}}
+lm(mpg ~ cyl + gear, data = mtcars) %>% summary()
+```
+
+
+`## This is tab 2`
+
+```{{r}}
+lm(mpg ~ cyl + gear + wt, data = mtcars) %>% summary()
+```
+
+
+
+## My Heading {.smaller}
+
+::: panel-tabset
+
+## This is tab 1
+
+```{r}
+lm(mpg ~ cyl + gear, data = mtcars) %>% summary()
+```
+
+
+
+## This is tab 2
+
+```{r}
+lm(mpg ~ cyl + gear + wt, data = mtcars) %>% summary()
+```
+:::
+
+
+## My go to rmarkdown file snippets: {.scrollable .smaller}
+
+``` yaml
+---
+title: "Title..."
+author: "--redacted for anonymous peer review--"
+date: "date"
+output:
+  html_document:
+    toc: true
+    toc_float: 
+      collapsed: true
+    toc_depth: 4
+    theme: flatly
+    code_folding: show
+    number_sections: false
+    keep_md: yes
+    df_print: paged
+editor_options: 
+  chunk_output_type: console 
+---
+```
+
+<br>
+
+```` markdown
+```{=html}
+<style type="text/css">
+.main-container {
+  max-width: 1400px !important;
+  width: 1400px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+body {
+  font-size: 14pt;
+  max-width: 1400px !important;
+  width: 1400px;
+}
+p {
+  padding-bottom: 12px;
+  padding-top: 12px;
+  line-height: 1.15em;
+}
+</style>
+```
+````
+
+<br>
+
+```` markdown
+```{{r setup, include=FALSE}}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE, 
+                      warning = FALSE,
+                      fig.width = 10, 
+                      fig.height = 7,
+                      cache = TRUE,
+                      # this requires "styler" package
+                      tidy = "styler")
+
+options(width = 200)
+```
+````
+
+
+## My go to qmd snippet yaml header
+
+``` yaml
+---
+title: "Title"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    code-tools: true
+editor: source
+author: Author
+theme: flatly
+execute: 
+  cache: true
+  warning: false
+  message: false
+  fig-width: 12 
+  fig-height: 9
+---
+```
+
+# Reproducibility
+
+## a minimal effort requirement: `sessionInfo()`
+
+prints information about your R session.
+
+```{r}
+sessionInfo()
+```
+
+## the maximum effort approach:
+
+https://pure.mpg.de/rest/items/item_3178013/component/file_3319563/content
+
+## a golden middle?
+
+?renv package
+--> former packrat package
+https://rstudio.github.io/renv/articles/renv.html#workflow

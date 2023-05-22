@@ -21,3 +21,6 @@ Day 4: Advanced R Programming
 
 
 --> crossing() function
+
+
+--> purrr https://amber.rbind.io/2018/03/26/purrr/

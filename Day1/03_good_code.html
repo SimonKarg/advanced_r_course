@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="02_working_with_projects_files/libs/clipboard/clipboard.min.js"></script>
-<script src="02_working_with_projects_files/libs/quarto-html/tabby.min.js"></script>
-<script src="02_working_with_projects_files/libs/quarto-html/popper.min.js"></script>
-<script src="02_working_with_projects_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="02_working_with_projects_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="02_working_with_projects_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="02_working_with_projects_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="03_good_code_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03_good_code_files/libs/quarto-html/tabby.min.js"></script>
+<script src="03_good_code_files/libs/quarto-html/popper.min.js"></script>
+<script src="03_good_code_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="03_good_code_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03_good_code_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="03_good_code_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.475">
 
-  <title>Project organization</title>
+  <title>Good Code</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="02_working_with_projects_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="02_working_with_projects_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="03_good_code_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="03_good_code_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -92,11 +92,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="02_working_with_projects_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link href="02_working_with_projects_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="02_working_with_projects_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="02_working_with_projects_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="02_working_with_projects_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="03_good_code_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="03_good_code_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="03_good_code_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="03_good_code_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="03_good_code_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -387,180 +387,169 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Project organization</h1>
+  <h1 class="title">Good Code</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="why-we-need-a-principled-approach-to-project-organization" class="title-slide slide level1 center">
-<h1>Why we need a principled approach to project organization</h1>
-<ul>
-<li>helps you structure your work</li>
-<li>helps working faster and safer</li>
-<li>helps reproducibility and collaboration</li>
-</ul>
+<section id="what-is-good-code" class="slide level2">
+<h2>What is good code?</h2>
+<p>[10 minute discussion]</p>
 </section>
-
-<section>
-<section id="my-best-practices" class="title-slide slide level1 center">
-<h1>(My) Best practices</h1>
-<p>The following is an incomplete list of what I think are good practices for working with R (and other programming projects).</p>
-<p>These practices should help making your work more reproducible, intelligible to you and others, and overall easier to work with.</p>
-<p>For more, see also: https://rstats.wtf/</p>
-</section>
-<section id="work-with-r-projects" class="slide level2">
-<h2>Work with R projects</h2>
-<ul>
-<li>Always work within an R project</li>
-<li>The r.project file sits in the root folder of your project</li>
-</ul>
-</section>
-<section id="use-the-same-folder-structure-for-all-of-your-projects" class="slide level2">
-<h2>Use the same folder structure for all of your projects</h2>
-<p>Make subfolders for</p>
-<ul>
-<li><p>data (and also raw and processed data)</p></li>
-<li><p>scripts</p></li>
-<li><p>… other folders as needed</p></li>
-<li><p>you can use <strong>project templates</strong> when setting up an R project to automatically create folders and structures for you</p></li>
-</ul>
-</section>
-<section id="for-each-project-create-a-readme-file-or-other-kind-of-documentation" class="slide level2">
-<h2>For each project create a readme file, or other kind of documentation</h2>
-<p>Should include:</p>
-<ul>
-<li><strong>description:</strong> what is the project about</li>
-<li><strong>contributors:</strong> who is working on this project</li>
-<li><strong>requirements:</strong> particular dependencies / software that needs to be installed?</li>
-<li><strong>Roadmap:</strong> current stage of the project, and planned stuff (e.g.&nbsp;a todo list)</li>
-</ul>
-</section>
-<section id="section" class="slide level2">
+<section id="section" class="slide level2" data-background-iframe="https://style.tidyverse.org/index.html" data-background-interactive="true">
 <h2></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h1>
-Always start R with a blank slate
-</h1>
-</div><div class="column" style="width:50%;">
-<p><img data-src="images/rstudio-workspace.png"></p>
+</section>
+<section id="tip-automatic-formatting" class="slide level2">
+<h2>Tip: automatic formatting</h2>
+<ul>
+<li>For mac: Cmd + Shift + A</li>
+<li>For windows: Ctrl + Shift + A</li>
+</ul>
+<p>Helps with many things, but not a magic bullet..</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># before automatic formatting</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>a_random_function <span class="ot">&lt;-</span> <span class="cf">function</span>(something, something_else){result <span class="ot">&lt;-</span> <span class="fu">do_something</span>(something) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">do_something_new</span>(something_else)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><nb></nb></p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># after automatic formatting</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>a_random_function <span class="ot">&lt;-</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="cf">function</span>(something, something_else) {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    result <span class="ot">&lt;-</span> <span class="fu">do_something</span>(something) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>      <span class="fu">do_something_new</span>(something_else)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
-<section id="restart-r-often-during-work" class="slide level2 smaller">
-<h2>Restart R often during work</h2>
-<p>If you use RStudio, use the menu item <em>Session &gt; Restart</em> R or the associated keyboard shortcut Ctrl+Shift+F10 (Windows and Linux) or Command+Shift+F10 (Mac OS).</p>
-<p>Additional keyboard shortcuts make it easy to restart development where you left off, i.e.&nbsp;to say “re-run all the code up to HERE”:</p>
-<ul>
-<li>In an R script, use Ctrl+Alt+B (Windows and Linux) or Command+Option+B (Mac OS)</li>
-<li>In R markdown, use Ctrl+Alt+P (Windows and Linux) or Command+Option+P (Mac OS)</li>
-</ul>
-<p>(We’ll get back to this when talking about working with rmarkdown / quarto)</p>
+<section id="tip-the-styler-package" class="slide level2">
+<h2>Tip: the {styler} package</h2>
+<p>You can also automatically style code and entire scripts using the styler package.</p>
+<p>This is especially handy for using rmarkdown files. Here, you can simply specify the tidier as a knitr chunk option.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy =</span> <span class="st">"styler"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that this doesn’t affect the source document (i.e.&nbsp;the script), but only affects the knitted document.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>an_unstylized_example <span class="ot">&lt;-</span> <span class="st">"asdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="dont-use-rmlist-ls" class="slide level2">
-<h2>Don’t use <code>rm(list = ls())</code></h2>
-<p><code>rm(list = ls())</code> does not remove everything in your environment (e.g.&nbsp;library calls, setting of working environment..)!</p>
-<p><br></p>
-<p>–&gt; does <em>not</em> guarantee reproducibility.</p>
-<p>–&gt; Instead, just make sure that you are working from a restarted R session, and don’t save your workspace.</p>
+<section id="naming-conventions" class="slide level2">
+<h2>Naming conventions</h2>
+<p>Consistency is key! Use one system and stick to it. This will help not only in readibility, but also writing code to for example select key variables of interest.</p>
+<p>Compare:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">select</span>(<span class="st">"item_1"</span>, <span class="st">"Item_2"</span>, <span class="st">"This_is_the_3_item"</span>, <span class="st">"Yet_another_item"</span>, <span class="st">"What.is.this.item?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><nb></nb></p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"scale_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
-<section id="exercise" class="slide level2">
-<h2>Exercise</h2>
+<section id="naming-conventions-continued" class="slide level2">
+<h2>Naming conventions (continued)</h2>
+<p>I like the following:</p>
 <ul>
-<li>How have you organized your projects in the past?</li>
-<li>Have you ever lost track of things? If so, how and why?</li>
-<li>What changes are you thinking about implementing?</li>
+<li>small case for all variables</li>
+<li>snake_case</li>
+<li>nouns for variables and datasets, verbs for functions</li>
 </ul>
+</section>
+<section id="tip-use-the-clean_names-function" class="slide level2">
+<h2>Tip: use the <code>clean_names()</code> function</h2>
+<p>This function from the {janitor} package provides great help with cleaning up names from messy datafiles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_with_bad_names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="at">BAD_NAME =</span> <span class="dv">1</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="st">`</span><span class="at">really bad name</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="st">`</span><span class="at">1 - another bad (name)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>data_with_bad_names <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bad_name"            "really_bad_name"     "x1_another_bad_name"</code></pre>
+</div>
+</div>
+<p><nb></nb></p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># also works with other cases, if you prefer those (see ?sankecase::to_any_case)</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>data_with_bad_names <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">case =</span> <span class="st">"upper_camel"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "BadName"          "ReallyBadName"    "X1AnotherBadName"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="commenting-code" class="title-slide slide level1 center">
+<h1>Commenting code</h1>
+
+</section>
+<section id="code-commenting-practices" class="slide level2">
+<h2>Code commenting practices</h2>
+<ul>
+<li>more is not always better</li>
+<li>general advice: comments shouldn’t focus on the how, but the why</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># load in data</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>
+</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># get tidytuesday dataset on artists</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># see documentation: https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-17/readme.md</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="code-commenting-exercise-15-min" class="slide level2">
+<h2>Code commenting exercise (15 min?)</h2>
+<p>Go back to an old script (e.g.&nbsp;for data cleaning, …) of yours (preferably older than 6 months) and take a look it - What have you commented, what haven’t you commented? - Which comments make sense to you? Which don’t? - Show the code to your neighbor without explaining it. What can they understand, what don’t they understand?</p>
 </section></section>
 <section>
-<section id="file-paths" class="title-slide slide level1 center">
-<h1>File paths</h1>
+<section id="script-etiquette" class="title-slide slide level1 center">
+<h1>Script etiquette</h1>
 
 </section>
-<section id="use-relative-file-paths" class="slide level2">
-<h2>Use relative file paths</h2>
+<section id="workflow" class="slide level2">
+<h2>Workflow</h2>
+<p>data cleaning / manipulation then analyses.</p>
+<p>Keep data cleaning and analysis separate. Create all necessary variables at the start of your script, then move on to analyses.</p>
+</section>
+<section id="load-all-necessary-packages-at-the-start" class="slide level2">
+<h2>Load all necessary packages at the start</h2>
 <ul>
-<li>Use <strong>relative paths</strong> to read in data and save stuff</li>
+<li><p>makes it easier to understand which packages are needed</p></li>
+<li><p>for big packages, do not necessary load in all packages, you can also just “require” a package to indicate that you need a function from it later. (this has become less relevant in new versions of Rstudio, which will tell you that you need to install a package that you haven’t installed yet)</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># this is an absolute path that only exists on my machine</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># don't use these!</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>my_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/au525642/Dropbox/postdoc/research_projects/misc_projects/data/my_file.csv"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># instead, use relative paths:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>my_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/my_file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># at the start of your document</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">require</span>(MASS)</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># somewhere later</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>MASS<span class="sc">::</span><span class="fu">bcv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="understanding-working-directories-more" class="slide level2">
-<h2>Understanding working directories more</h2>
-<p>Relative files work because they extend on your working directory. This is one reason why you should work in an rpoject - it sets a working directory for you, i.e.&nbsp;the directory where your rproject is sitting in.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials/Day1"</code></pre>
-</div>
-</div>
-</section>
-<section id="the-here-package" class="slide level2">
-<h2>The “here” package</h2>
-<p>The <code>here()</code> function retrieves your current working directory, at the time the package was loaded.</p>
-<p>The here package helps especially when not working with R interactively (e.g.&nbsp;knitting an rmarkdown / quarto file)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials"</code></pre>
-</div>
-</div>
-<p><nb></nb></p>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># you can simply add folders and file names to complete a path</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data_file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials/data/my_data_file.csv"</code></pre>
-</div>
-</div>
-<p><nb></nb></p>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># this works, too</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/my_data_file.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials/data/my_data_file.csv"</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="compare-here-with-getwd" class="slide level2">
-<h2>Compare <code>here()</code> with <code>getwd()</code></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials"</code></pre>
-</div>
-</div>
-<p><nb></nb></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/au525642/Dropbox/postdoc/teaching &amp; talks/23_PhD_R_course/course_materials/Day1"</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>The output differs because the working directory changes when the document is knitted by knitr. The <code>here()</code> function still produces the expected output.</p>
-</div>
-</section>
-<section id="exercise-1" class="slide level2">
-<h2>Exercise</h2>
+<section id="other-tricks" class="slide level2">
+<h2>Other tricks</h2>
 <ul>
-<li>What’s your previous way to specify paths for reading and saving files?</li>
-<li>Try and implement the here::here() function in an existing (or new) script</li>
+<li>multiline editing</li>
 </ul>
 <div class="footer footer-default">
 
@@ -570,19 +559,19 @@ Always start R with a blank slate
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="02_working_with_projects_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="03_good_code_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="02_working_with_projects_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="03_good_code_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

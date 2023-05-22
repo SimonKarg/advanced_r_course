@@ -10,7 +10,7 @@ execute:
 
 # Welcome all!
 
-# Organizational stuff {.smaller}
+# Organizational things {.smaller}
 
 
 **Day 1:** Project Documentation, Workflow, Reproducibility, …
@@ -23,8 +23,11 @@ execute:
 
 **Day 5:** Build your own website 
 
-**Exam:** pass fail exam - your website with one example project
+<p>
 
+:::{.fragment}
+**Exam:** pass fail exam - your website with one example project
+:::
 
 # Day 1 {.smaller}
 
