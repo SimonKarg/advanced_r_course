@@ -5,7 +5,6 @@ format:
     theme: simple
 execute: 
   echo: true
-  
 ---
 
 # Why we need a principled approach to project organization
@@ -32,7 +31,6 @@ For more, see also: https://rstats.wtf/
 ## Use the same folder structure for all of your projects
 
 Make subfolders for
-
 - data (and also raw and processed data)
 - scripts
 - ... other folders as needed
@@ -63,6 +61,7 @@ Always start R with a blank slate
 :::: 
 
 ## Restart R often during work {.smaller}
+
 
 If you use RStudio, use the menu item *Session > Restart* R or the associated keyboard shortcut Ctrl+Shift+F10 (Windows and Linux) or Command+Shift+F10 (Mac OS). 
 

@@ -10,6 +10,7 @@ execute:
 
 # Welcome all!
 
+
 # Organizational things {.smaller}
 
 
@@ -37,13 +38,13 @@ What we'll do today:
 
 2.  Keeping your projects organized (project setup, data management, here::here(), ...)
 
-3.  Version control using git and github
+3.  Good Code
 
 4.  Rmarkdown & Quarto for reports and analyses
 
-5.  Package documentation (pacman / sessionInfo ...)
+5.  Package documentation ({renv} / `sessionInfo()` ...)
 
-6.  RStudio hacks (multi-line editing, keyboard shortcuts, ..)
+6.  Exercise: work with reproducible documents 
 
 
 # Introductions

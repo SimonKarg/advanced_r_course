@@ -393,8 +393,9 @@
 </div>
 
 </section>
-<section id="what-is-good-code" class="slide level2">
-<h2>What is good code?</h2>
+<section>
+<section id="what-is-good-code" class="title-slide slide level1 center">
+<h1>What is good code?</h1>
 <p>[10 minute discussion]</p>
 </section>
 <section id="section" class="slide level2" data-background-iframe="https://style.tidyverse.org/index.html" data-background-interactive="true">
@@ -435,16 +436,25 @@
 </div>
 <p>Note that this doesn’t affect the source document (i.e.&nbsp;the script), but only affects the knitted document.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>an_unstylized_example <span class="ot">&lt;-</span> <span class="st">"asdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>an_unstylized_example<span class="ot">&lt;-</span><span class="st">"asdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section></section>
+<section>
+<section id="naming-conventions" class="title-slide slide level1 center">
+<h1>Naming conventions</h1>
+
 </section>
-<section id="naming-conventions" class="slide level2">
-<h2>Naming conventions</h2>
-<p>Consistency is key! Use one system and stick to it. This will help not only in readibility, but also writing code to for example select key variables of interest.</p>
+<section id="consistency-is-key" class="slide level2">
+<h2>Consistency is key!</h2>
+<p>Use one system and stick to it. This will help not only with readibility, but also writing code to for example select key variables of interest.</p>
 <p>Compare:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>my_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">select</span>(<span class="st">"item_1"</span>, <span class="st">"Item_2"</span>, <span class="st">"This_is_the_3_item"</span>, <span class="st">"Yet_another_item"</span>, <span class="st">"What.is.this.item?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">select</span>(<span class="st">"item_1"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>         <span class="st">"Item_2"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>         <span class="st">"This_is_the_3_item"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>         <span class="st">"Yet_another_item"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>         <span class="st">"What.is.this.item?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><nb></nb></p>
 <div class="fragment">
@@ -463,9 +473,8 @@
 <li>nouns for variables and datasets, verbs for functions</li>
 </ul>
 </section>
-<section id="tip-use-the-clean_names-function" class="slide level2">
-<h2>Tip: use the <code>clean_names()</code> function</h2>
-<p>This function from the {janitor} package provides great help with cleaning up names from messy datafiles.</p>
+<section id="tip-the-clean_names-function-from-the-janitor-package" class="slide level2">
+<h2>Tip: the <code>clean_names()</code> function from the janitor package</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_with_bad_names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="at">BAD_NAME =</span> <span class="dv">1</span>,</span>
@@ -473,8 +482,8 @@
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="st">`</span><span class="at">1 - another bad (name)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>)</span>
 <span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>data_with_bad_names <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>data_with_bad_names <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "bad_name"            "really_bad_name"     "x1_another_bad_name"</code></pre>
@@ -484,15 +493,15 @@
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># also works with other cases, if you prefer those (see ?sankecase::to_any_case)</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>data_with_bad_names <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">case =</span> <span class="st">"upper_camel"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>data_with_bad_names <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">case =</span> <span class="st">"upper_camel"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "BadName"          "ReallyBadName"    "X1AnotherBadName"</code></pre>
 </div>
 </div>
 </div>
-</section>
+</section></section>
 <section>
 <section id="commenting-code" class="title-slide slide level1 center">
 <h1>Commenting code</h1>
@@ -506,15 +515,14 @@
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># load in data</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>
-</p>
+<p><br></p>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># get tidytuesday dataset on artists</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="co"># see documentation: https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-17/readme.md</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -536,7 +544,7 @@
 <h2>Load all necessary packages at the start</h2>
 <ul>
 <li><p>makes it easier to understand which packages are needed</p></li>
-<li><p>for big packages, do not necessary load in all packages, you can also just “require” a package to indicate that you need a function from it later. (this has become less relevant in new versions of Rstudio, which will tell you that you need to install a package that you haven’t installed yet)</p></li>
+<li><p>for big packages, do not necessary load in all packages, you can also just “require” a package to indicate that you need a function from it later.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># at the start of your document</span></span>
@@ -545,6 +553,7 @@
 <span id="cb13-4"><a href="#cb13-4"></a><span class="co"># somewhere later</span></span>
 <span id="cb13-5"><a href="#cb13-5"></a>MASS<span class="sc">::</span><span class="fu">bcv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>(This has become less relevant in new versions of Rstudio, which will tell you when a script contains package that you haven’t installed yet).</p>
 </section>
 <section id="other-tricks" class="slide level2">
 <h2>Other tricks</h2>

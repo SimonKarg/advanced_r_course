@@ -11,6 +11,12 @@ execute:
 
 # Exercise:
 
+Build an .rmd  / .qmd document (your choice).
+
+- Needs some tabbed content
+- includes sessionInfo()
+
+
 do something with R
 Send to your neighbor to run the script
 

@@ -12,7 +12,6 @@ execute:
 library(tidyverse)
 ```
 
-
 # What are your previous experiences?
 
 -   are you using rmarkdown / quarto documents?
@@ -51,11 +50,11 @@ open up `example_rmd_file.Rmd` and `example_rmd_file.html`
 -   `#` is used to define headlines
 -   `-` creates an unordered list
 -   `1.` creates ordererd lists
--  `*one asterisk*` makes text *italics*
--  `**two astersisks**` makes text **bold**
-- NB: for html documents, you can also use `<html>` tags if you prefer (e.g. I often use `<br>` to add a line break)
+-   `*one asterisk*` makes text *italics*
+-   `**two astersisks**` makes text **bold**
+-   NB: for html documents, you can also use `<html>` tags if you prefer (e.g. I often use `<br>` to add a line break)
 
-for more, see: https://www.markdownguide.org/basic-syntax/ 
+for more, see: <https://www.markdownguide.org/basic-syntax/>
 
 ## A neat feature: Tabbed Content
 
@@ -71,38 +70,55 @@ For .rmd documents you can use tabs by writing {.tabset} after a heading. Then, 
 
 `## This is tab 1`
 
-```{{r}}
-lm(mpg ~ cyl + gear, data = mtcars) %>% summary()
+``` {{r}}
+iris %>% 
+  ggplot(aes(Sepal.Length, Sepal.Width)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
-
 
 `## This is tab 2`
 
-```{{r}}
-lm(mpg ~ cyl + gear + wt, data = mtcars) %>% summary()
+``` {{r}}
+iris %>% 
+  ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  theme(legend.position = c(.8, .15),
+        legend.direction = "horizontal")
 ```
-
-
 
 ## My Heading {.smaller}
 
 ::: panel-tabset
-
 ## This is tab 1
 
 ```{r}
-lm(mpg ~ cyl + gear, data = mtcars) %>% summary()
+#| fig-height: 4
+#| code-fold: true
+iris %>% 
+  ggplot(aes(Sepal.Length, Sepal.Width)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
-
-
 
 ## This is tab 2
 
 ```{r}
-lm(mpg ~ cyl + gear + wt, data = mtcars) %>% summary()
+#| fig-height: 4
+#| code-fold: true
+iris %>% 
+  ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  theme(legend.position = c(.8, .15),
+        legend.direction = "horizontal")
 ```
 :::
-
 
 ## My go to rmarkdown file snippets: {.scrollable .smaller}
 
@@ -169,6 +185,9 @@ options(width = 200)
 ```
 ````
 
+## Tip: save your favorite rmarkdown format as a template
+
+See [here for a guide](https://bookdown.org/yihui/rmarkdown/document-templates.html) Bonus: doing this will let you create your own first (?) package!
 
 ## My go to qmd snippet yaml header
 
@@ -193,22 +212,87 @@ execute:
 ---
 ```
 
+## Tip: browse the pre-installed themes for rmarkdown & quarto
+
+{background-iframe="https://bootswatch.com/3/" background-interactive="true"}
+
 # Reproducibility
 
-## a minimal effort requirement: `sessionInfo()`
+## A quick aside: `set.seed()`
 
-prints information about your R session.
+This function sets a seed that lets you reproduce random outcomes.
+
+```{r}
+sample(letters, size = 2)
+```
+
+```{r}
+sample(letters, size = 2)
+```
+
+```{r}
+set.seed(1)
+sample(letters, size = 2)
+set.seed(1)
+sample(letters, size = 2)
+```
+
+## A quick aside: `set.seed()`
+
+be aware: the following code chunk does not work:
+```` markdown
+```{{r}}
+set.seed(1)
+sample(letters, size = 2)
+sample(letters, size = 2)
+```
+````
+
+This will evaluate as:
+```{r}
+set.seed(1)
+sample(letters, size = 2)
+sample(letters, size = 2)
+```
+
+
+
+## How can we ensure that the work we're doing is computationally reproducible in 5 years?
+
+## A maximum effort approach {.smaller}
+
+![](images/reproducible_workflow.png)
+
+<p style="font-size:14px">
+
+[Source](https://pure.mpg.de/rest/items/item_3178013/component/file_3319563/content)
+
+</p>
+
+## A minimal requirement: `sessionInfo()`
+
+--\> prints information about your R session.
 
 ```{r}
 sessionInfo()
 ```
 
-## the maximum effort approach:
+## A golden middle?
 
-https://pure.mpg.de/rest/items/item_3178013/component/file_3319563/content
+-   The {renv} package allows you to save a snapshot of your packages used, and track versions of packages
 
-## a golden middle?
+-   former {packrat} package
 
-?renv package
---> former packrat package
-https://rstudio.github.io/renv/articles/renv.html#workflow
+<https://rstudio.github.io/renv/articles/renv.html#workflow>
+
+## The {Renv} workflow {.smaller}
+
+1.  Call `renv::init()` to initialize a new project-local environment with a private R library,
+
+2.  Work in the project as normal, installing and removing new R packages as they are needed in the project,
+
+3.  Call `renv::snapshot()` to save the state of the project library to the lockfile (called renv.lock),
+
+4.  Continue working on your project, installing and updating R packages as needed.
+
+5.  Call `renv::snapshot()` again to save the state of your project library if your attempts to update R packages were successful, or call `renv::restore()` to revert to the previous state as encoded in the lockfile if your attempts to update packages introduced some new problems.

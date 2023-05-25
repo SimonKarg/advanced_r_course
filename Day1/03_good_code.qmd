@@ -71,14 +71,20 @@ an_unstylized_example<-"asdf"
 
 # Naming conventions
 
-Consistency is key! Use one system and stick to it. This will help not only in readibility, but also writing code to for example select key variables of interest.
+## Consistency is key!
+
+Use one system and stick to it. This will help not only with readibility, but also writing code to for example select key variables of interest.
 
 Compare:
 
 ```{r}
 #| eval: false
-my_data %>% 
-  select("item_1", "Item_2", "This_is_the_3_item", "Yet_another_item", "What.is.this.item?")
+my_data %>%
+  select("item_1",
+         "Item_2",
+         "This_is_the_3_item",
+         "Yet_another_item",
+         "What.is.this.item?")
 ```
 
 <nb>
@@ -91,7 +97,7 @@ my_data %>%
 ```
 :::
 
-## Naming conventions (continued)
+## My best practices for naming stuff
  
 I like the following:
 
@@ -99,9 +105,7 @@ I like the following:
 - snake_case 
 - nouns for variables and datasets, verbs for functions
 
-## Tip: use the `clean_names()` function
-
-This function from the {janitor} package provides great help with cleaning up names from messy datafiles.
+## Tip: the `clean_names()` function from the janitor package
 
 ```{r}
 data_with_bad_names <- tibble(
@@ -139,7 +143,7 @@ data_with_bad_names %>%
 df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv')
 ```
 
-<p></p>
+<br>
 
 :::{.fragment}
 
