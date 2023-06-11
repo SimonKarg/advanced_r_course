@@ -1,56 +1,71 @@
 ---
-title: "plotting"
-format: revealjs
+title: "Day 3 - ggplot and beyond"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
 editor: source
+execute: 
+  echo: true
+link-external-newwindow: true
 ---
 
-Intro ggplot...
+## Questions before we begin?
+
+## Today - all about plotting data {.smaller}
+
+But first, a crash course on using ChatGPT in R - by Julian Schüssler
+
+. . .
+
+Then, we're covering quite some ground regarding ggplot and its wider universe.
+
+1. Recap basic concepts: Data, Aesthetics, Layers
+
+2. Recap basic concepts: Facets, Scales, Coordinate Systems
+
+3. Combining plots using [{patchwork}]{.blue_highlight}
+
+4. Plotting models
+
+5. Practice: plot your own data / Recreate the plot challenge
+
+
+## A quick survey
+
+- What's your previous experience with ggplot? 
+- What are your proudest moments?
+- What have you been struggling with?
 
 # Introduction to ggplot2 and the Grammar of Graphics
 
-
 ## What is ggplot2?
+
 - ggplot2 is an R package for creating data visualizations.
 - It follows the principles of the Grammar of Graphics.
 
-# Recap:
+# Recap
 
-<https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/02_concepts_pt1.html>
+## Let's learn from a professional
 
+To cover the basic ground, we're going through two [slidedecks](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/) by the brilliant Cedric Scherer. 
 
+. . .
+
+This is not because I'm lazy, but just because anything I'd done myself would have been worse than these beautiful slides. 
+
+. . .
+
+Link for slide deck 1: <https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/02_concepts_pt1.html>
+
+. . .
+
+Link for slide deck 2:
 <https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/03_concepts_pt2.html>
 
+
 # The Grammar of {ggplot2}
-
-## The Grammar of {ggplot2}
-
-<br>
-<table style='width:100%;font-size:14pt;'>
-  <tr>
-    <th>Component</th>
-    <th>Function</th>
-    <th>Explanation</th>
-  </tr>
-  <tr>
-    <td><b style='color:#67676;'>Data</b></td>
-    <td><code>ggplot(data)</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td>*The raw data that you want to visualise.*</td>
-  </tr>
-  <tr>
-    <td><b style='color:#67676;'>Aesthetics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
-    <td><code>aes()</code></td>
-    <td>*Aesthetic mappings between variables and visual properties.*</td>
-  <tr>
-    <td><b style='color:#67676;'>Geometries</b></td>
-    <td><code>geom_*()</code></td>
-    <td>*The geometric shapes representing the data.*</td>
-  </tr>
-</table>
-
-
-::: footer
-from: Cedric Scherer <https://rstudio-conf-2022.github.io/ggplot2-graphic-design/>
-:::
 
 ## The Grammar of {ggplot2}
 
@@ -107,21 +122,4 @@ from: Cedric Scherer <https://rstudio-conf-2022.github.io/ggplot2-graphic-design
 ::: footer
 from: Cedric Scherer <https://rstudio-conf-2022.github.io/ggplot2-graphic-design/>
 :::
-
-
-Plotting models: ggstatsplot
-
-dotwhisker plot
-
-Raincloud plots
-
-
-Plotting
-
-
-adding plots together: patchwork
-
-
-https://albert-rapp.de/posts/ggplot2-tips/04_arranging_plots/04_arranging_plots.html
-
 
