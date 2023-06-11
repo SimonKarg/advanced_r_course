@@ -1,0 +1,239 @@
+---
+title: "Title"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    code-tools: true
+editor: source
+author: Author
+theme: flatly
+execute: 
+  cache: true
+  warning: false
+  message: false
+  fig-width: 12 
+  fig-height: 9
+---
+
+# Introduction
+
+This is an example of an Quarto document. Quarto is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.
+
+It is super versatile, and a lot of formatting and styling options can be specified using the YAML header (the section at the very top of this document).
+
+# Code Chunks
+
+Quarto documents are made up of code chunks and markdown text. Code chunks are blocks of R code that can be executed and their output can be included in the document. Here is an example of a code chunk:
+
+```{r}
+x <- rnorm(100)
+mean(x)
+```
+
+The `{r}` at the beginning of the code chunk indicates that this is an R code chunk. When you run the code, the output will be included in the document. In this case, the output would be the mean of 100 random normal variables.
+
+You can run all code within a chunk by clicking on the small green arrow pointing to the right at the top of a code chunk ("run current chunk").
+
+You can also run all code above a chunk by clicking on the downward arrow ("Run all chunks above"). This is excellent for resuming work when reopening a project, and for checking for reproducibility of your results (make sure to restart R before doing so).
+
+# Markdown Text
+
+In addition to code chunks, you can also include plain text in an Quarto document using markdown syntax. Markdown is a simple formatting syntax that allows you to add emphasis, headings, lists, and other formatting to your text.
+
+For example, you can create a heading using a `#` symbol:
+
+\# Heading 1\
+\## Heading 2\
+\### Heading 3
+
+In the knitted document, this converts to:
+
+# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+You can also create a bullet list using `-`:
+
+-   item 1
+-   item 2
+-   item 3
+
+# Visualizations
+
+Quarto allows you to include plots and visualizations in your document. Here is an example of a plot generated using R:
+
+```{r}
+#| echo: false
+x <- rnorm(100)
+y <- rnorm(100)
+
+plot(x, y)
+```
+
+# Working with Quarto
+
+Quarto is great for working with data related projects, as it allows you to work efficiently and keep your code organized almost automatically. Plus, you get a report of your analysis (the "knitted" version of your Quarto file) for free.
+
+## Moving from rmarkdown to quarto
+
+The move from .rmd to .qmd is relatively easy. The basic layout and workflow is the same. The only bigger differences are that 
+
+1. code chunk options are no longer in the first line of the code chunk, but are now defined as fenced comments at the start of the code chunk, like so:
+
+```{r}
+#| eval: false
+#| fig-width: 7
+#| fig-height: 8
+
+some_code_here
+```
+
+Importantly, the names of the code-chunk options are largely the same, so not much relearning is necessary. Global chunk options can also be set in the yaml header at the top of the document, under the execute option (see above).
+
+2. Until now, there is no change knitting directory to project directory option as there is with .rmd files in RStudio. This means that knitting scripts may sometimes fail because it can't load your data. The easiest way to cope with this issue is to use the here::here function to load in data. This is good practice anyway, so it's not a big loss. 
+
+
+
+Here's an example of how to work with the EU data
+
+# Setup
+
+Unlike with .rmd files, we don't specify a few default `knitr` options in an extra code chunk. Instead, these options are now set in the yaml header at the top of the document (mostly under execute).
+
+We load the necessary packages. It is good practice to load all packages you need for your analysis / project at the start of the script, so others can see whether they need to install something before they can run the full script.
+
+```{r}
+library(tidyverse)
+library(skimr)
+```
+
+# Loading and Preprocessing Data
+
+## Loading Data
+
+Here, we load the raw data from URL.
+
+```{r}
+raw_data <- read_csv("https://comparativeagendas.s3.amazonaws.com/datasetfiles/ECC_7.0_1975-2014_1.csv")
+```
+
+## Preprocessing
+
+Here, we do some preprocessing of the data. For instance, we might get rid of a bunch of colums in the raw dataset that we do not need
+
+```{r}
+cleaned_dat <- raw_data |>
+  select(-starts_with("filter"))
+```
+
+## Data overview
+
+Here, we give an overview of the data in the cleaned dataset. We're using the `skimr` package, which does this automatically for you.
+
+```{r}
+skimr::skim(cleaned_dat)
+```
+
+# Analysis
+
+Here, we could start with our analysis.
+
+For instance, we could show some kind of plot. The following plot shows the count of major topics in the EU_CAP dataset by year.
+
+```{r}
+growth_data <- cleaned_dat |>
+  # group dataset by year 
+  group_by(year) |>
+  
+  # count the number a major topic occurs per year
+  count(majortopic) |>
+  
+  # make "majortopic" a factor variable to help with plotting
+  mutate(majortopic = as.factor(majortopic))
+
+
+growth_data |>  
+  # plot the data using ggplot
+  ggplot(aes(year, n, colour = majortopic)) +
+  geom_line() +
+  theme_light()
+```
+
+Then, we could test some kind of model. Maybe how much a given topic has grown over the years (this is of course not how you would model this, but just for illustration):
+
+```{r}
+topic_growth_model <- lm(n ~ year + majortopic,
+                         data = growth_data)
+
+summary(topic_growth_model)
+```
+
+I recommend the `sjPlot::tab_model()` function for outputting nicely formatted regression tables:
+
+```{r}
+sjPlot::tab_model(topic_growth_model)
+```
+
+# Find out more
+
+## External resources
+
+There's a ton of stuff to learn with quarto. Get inspiration here: <https://quarto.org/docs/authoring/markdown-basics.html>
+
+## Practical tips
+
+### YAML header options
+
+Here's the YAML header options I like to specify for my projects (see also above):
+
+```{yaml}
+title: "Title"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    code-tools: true
+editor: source
+author: Author
+theme: flatly
+execute: 
+  cache: true
+  warning: false
+  message: false
+  fig-width: 12 
+  fig-height: 9
+```
+
+
+### HTML Styling
+
+In contrast to .rmd, I'm not using additional styling for quarto docs. But it would of course be possible to add styling, either in the document, or as a separate css file.
+
+### Tabulated content 
+
+Working with tabulated content. You can do so by adding a markdown div with `::: {.panel-tabset}` to the document. Each top-level heading within the div creates a new tab, like so
+
+::: {.panel-tabset}
+
+#### Tab 1
+
+Some content for tab 1
+
+#### Tab 2
+
+Different content for tab 2
+
+#### Tab 3
+
+Yet other content content for tab 3
+
+:::
+
+
+
+Neat, right?
