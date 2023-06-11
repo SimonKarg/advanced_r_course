@@ -1,26 +1,27 @@
 ---
-title: "Advanced_concepts"
-format: revealjs
+title: "Day 4: Programming"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
 ---
 
-Day 4: Advanced R Programming 
 
+# Today
 
+## What we'll do today:
 
---> Draw inspiration from Advanced R:
+1. Principles behind functional programming in R
 
-    In Section 6.2.3, you learned about R’s first-class functions. In R, you bind a function to a name in the same way as you bind any object to a name: with <-.
+2. Defining your own functions
 
-    In Section 7.4.2, you learned that a function captures (encloses) the environment in which it is created.
+3. Anonymous functions
 
-    In Section 7.4.4, you learned that a function creates a new execution environment every time it is run. This environment is usually ephemeral, but here it becomes the enclosing environment of the manufactured function.
+4. Making your functions purrrrr
 
+5. Exercise: simulate data
 
---> also here: https://bookdown.org/rdpeng/rprogdatascience/functions.html#lazy-evaluation
-
-
-
---> crossing() function
-
-
---> purrr https://amber.rbind.io/2018/03/26/purrr/

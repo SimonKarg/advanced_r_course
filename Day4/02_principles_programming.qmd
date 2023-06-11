@@ -1,0 +1,551 @@
+---
+title: "Principles behind R programming"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+# What is a function anyway?
+
+```{r}
+#| echo: false
+library(tidyverse)
+```
+
+
+## A function has three parts: {.incremental}
+
+- The `formals()`, the list of arguments that control how you call the function.
+- The `body()`, the code inside the function.
+- The `environment()`, the data structure that determines how the function finds the values associated with the names.
+
+
+## An example
+```{r}
+sum_two_numbers <- function(x, y){
+  x + y
+}
+```
+
+```{r}
+formals(sum_two_numbers)
+```
+
+```{r}
+body(sum_two_numbers)
+```
+
+```{r}
+environment(sum_two_numbers)
+```
+
+
+## An exception to the rule
+. . .
+
+```{r}
+body(sum)
+```
+. . .
+
+There is one exception to the rule that a function has three components. Primitive functions, like `sum()` and `[`, call C code directly. 
+
+These functions exist primarily in C, not R, so their formals(), body(), and environment() are all NULL.
+
+
+## Functions are objects, too
+
+```{r}
+sum_two_numbers <- function(x, y){
+  x + y
+}
+```
+
+. . . 
+
+More or less anything you can do with other objects (dataframes, variables, ...), you can also do with functions
+
+```{r}
+#| output-location: fragment
+a_list_of_functions <- list(sum_two_numbers, mean, median)
+
+a_list_of_functions[[1]](10,20)
+```
+
+. . . 
+
+But not quite anything:
+
+```{r}
+#| error: true
+a_data_frame_with_functions <- data.frame(functions = c(sum_two_numbers, mean, median))
+```
+
+## Quick aside: anonymous functions
+
+You don't always need to give your functions a name. If you just want to do something once, there's no need to define it first and invoke it later. You can simply create it on the fly, and forget about it again. This is called an [anonymous function]{.blue_highlight}.
+
+There's several ways to write them:
+
+```{r}
+# long way
+function(x,y) {x + y}
+
+# shorthand
+\(x, y) {x+y}
+
+# purrr style
+~.x + .y
+```
+
+We'll come back to those later.
+
+
+## Object of type closure is not subsettable {.smaller}
+
+Maybe you've seen this error message before
+
+```{r}
+#| error: true
+mean[1:3]
+```
+
+. . . 
+
+This sometimes happens when we mess up R syntax, which leads to R trying to do something to a function that it cannot do (e.g., subset it). 
+
+The error message is also obscure because we rarely encounter the name "closure". In fact, almost all (except some core R functions) functions are of type closure.
+
+```{r}
+typeof(mean)
+```
+
+. . . 
+
+The name [closure]{.blue_highlight} is meant to signal that functions enclose their own environments.
+
+# Environments
+
+## Environments {.smaller}
+
+::: {.fragment fragment-index=1}
+R operates with a **hierarchy of environments**. 
+:::
+
+::: {.fragment fragment-index=2}
+At the root sits the **global environment**. This is what you can see in the environment pane in RStudio.
+:::
+
+::: {.fragment fragment-index=3}
+
+Above that, R can invoke any number of nested environments. One important type of environments are package environments. Whenever you load a package, R creates an environment for that package, in which all its functions and other objects are defined.*
+
+```{r}
+#| output-location: column-fragment
+environment(sum_two_numbers)
+```
+
+:::
+
+::: {.fragment fragment-index=4}
+
+```{r}
+#| output-location: column-fragment
+library(dplyr)
+environment(mutate)
+```
+
+::: 
+
+::: {.fragment fragment-index=3}
+<br>
+<br>
+[*R actually creates two environments, a package environment, and a namespace environment, see more [here](https://adv-r.hadley.nz/environments.html#search-path)]{.smaller_size}
+:::
+
+
+## Execution environments {.smaller}
+
+Whenever you execute a function, R creates a temporary environment in which the function is evaluated. When the function is complete, the environment gets destroyed, only the output of the function is printed or assigned to an object, if you specify this.
+
+. . .
+
+```{r}
+#| error: true
+#| output-location: fragment
+my_fun <- function(){
+  # this assignment only happens in the temporary execution environment 
+  x <- 1
+}
+
+my_fun()
+
+# even after running the function, the global environment will not know about the assignment
+x
+```
+
+. . .
+
+```{r}
+#| error: true
+#| output-location: fragment
+my_fun <- function(){
+  x <- 1
+  x
+}
+
+x <- my_fun()
+x
+```
+
+
+## A short quiz {.smaller}
+
+Given what we know about environments, what is the outcome of the following code?
+
+```{r}
+#| output-location: column-fragment
+x <- 10
+f01 <- function() {
+  x <- 20
+  x
+}
+
+f01()
+```
+
+. . .
+
+What about x?
+```{r}
+#| output-location: column-fragment
+x 
+```
+
+. . .
+
+What happens here?
+
+```{r}
+#| output-location: column-fragment
+x <- 10
+f02 <- function(){
+  y <- 5
+  x + y
+}
+f02()
+```
+
+
+## Lexical scoping {.smaller}
+
+**Scoping** is the act of finding the value associated with a name. 
+
+For functions, the important thing to remember is that within a function, R will look first within the function execution environment, and then in its parent environments.
+
+```{r}
+x <- 10
+
+f01 <- function() {
+  x <- 20
+  x
+}
+
+# this returns 20, because x is found first in the function execution environment
+f01()
+
+# this returns 10, because outside of the function, R looks in the global environment
+x
+```
+
+
+## Lazy evaluation {.smaller}
+
+R function arguments are lazily evaluated: they’re only evaluated *if* accessed. For example, this code doesn’t generate an error because `my_undefined_argument` is never used:
+
+```{r}
+#| output-location: column-fragment
+h01 <- function(my_undefined_argument) {
+  10
+}
+h01()
+```
+
+. . .
+
+This behavior is great because it allows more computationally efficient functions. It also allows funky default arguments (but maybe not a great idea do this..)
+
+```{r}
+#| output-location: column-fragment
+# A really weird function. Don't do this
+h02 <- function(x = 1, y = x + 1, a){
+  a <- 5
+  a + x + y
+}
+
+h02()
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+h02(x = 2)
+```
+
+. . .
+
+When defining your own function, it's important you keep an eye on whether you actually use the arguments you've defined in the function body. R won't tell you...
+
+
+
+## ... dot-dot-dot {.smaller}
+
+Functions can be defined to take any number of additional unnamed arguments. This can be specified using the `...` syntax.
+
+```{r}
+#| output-location: column-fragment
+g01 <- function(x, y, ...){
+  c(x,y,...)
+}
+
+g01(1,2,3,4,5,6,7)
+```
+
+. . .
+
+This is often useful when a function calls another function (called "forwarding"), or has a function as one of its arguments. The ... is then passed on as arguments to the other function:
+
+```{r}
+#| output-location: column-fragment
+
+g02 <- function(x, ...){
+  y <- c(x, 5)
+  
+  # additional arguments are forwarded to mean
+  mean(y, ...)
+}
+
+g02(NA, na.rm = TRUE)
+```
+
+. . . 
+
+```{r}
+#| output-location: column-fragment
+
+x <- list(c(1, 3, NA), c(4, NA, 6))
+str(lapply(x, mean, na.rm = TRUE))
+```
+
+
+# Non-standard evaluation
+
+## Disclaimer
+
+Non-standard evaluation (also called tidy evaluation) is a tricky concept, and to be honest, I haven't understood it fully myself.
+
+. . .
+
+For most things you're likely to do with R, you probably won't need a deep understanding of it. However, if you want to program with tidyverse functions, you will need to understand a few tricks. 
+
+. . .
+
+To learn more, Hadley Wickham's book Advanced R gives a good [introduction](https://adv-r.hadley.nz/metaprogramming.html)
+
+## Non-standard evaluation light {.smaller}
+
+How does `select()` know what you are talking about?
+
+```{r}
+#| output-location: column-fragment
+my_data <- tibble(col1 = c(1:5),
+                  col2 = rnorm(5))
+
+my_data %>% select(col2)
+```
+
+. . .
+
+Tidyverse functions blur the boundary between **environment variables** (variables that exist within the global or function environment) and **data variables** (variables that exist as named columns in a dataframe). 
+
+## Non-standard evaluation light {.smaller}
+
+In base R, you would need to quote column names to select them.
+
+```{r}
+#| error: true
+#| output-location: column-fragment
+# this does not work
+my_data[col2]
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+my_data["col2"]
+```
+
+## Non-standard evaluation light {.smaller}
+
+Tidyverse code works by combining code expressions (capturing the intent of a piece of code without evaluating it), with a data mask (a special object that basically turn data columns into objects). 
+
+It does this to make working with these functions more convenient for you - so that you don't need to use "" all the time.
+
+This however comes at a cost when you define your own functions that use tidyverse functions.
+
+
+## An example: grouped_mean function {.smaller}
+
+```{r}
+#| output-location: column-fragment
+# Let's turn this following code into a function
+iris %>% 
+  group_by(Species) %>% 
+  summarise(mean_sep_length = mean(Sepal.Length))
+```
+
+. . .
+
+```{r}
+grouped_mean <- function(data, grouping_var, values_var) {
+  data %>% 
+    group_by(grouping_var) %>% 
+    summarise(mean_variable = mean(values_var))
+}
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+#| error: true
+grouped_mean(iris, Species, Sepal.Length)
+```
+. . . 
+
+This does not work because R will try to evaluate `grouping_var` and `values_var` as data variables, but won't find them in the dataset.
+
+## An example: grouped_mean function {.smaller}
+
+We need to tell R that you want use `grouping_var` and `values_var` as hybrid variables. It should first treat them as environment variables, and make them refer to whatever you define them as. Then, they should be treated as data variables. 
+
+You can do that easily with the `{{}}` operator (pronounce "curly curly", or the embracing operator)
+
+. . .
+
+```{r}
+#| output-location: fragment
+grouped_mean2 <- function(data, grouping_var, values_var) {
+  data %>% 
+    group_by({{ grouping_var }}) %>% 
+    summarise(mean = mean({{ values_var }}))
+}
+
+grouped_mean2(iris, Species, Sepal.Length)
+```
+
+## A final complication {.smaller}
+
+```{r}
+#| output-location: fragment
+library(glue)
+
+grouped_mean3 <- function(data, grouping_var, values_var, prefix = "avg") {
+  data %>% 
+    group_by({{ grouping_var }}) %>% 
+    summarise("{prefix}_{{values_var}}" := mean({{values_var}}))
+}
+
+grouped_mean3(iris, Species, Sepal.Length)
+```
+
+. . .
+
+This code uses `glue()` syntax to specify a new name for the new column. It also uses the **walrus operator** `:=` for assignment. The walrus operator is necessary whenever you use `{{}}` on the left hand side of an assignment.
+
+
+## Another example: programming with ggplot
+
+```{r}
+#| error: true
+create_scatter_plot <- function(data, variable1, variable2) {
+  data %>% 
+    ggplot(aes(variable1, variable2)) +
+    geom_point() +
+    theme_light()
+}
+
+# hello darkness, my old friend
+create_scatter_plot(mtcars, mpg, cyl)
+```
+
+
+## Another example: programming with ggplot
+
+```{r}
+create_scatter_plot <- function(data, variable1, variable2) {
+  data %>% 
+    # Curly Curly to the rescue!
+    ggplot(aes({{variable1}}, {{variable2}})) +
+    geom_point() +
+    theme_light()
+}
+
+create_scatter_plot(mtcars, mpg, cyl)
+```
+
+
+# Let's practice 
+
+## Exercise {.smaller .scrollable}
+
+1. Create a create_barchart() function that plots a bar chart of a given variable.
+
+Bonus: make it so that bars are sorted by size (tip: use a function from the fct_ family)
+```{r}
+create_barplot <- function(data, variable_to_plot){
+  data %>% 
+    mutate({{variable_to_plot}} := fct_rev(fct_infreq({{variable_to_plot}}))) %>% 
+    ggplot(aes(y = {{variable_to_plot}})) +
+    geom_bar() +
+    theme_light()
+}
+
+create_barplot(iris, Species)
+```
+
+
+2. Change the create_scatterplot() function so that it has a title that describes which variables are plotted.
+
+Tip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you.
+
+```{r}
+create_scatter_plot <- function(data, variable1, variable2) {
+  variable_name1 <- ensym(variable1)
+  variable_name2 <- ensym(variable2)
+  
+  data %>% 
+    ggplot(aes({{variable1}}, {{variable2}})) +
+    geom_point() +
+    theme_light() +
+    labs(title = glue("Scatterplot between {variable_name1} and {variable_name2}"))
+}
+
+```
+
+
+# Resources
+
+- Hadley Wickham's Advanced R: <https://adv-r.hadley.nz/metaprogramming.html>
+
+
+
+
+

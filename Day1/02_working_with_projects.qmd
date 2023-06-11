@@ -2,153 +2,223 @@
 title: "Project organization"
 format: 
   revealjs:
-    theme: simple
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
 execute: 
   echo: true
 ---
 
-# Why we need a principled approach to project organization
+# Why we need a *principled* approach to project organization
 
-- helps you structure your work
-- helps working faster and safer
-- helps reproducibility and collaboration
-
+::: incremental
+-   helps you **structure** your work
+-   helps working **faster** and **safer**
+-   helps **reproducibility** and **collaboration**
+:::
 
 # (My) Best practices
 
-The following is an incomplete list of what I think are good practices for working with R (and other programming projects).
+The following is an incomplete list of what ***I*** think are good practices for working with R (and other programming projects).
 
-These practices should help making your work more reproducible, intelligible to you and others, and overall easier to work with. 
+. . .
 
-For more, see also: https://rstats.wtf/ 
+These practices should help making your work more **reproducible**, **intelligible** to you and others, and **overall easier to work with.**
 
+. . .
 
-## Work with R projects
+For more, see also the blog series [what they forgot to teach you about R](https://rstats.wtf/)
 
-- Always work within an R project
-- The r.project file sits in the root folder of your project
+## Working with R projects
+
+-   Always work within an **R project!**
+-   The R.project file should sit in the root folder of your project
 
 ## Use the same folder structure for all of your projects
 
+. . .
+
 Make subfolders for
-- data (and also raw and processed data)
-- scripts
-- ... other folders as needed
 
-- you can use **project templates** when setting up an R project to automatically create folders and structures for you
+-   data (and also raw and processed data)
+-   scripts
+-   ... other folders as needed
 
-## For each project create a readme file, or other kind of documentation
+. . .
 
-Should include:
+-   If you want to go full on out, you can use [**project templates**](https://rstudio.github.io/rstudio-extensions/rstudio_project_templates.html) when setting up an R project to automatically create folders, files and other structures for you. 
 
-- **description:** what is the project about
-- **contributors:** who is working on this project
-- **requirements:** particular dependencies / software that needs to be installed?
-- **Roadmap:** current stage of the project, and planned stuff (e.g. a todo list)
+## Use the same folder structure for all of your projects
 
+. . .
+
+This could look something like this:
+
+```
+-- project_directory/
+ | -- data/
+    | -- raw/
+    | -- processed/
+ | -- scripts/
+    | -- cleaning/
+    | -- analysis/
+ | -- writeup/
+ -- .gitignore
+ -- r_project_file.Rproj
+
+```
+
+
+
+## For each project, create a readme file, or other kind of documentation
+
+. . .
+
+A good readme should include
+
+::: {.incremental}
+
+-   **description:** what is the project about
+-   **contributors:** who is working on this project
+-   **requirements:** particular dependencies / software that needs to be installed?
+-   **Roadmap:** current stage of the project, and planned stuff (e.g. a todo list)
+
+:::
+
+# Reproducibility
 
 ## 
-:::: {.columns}
-::: {.column width="50%"}
 
-<h1>
-Always start R with a blank slate
-</h1>
-::: 
+::: columns
+::: {.column width="50%"}
+<h1>Always start R with a blank slate</h1>
+:::
+
 ::: {.column width="50%"}
 ![](images/rstudio-workspace.png)
 :::
-:::: 
+:::
 
 ## Restart R often during work {.smaller}
 
+. . .
 
-If you use RStudio, use the menu item *Session > Restart* R or the associated keyboard shortcut Ctrl+Shift+F10 (Windows and Linux) or Command+Shift+F10 (Mac OS). 
+If you use RStudio, use the menu item *Session \> Restart R* or the associated keyboard shortcut Ctrl+Shift+F10 (Windows and Linux) or Command+Shift+0 (Mac OS).
 
-Additional keyboard shortcuts make it easy to restart development where you left off, i.e. to say “re-run all the code up to HERE”:
+. . .
 
--  In an R script, use Ctrl+Alt+B (Windows and Linux) or Command+Option+B (Mac OS)
--  In R markdown, use Ctrl+Alt+P (Windows and Linux) or Command+Option+P (Mac OS)
+Additional keyboard shortcuts make it easy to restart development where you left off, i.e. to say "**re-run all the code up to HERE**":
+
+-   In an R script, use Ctrl+Alt+B (Windows / Linux) or Command+Option+B (Mac OS)
+-   In R markdown, use Ctrl+Alt+P (Windows / Linux) or Command+Option+P (Mac OS)
 
 (We'll get back to this when talking about working with rmarkdown / quarto)
 
+## Don't use `rm(list = ls())` in your scripts
 
-## Don't use `rm(list = ls())`
+. . .
 
-`rm(list = ls())` does not remove everything in your environment (e.g. library calls, setting of working environment..)! 
+`rm(list = ls())` does not remove everything in your environment (e.g. library calls, setting of working environment..)!
 
-<br>
+. . .
 
---> does *not* guarantee reproducibility. 
+::: {.callout-caution}
+-   `rm(list = ls())` does *not* guarantee reproducibility
+-   Instead, just make sure that you are working from a restarted R session, and **don't save your workspace**
+:::
 
---> Instead, just make sure that you are working from a restarted R session, and don't save your workspace.
+## Questions for you
 
-
-## Exercise
-
-- How have you organized your projects in the past?
-- Have you ever lost track of things? If so, how and why?
-- What changes are you thinking about implementing?
-
+-   How have you organized your projects in the past?
+-   Have you ever lost track of things? If so, how and why?
+-   What changes are you thinking about implementing?
 
 # File paths
 
-## Use relative file paths
+## Relative file paths {auto-animate=true}
 
-- Use **relative paths** to read in data and save stuff
+-   Use **relative paths** to read in data and save stuff
+
+. . .
 
 ```{r}
 #| eval: false
 # this is an absolute path that only exists on my machine
 # don't use these!
-my_file <- read.csv("/Users/au525642/Dropbox/postdoc/research_projects/misc_projects/data/my_file.csv")
+my_file <- read.csv("/Users/my_user_id/path/on/my/computer/data/my_file.csv")
+
+```
+
+
+## Relative file paths {auto-animate=true}
+
+-   Use **relative paths** to read in data and save stuff
+
+```{r}
+#| eval: false
+# this is an absolute path that only exists on my machine
+# don't use these!
+my_file <- read.csv("/Users/my_user_id/path/on/my/computer/data/my_file.csv")
 
 # instead, use relative paths:
 my_file <- read.csv("data/my_file.csv")
 ```
 
 
-## Understanding working directories more
 
-Relative files work because they extend on your working directory.
-This is one reason why you should work in an rpoject - it sets a working directory for you, i.e. the directory where your rproject is sitting in.
+## Relative file paths {auto-animate=true}
+
+::: {.callout-tip}
+Use the auto-completion function in Rstudio: type "", move the insertion point in there, and then press the tab key
+:::
+
+![](images/file_autocomplete.gif)
+
+
+## Understanding working directories
+
+. . .
+
+Relative file paths work because they extend on your [working directory]{.blue_highlight}. This is one reason why you should work in an R project - it sets a working directory for you, i.e. the directory where your R project is sitting in.
+
+. . . 
 
 ```{r}
+#| output-location: fragment
+# this function prints your current working directory
 getwd()
 ```
 
 
-## The "here" package 
+## The {here} package {.scrollable}
 
 The `here()` function retrieves your current working directory, at the time the package was loaded.
 
-The here package helps especially when not working with R interactively (e.g. knitting an rmarkdown / quarto file)
+The [{here}]{.blue_highlight} package helps especially when not working with R interactively (e.g. knitting an rmarkdown / quarto file)
 
 ```{r}
 #| output-location: fragment
+# this function gets your project directory
 here::here()
 ```
 
-<nb>
 
-:::{.fragment}
-
+::: fragment
 ```{r}
 #| output-location: fragment
 # you can simply add folders and file names to complete a path
 here::here("data", "my_data_file.csv")
 ```
 
-<nb>
 :::
 
-:::{.fragment}
+::: fragment
 ```{r}
 # this works, too
 here::here("data/my_data_file.csv") 
 ```
 :::
-
 
 ## Compare `here()` with `getwd()`
 
@@ -162,15 +232,13 @@ here::here()
 getwd()
 ```
 
-:::{.fragment}
+. . .
 
 The output differs because the working directory changes when the document is knitted by knitr. The `here()` function still produces the expected output.
 
-:::
+## Practice
 
-
-## Exercise
-
-- What's your previous way to specify paths for reading and saving files?
-- Try and implement the here::here() function in an existing (or new) script
-
+-   What's your previous way to specify paths for reading and saving files?
+-   Try and implement the `here::here()` function in an existing (or new) script
+    - load some data using a relative path
+    - play around with the autocompletion

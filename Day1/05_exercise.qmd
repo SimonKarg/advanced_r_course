@@ -2,23 +2,49 @@
 title: "Day 1 - Practical Session"
 format: 
   revealjs:
-    theme: simple
+    theme: [simple]
+    df-print: paged
+    code-line-numbers: true
+editor: source
 execute: 
   echo: true
-  
+link-external-newwindow: true
 ---
 
+## Pick one {.smaller .scrollable}
 
-# Exercise:
+:::: {.columns}
 
-Build an .rmd  / .qmd document (your choice).
+::: {.column width="50%"}
 
-- Needs some tabbed content
-- includes sessionInfo()
+##### **Work on an existing R project** and make it more reproducible, ideas include:
 
+-   comment your code
+-   include `sessionInfo()`
+-   try out the {renv} package
+-   organize your files in a consistent structure
+-   send your code to your neighbour, see if they can understand it, run it?
 
-do something with R
-Send to your neighbor to run the script
+:::
 
+::: {.column width="50%"}
 
+#####  Start a new R project
+
+-   Get some data to work with - My suggestion: [tidytuesday squirrel data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-05-23/readme.md)
+-   Build an .rmd / .qmd document (your choice)
+-   Do some data exploration (cleaning, plotting, ...)
+-   Add some tabbed content
+-   try out the {renv} package
+-   ... 
+
+:::
+
+::::
+
+Get the squirrel data like this
+```{r}
+#| eval: false
+squirrel_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-23/squirrel_data.csv')
+```
 

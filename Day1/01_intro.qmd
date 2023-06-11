@@ -2,10 +2,12 @@
 title: "Advanced R programming"
 format: 
   revealjs:
-    theme: simple
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
 execute: 
   echo: true
-  
 ---
 
 # Welcome all!
@@ -14,7 +16,7 @@ execute:
 # Organizational things {.smaller}
 
 
-**Day 1:** Project Documentation, Workflow, Reproducibility, …
+**Day 1:** Project Documentation, Workflow, Reproducibility
 
 **Day 2:** Data cleaning & manipulation in the tidyverse
 
@@ -24,33 +26,38 @@ execute:
 
 **Day 5:** Build your own website 
 
-<p>
+<br>
 
-:::{.fragment}
+. . .
+
 **Exam:** pass fail exam - your website with one example project
-:::
 
-# Day 1 {.smaller}
+**Due:** 30.06.23
 
-What we'll do today:
+
+## Day 1 {.smaller}
+
+<br>
+
+What we'll do today
 
 1.  Introduction rounds
 
 2.  Keeping your projects organized (project setup, data management, here::here(), ...)
 
-3.  Good Code
+3.  Good code
 
 4.  Rmarkdown & Quarto for reports and analyses
 
-5.  Package documentation ({renv} / `sessionInfo()` ...)
+5.  Package documentation ([{renv}]{.blue_highlight} / `sessionInfo()` ...)
 
-6.  Exercise: work with reproducible documents 
+6.  **Exercise**: work with reproducible documents 
 
 
 # Introductions
 
 - Your name
-- Your proudest moment when learning / achieving something in R
+- Your proudest moment when learning / achieving something in R so far
 - Your biggest R frustration 
 
 

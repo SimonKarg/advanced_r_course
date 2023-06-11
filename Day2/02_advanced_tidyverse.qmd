@@ -1,0 +1,389 @@
+---
+title: "Advanced Tidyverse Tips & Tricks"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+link-external-newwindow: true
+---
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+```
+
+
+# Tidy data principles
+
+## What is tidy data?
+
+[Tidy data]{.blue_highlight} is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In tidy data:
+
+. . .
+
+1.  Every [column]{.blue_highlight} is a variable.
+
+2.  Every [row]{.blue_highlight} is an observation.
+
+3.  Every [cell]{.blue_highlight} is a single value.
+
+::: aside
+See more: <https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html>
+:::
+
+## Non-Tidy data example  {.smaller .scrollable}
+
+```{r}
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+
+head(chocolate) %>% DT::datatable(class = "pagedtable-not-empty")
+```
+
+. . .
+
+This data is non-tidy because different observations are encoded in the same column (e.g. the ingredients).
+
+::: aside
+See more: <https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html>
+:::
+
+
+## Non-Tidy data example (.cont) 
+
+```{r}
+classroom <- tribble(
+  ~assessment, ~Billy, ~Suzy, ~Lionel, ~Jenny,
+  "quiz1",     NA,     "F",   "B",     "A",
+  "quiz2",     "D",    NA,    "C",     "A",
+  "test1",     "C",    NA,    "B",     "B"
+  )
+
+classroom
+```
+
+
+
+::: aside
+See more: <https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html>
+:::
+
+## Tidy data example (.cont) {.smaller .scrollable}
+
+. . . 
+
+Making the classroom data tidy
+
+```{r}
+classroom2 <- classroom %>% 
+  pivot_longer(Billy:Jenny, names_to = "student_name", values_to = "grade") %>% 
+  arrange(student_name, assessment)
+classroom2
+```
+
+
+# <span style=color:white>Into the</span> tidyverse {background-iframe="https://gifer.com/embed/3QAe"}
+
+## {background-iframe="https://www.tidyverse.org/packages/" background-interactive="true"}
+
+
+
+# Tidyselection {.scrollable}
+
+. . .
+
+Tidy selection helps you select the columns you want for many different operations in smart ways.
+
+-   `contains()`
+-   `starts_with()`
+-   `ends_with()`
+-   `everything()`
+-   `last_col()`
+
+
+::: aside
+See more: <https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html>
+:::
+
+
+## Tidyselection example
+
+```{r}
+#| output-location: fragment
+chocolate %>% 
+  select(starts_with("comp"))
+```
+
+
+## Tidyselection 
+
+```{r}
+#| output-location: fragment
+# also works with generic regular expressions
+# this is the same as starts_with("comp")
+chocolate %>% 
+  select(matches("^comp"))
+```
+
+
+## Column selection based on characater vectors
+
+-   `all_of()`
+-   `any_of()`
+
+```{r}
+#| eval: false
+my_column_vector <- c("column_name1", "column_name2")
+
+data %>% 
+  select(all_of(my_column_vector))
+```
+
+
+## Renaming columns while selecting
+
+. . .
+
+
+A neat trick is to rename a column when selecting it
+
+```{r}
+names(mtcars)
+```
+
+. . .
+
+```{r}
+mtcars %>% 
+  select(miles_per_gallon = mpg) 
+```
+
+
+## Reordering columns while selecting
+
+```{r}
+names(mtcars)
+```
+
+. . .
+
+```{r}
+mtcars %>% 
+  select(cyl, disp, mpg, everything()) %>% 
+  names
+```
+
+`everything()` is a neat function to quickly select every column
+
+## A quick aside: Reordering {.smaller .scrollable}
+
+Although you can reorder columns using `select()`, if you only want to reorder things, the `relocate()` function works better.
+
+```{r}
+df <- tibble(a = 1, b = 1, c = 1, d = "a", e = "a", f = "a")
+df %>% relocate(f)
+```
+
+. . .
+
+```{r}
+df %>% relocate(a, .after = c)
+```
+
+. . .
+
+```{r}
+df %>% relocate(f, .before = b)
+```
+
+. . .
+
+```{r}
+df %>% relocate(a, .after = last_col())
+```
+
+
+# Across()
+
+## `Across()` {.smaller}
+
+Across allows you to do things (mutate/summarise/...) to multiple columns **at the same time**. You can combine this with tidyselection helpers :)
+
+```{r}
+#| output-location: fragment
+iris %>%
+  mutate(across(starts_with("Sepal"),
+                round)) %>%
+  head()
+```
+
+
+::: aside
+This replaces the old `mutate_if()`, `mutate_at()`, ... family of functions.
+:::
+
+## `Across()` {.smaller}
+
+You can also select columns based on other criteria, when combined with `where()`
+
+```{r}
+#| output-location: fragment
+iris %>% 
+  mutate(across(.cols = where(is.numeric),
+                round)) %>% 
+  head()
+```
+
+  
+## `Across()` {.smaller}
+
+You can also specify multiple functions to do multiple things at once.
+
+```{r}
+#| output-location: fragment
+iris %>%
+  group_by(Species) %>% 
+  summarise(across(starts_with("Sepal"),
+                list(mean = mean,
+                     sd = sd),
+                .names = "{col}_{fn}"))
+```
+
+::: aside
+<https://dplyr.tidyverse.org/reference/across.html>
+:::
+
+
+## What about additional function arguments?
+
+Provide an anonymous function, using the purrr style lambda `~`, or the shorthand `\(x)`
+
+. . . 
+
+```{r}
+#| eval: false
+iris %>% 
+  mutate(across(.cols = where(is.numeric),
+                # purrr style
+                .fns = ~round(.x, digits = 3)))
+```
+
+. . .
+
+```{r}
+#| eval: false
+iris %>% 
+  mutate(across(.cols = where(is.numeric),
+                # anonymous function
+                .fns = \(x) round(x, digits = 3)))
+```
+
+We'll learn more about anonymous functions on Thursday :)
+
+
+## `Rowwise()` {.smaller}
+
+The `rowwise()` function is a convenient way to group a dataframe by row, to do something for which a vectorised function does not exist.
+
+```{r}
+#| output-location: fragment
+df <- tibble(x = runif(6), y = runif(6), z = runif(6))
+
+df %>% 
+  rowwise() %>% 
+  mutate(m = mean(c(x,y,z)))
+```
+
+
+## `Rowwise()` {.smaller}
+
+You can also use selection helpers using the `c_across()` function.
+
+```{r}
+df %>% 
+  rowwise() %>%
+  mutate(m = mean(c_across(x:z)))
+```
+
+
+
+# Exploring the wider tidyverse
+
+## Working with factors using the [{forcats}]{.blue_highlight} package
+
+. . .
+
+the fct_ family helps dealing with factor variables, e.g. 
+
+- `fct_reorder()`
+- `fct_recode()`
+- `fct_relevel()`
+- `fct_collapse()`
+- `fct_lump()`
+- ... (not always the most helpful naming conventions, but good documentation)
+
+
+## `case_when()` 
+
+When using one ifelse() is not enough.
+
+```{r}
+#| output-location: column-fragment
+data <- data.frame(x = 1:70)
+
+data %>%
+  mutate(fizzy = case_when(
+    x %% 35 == 0 ~ "fizz buzz",
+    x %% 7 == 0 ~ "buzz",
+    x %% 5 == 0 ~ "fizz",
+    .default = as.character(x)
+  ))
+```
+
+
+## dates, time, and the [{lubridate}]{.blue_highlight} package
+
+The {lubridate}{.blue_highlight} package provides super easy ways to detect and convert date variables into any format imaginable. If you are working with data that has date/time information, you should work with lubridate.
+
+See the [introduction to lubridate](https://lubridate.tidyverse.org/articles/lubridate.html) to get started.
+
+
+## strings using the stringr package
+
+We'll come to that in the regex section later today.
+
+## Tidying your models with broom `broom::tidy()`
+
+The [{broom}]{.blue_highlight} package has great functions for creating tidy dataframes for almost all models out there! 
+
+See the [introduction to broom](https://broom.tidymodels.org/articles/broom.html) to get started
+
+
+## broom::tidy() {.smaller .scrollable}
+
+```{r}
+#| output-location: fragment
+lmfit <- lm(mpg ~ wt, mtcars)
+lmfit
+```
+
+. . .
+
+```{r}
+#| output-location: fragment
+summary(lmfit)
+```
+
+. . .
+
+```{r}
+#| output-location: fragment
+broom::tidy(lmfit)
+```
+
+
+

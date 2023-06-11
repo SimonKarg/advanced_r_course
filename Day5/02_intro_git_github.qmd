@@ -1,0 +1,63 @@
+---
+title: "Intro to git & github"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+## What is git?
+
+- Git is a version control system
+- it was designed to help a group of developers work collaboratively on software projects.
+- git manages the evolution of a set of files - a repository - in a highly structured way.
+
+
+::: aside
+This is based on [happy git with R](https://happygitwithr.com/), written by Jenny Bryan, the STAT 545 TAs, and Jim Hester. 
+:::
+
+## What is github?
+
+- github is an online location where your git repositories can live (they could also just live on your computer, but it's better to also have them in the cloud)
+
+- github also provides some nice features that make sharing, communicating, collaborating, ... much easier
+
+
+## Should you use git? {.smaller}
+
+. . .
+
+Maybe.
+
+. . .
+
+If you're only working alone and you're not planning to one day get a job in a software or data science role, git is probably overkill.
+
+. . .
+
+I personally use git only on projects where I work with other people on code, which is not a lot. So I am myself no git wizard.
+
+. . .
+
+What we'll be doing today is only a short introduction to git and github! There's a lot more to learn :)
+
+
+## Getting started {.smaller}
+
+Getting git to work on your computer for the first time is tricky, and depends on your precise setup (Operating System, what developer tools you've got installed...).
+
+It's much easier if we try to work on things individually, and then I can help troubleshoot.
+
+. . .
+
+We're following this amazing tutorial by Jenny Bryan and colleagues:
+<https://happygitwithr.com/> 
+
+You can start at step 4: Register a GitHub account
+
+We will be working until step 14.

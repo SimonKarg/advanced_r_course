@@ -1,0 +1,32 @@
+---
+title: "Publishing your website via github pages"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+# Publishing your webpage as a github page
+
+## Workflow: {.smaller .scrollable}
+
+1.  Create repo on github first! The name of the github needs to be <your_user_name>.github.io (see step 1 <https://pages.github.com/>) Repo needs to be public.
+2.  Copy repo link
+3.  Clone repo to machine, using Rstudio: create new project --\> version control: git --\> enter url
+4.  Copy paste files over (check in Rstudio git pane to see whether it worked)
+5.  Change output-location in \_quarto.yml to docs (see my website for example)
+6.  Render all the .qmd documents, so they appear in /docs folder
+7.  add a .nojekyll file to the /docs folder
+8.  add all files and push to git repo
+9.  go to your github repo: go to settings --\> pages --\> set branch to /docs
+10. Your site should be live. Go check..
+
+Resource for step 1 (only do step 1 of this)! <https://pages.github.com/>
+
+Resources for step 2 - 4: <https://happygitwithr.com/existing-github-first.html>
+
+Resources for step 4 - 9: <https://quarto.org/docs/publishing/github-pages.html#render-to-docs> (only do the "render to docs" part)

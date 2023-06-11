@@ -1,0 +1,387 @@
+---
+title: "An intro to Purrr"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+# A problem {.smaller}
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(gapminder)
+```
+
+Let's say you want to compute the slope coefficient for each linear model in this plot. How could you do this?
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 4
+dat <- gapminder::gapminder
+
+dat %>%
+  ggplot(aes(year,
+             lifeExp,
+             group = continent,
+             colour = continent)) +
+  geom_point(alpha = 0.3,
+             size = 0.5,
+             position = "jitter") +
+  geom_smooth(method = "lm") +
+  theme_light() +
+  theme(legend.position = "top")
+```
+
+
+## A first idea {.smaller}
+
+```{r}
+#| output-location: column-fragment
+
+Africa_dat <- dat %>% 
+  filter(continent == "Africa")
+  
+Africa_model <- lm(lifeExp ~ year, 
+                   data = Africa_dat)
+
+coefficients(Africa_model)
+```
+
+. . .
+
+```{r}
+#| output-location: column
+
+slope_africa <- coefficients(Africa_model)[[2]]
+slope_africa
+```
+
+. . .
+
+```{r}
+#| output-location: column
+
+Europe_dat <- dat %>% 
+  filter(continent == "Europe")
+
+# ... and so on
+```
+
+. . .
+
+But this is tedious and repeats a lot of code! 
+
+## Enter the `for loop` {auto-animate=true}
+
+. . . 
+
+```{r}
+# split dataframe into a list of dataframes based on the continent
+continent_list <- dat %>% 
+  split.data.frame(dat$continent)
+
+```
+
+
+
+## Enter the `for loop` {auto-animate=true}
+
+```{r}
+# split dataframe into a list of dataframes based on the continent
+continent_list <- dat %>% 
+  split.data.frame(dat$continent)
+
+# create empty list to store results in
+coefficient_list <- list()
+
+# do the loop de loop
+for (continent in seq_along(continent_list)){
+  model <- lm(lifeExp ~ year, data = continent_list[[continent]])
+  
+  coefficient_list[[continent]] <- coefficients(model)[[2]]
+}
+
+```
+
+
+## Enter the `for loop` {auto-animate=true}
+
+```{r}
+# split dataframe into a list of dataframes based on the continent
+continent_list <- dat %>% 
+  split.data.frame(dat$continent)
+
+# create empty list to store results in
+coefficient_list <- list()
+
+# do the loop de loop
+for (continent in seq_along(continent_list)){
+  model <- lm(lifeExp ~ year, data = continent_list[[continent]])
+  
+  coefficient_list[[continent]] <- coefficients(model)[[2]]
+}
+
+# et voila
+coefficient_list
+```
+
+
+
+## Quick aside: the for loop
+
+For loops have a bad reputation in R. That's a bit unfair. 
+
+. . .
+
+For loops are great, and sometimes they are the best tool to use to make your code easy to write, understand, and execute.
+
+. . .
+
+But sometimes they can be tricky to write, understand, debug, and slow to execute.
+
+
+# Maybe you don't need to write that for loop - use `purrr::map` instead
+
+## Purrr basics
+
+the map() function is actually a for loop*:
+
+```{r}
+simple_map <- function(x, f, ...) {
+  out <- vector("list", length(x))
+  for (i in seq_along(x)) {
+    out[[i]] <- f(x[[i]], ...)
+  }
+  out
+}
+```
+
+
+::: aside
+*The real `purrr::map()` is written in C, and allows a couple of other shortcuts, like specifying anonymous functions purrr style. 
+:::
+
+## A basic example
+
+```{r}
+#| output-location: fragment
+
+x <- c(1:3)
+triple <- function(x) x * 3
+map(x, triple)
+```
+
+
+## Additional function arguments are passed along with the ... syntax 
+
+. . .
+
+```{r}
+#| code-line-numbers: "|1,4"
+simple_map <- function(x, f, ...) {
+  out <- vector("list", length(x))
+  for (i in seq_along(x)) {
+    out[[i]] <- f(x[[i]], ...)
+  }
+  out
+}
+```
+
+. . .
+
+```{r}
+#| output-location: fragment
+x <- list(c(1,2,NA), c(NA, 5, NA))
+
+map(x, mean, na.rm = TRUE)
+```
+
+
+## You don't always need to define a function
+
+```{r}
+#| output-location: column-fragment
+my_list <- list(1:3)
+
+map(my_list, function(x) x * 3)
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+# purrr style: provide a formula
+map(my_list, ~ .x * 3)
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+# shorthand syntax: \(x)
+map(my_list, \(x) x * 3)
+```
+
+. . .
+
+Any of these ways are fine. Personally, I like the shorthand version best. Note that this way to write anonymous functions is quite new. On stackoverflow, or chatGPT, you will likely get a lot of `~` notation.
+
+## A slightly more complicated example: mapping over two attributes {.smaller}
+
+. . .
+
+```{r}
+multiply <- function(x, y) x * y
+
+my_data_frame <- tibble(col1 = c(1:3), col2 = c(4:6))
+```
+
+. . .
+
+```{r}
+#| error: true
+#| output-location: column-fragment
+map(my_data_frame, multiply)
+```
+
+. . . 
+
+```{r}
+#| output-location: column-fragment
+map2(my_data_frame$col1,
+     my_data_frame$col2,
+     multiply) %>% 
+  unlist()
+```
+
+. . .
+
+```{r}
+#| output-location: column-fragment
+# or in a mutate:
+my_data_frame %>% 
+  mutate(multiplication = map2(
+    col1, 
+    col2, 
+    multiply))
+```
+
+## map_ variants {.smaller}
+
+. . .
+
+**map() always returns a list**, which is the most generic data structure in R. Almost anything can be saved in a list. But sometimes, we want something else. 
+
+. . .
+
+That's what `map_lgl()`, `map_dbl()`, `map_dfr()`, `map_chr()`, ... are here for (see also ?map documentation).
+
+. . .
+
+```{r}
+#| output-location: fragment
+# much better
+my_data_frame %>% 
+  mutate(multiplication = map2_dbl(col1, col2, multiply))
+```
+
+
+
+## Back to our problem
+
+Exercise: How would you do it?
+
+```{r}
+dat <- gapminder::gapminder
+
+continet_list <- split(dat, continent)
+```
+
+## Back to our problem
+
+Here's one idea:
+
+```{r}
+continent_list %>% 
+  map(\(x) {lm(lifeExp ~ year, data = x)}) %>% 
+  map(coefficients) %>% 
+  map_dbl(\(x) x[[2]])
+```
+
+## A final way: all in one go! {.smaller auto-animate=true}
+
+
+The previous idea was nice, but you still need to create a list of dataframes at the start (continent list). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).
+
+Here's where you can use the `nest()` function :)
+
+. . .
+
+```{r}
+#| output-location: fragment
+dat %>% 
+  nest(.by = continent)
+```
+
+
+## A final way: all in one go! {.smaller auto-animate=true}
+
+
+The previous idea was nice, but you still need to create a list of dataframes at the start (continent list). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).
+
+Here's where you can use the `nest()` function :)
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "3|4|5|"
+dat %>% 
+  nest(.by = continent) %>% 
+  mutate(model = map(data, \(x) {lm(lifeExp ~ year, data = x)}),
+         model_coefficients = map(model, coefficients),
+         slope_year = map_dbl(model_coefficients, 2)) # shorthand for extracting 2nd component 
+```
+
+
+# A final *final* way {.smaller}
+
+```{r}
+models <- dat %>% 
+  nest(.by = continent) %>% 
+  mutate(model = map(data, \(x) {lm(lifeExp ~ year, data = x)}),
+         tidy_model = map(model, broom::tidy, conf.int = TRUE)) %>% 
+  unnest(tidy_model)
+
+models
+```
+
+# A final *final* way {.smaller}
+
+```{r}
+models %>% 
+  filter(term == "year") %>% 
+  ggplot(aes(estimate, continent, xmin = conf.low, xmax = conf.high)) +
+  geom_pointrange() +
+  geom_vline(xintercept = 0, lty = 2) +
+  expand_limits(x = 0) +
+  theme_light() +
+  labs(title = "Coefficient estimates for \"life expectancy ~ year\" for each continent",
+       y = "")
+```
+
+
+# Resources
+
+- Jenny Bryan's talk: [Thinking inside the box](https://posit.co/resources/videos/thinking-inside-the-box-you-can-do-that-inside-a-data-frame/)
+
+- [R 4 data science](https://r4ds.hadley.nz/iteration.html#reading-multiple-files)
+
+- [the purrr documentation](https://purrr.tidyverse.org/)
+
+- This [package](https://timteafan.github.io/loopurrr/) that turns purrr functions into for loops

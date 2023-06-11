@@ -1,0 +1,60 @@
+---
+title: "01_tidyverse_recap_practice_solution"
+format: html
+---
+
+# Load packages
+```{r}
+library(tidyverse)
+```
+
+
+# Get the data
+```{r}
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+```
+
+# Make data tidy 
+
+First make a wide dataset
+```{r}
+chocolate_wide <- chocolate %>% 
+  # separating ingredients and characteristics out wider
+  separate_wider_delim(
+    cols = c(ingredients, most_memorable_characteristics),
+    delim = ",",
+    names_sep = "_",
+    too_few = "align_start"
+  )  %>% 
+  
+  # repair first ingredient column
+  separate_wider_delim(cols = ingredients_1, delim = "-", names = c("num_ingredients", "ingredients_1")) %>% 
+  
+  # make num_ingredients numeric
+  mutate(num_ingredients = as.numeric(num_ingredients))
+```
+
+Then we can pivot_wider()... for instance the ingredients columns
+```{r}
+chocolate_ingredients_long <- chocolate_wide %>%
+  pivot_longer(
+    cols = starts_with("ingredients"),
+    names_to = "ingredient_number",
+    values_to = "ingredient",
+    values_drop_na = TRUE
+  ) %>% 
+  
+  # fix ingredient number
+  mutate(ingredient_number = parse_number(ingredient_number),
+         # remove starting / trailing whitespace from ingredients
+         ingredient = stringr::str_squish(ingredient))
+```
+
+And then we can plot... For instance the mean rating for each ingredient :)
+```{r}
+chocolate_ingredients_long %>% 
+  ggplot(aes(ingredient, rating)) +
+  stat_summary(geom = "pointrange")
+```
+
+

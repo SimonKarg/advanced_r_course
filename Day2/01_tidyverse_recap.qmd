@@ -1,0 +1,112 @@
+---
+title: "The Tidyverse - A Recap"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+link-external-newwindow: true
+---
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+```
+
+# Day 2
+
+## Questions before we begin?
+
+## Data cleaning & manipulation in the [tidyverse]{.blue_highlight}
+
+1.  **Basics** - mutate, summarise, group_by, pivot_longer, pivot_wider, ...
+2.  **Advanced concepts** - across, rowwise, tidyselect methods, ...
+3.  **Text data ** - Regular expressions, {Stringr}, {Glue}
+4.  **Practice** :)
+
+# Recap of most important tidyverse syntax and functions
+
+## Bread and butter functions
+
+-   `mutate()`
+-   `group_by()`
+-   `summarise()`
+-   `filter()`
+-   `select()`
+
+## New as of dplyr 1.1.2 {.smaller}
+
+Since dplyr 1.1.2, you can use the "[**.by**]{.blue_highlight}" argument to use `group_by()` within selected dplyr verbs
+
+. . .
+
+```{r}
+#| output-location: fragment
+mtcars %>% 
+  mutate(avg_mpg = mean(mpg), .by = cyl) %>% 
+  head()
+```
+
+. . .
+
+
+Also works with `summarise(.by = )`, `reframe(.by = )`, `filter(.by = )`, `slice(.by = )`
+
+## Reshaping
+
+-   `pivot_wider()` (formerly: `spread()`)
+-   `pivot_longer()` (formerly: `gather()`)
+
+## Joining
+
+-   `left_join()`
+-   `right_join()`
+-   `inner_join()`
+-   `full_join()`
+
+## The "Pipe"
+
+-   `%>%()`
+-   `|>()`
+
+. . .
+
+```{r}
+#| eval: false
+The_pipe %>% 
+  allows_us() %>% 
+  to_string_together() %>% 
+  multiple_functions()
+
+# this is the same as
+multiple_functions(to_string_together(allows_us(The_pipe)))
+```
+
+
+# Practice
+
+## Let's play {.scrollable .smaller}
+
+Explore the chocolate dataset from tidytuesday, see [here for documentation](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-01-18/readme.md)
+
+
+```{r}
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+```
+
+- Use `group_by` and `summarise` functions to explore mean ratings for different countries, beans, years...
+- use the pipe!
+- Plot the data in different ways
+
+
+. . .
+
+#### Bonus:
+
+**Do some data cleaning:** the ingredients and characteristics column encode several observations. Separate out these columns, and make sure data is in long format :)
+
+

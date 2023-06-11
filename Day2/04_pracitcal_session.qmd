@@ -1,0 +1,46 @@
+---
+title: "Day 2 - Practical Session"
+format: 
+  revealjs:
+    theme: [simple]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+link-external-newwindow: true
+---
+
+## Pick one {.smaller .scrollable}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+##### **Work on your own data** 
+
+- how can you use tidyverse to the best effect?
+- use across / rowwise / stringr whereever 
+- ask others or me for help with your data cleaning problem :)
+
+:::
+
+::: {.column width="50%"}
+
+##### **Work with the chocolate data**
+
+-   Get back to the [chocolate data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-01-18/readme.md)
+-   If you haven't done so, do the bonus task: the ingredients and characteristics column encode several observations. Separate out these columns, and make sure data is in long format - use your new knowledge about regular expressions :)
+-   Do some further data exploration (cleaning, plotting, ...)
+
+
+:::
+
+::::
+
+Get the chocolate data like this:
+```{r}
+#| eval: false
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+```
+

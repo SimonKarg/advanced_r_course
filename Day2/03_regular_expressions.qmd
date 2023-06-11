@@ -1,0 +1,488 @@
+---
+title: "Regular Expressions"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom_special_view_list.scss, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+editor_options: 
+  chunk_output_type: console
+link-external-newwindow: true
+---
+
+# The basic principles behind regex
+
+```{r}
+#| echo: false
+library(tidyverse)
+```
+
+. . .
+
+Regular expressions (regex) are a [language]{.blue_highlight} to tell a program how to look for certain patterns in strings (text data).
+
+
+## Writing Regular Expressions is hard! {.smaller}
+
+I almost always have to look up how to specify a regular expression.
+
+. . .
+
+And then I still almost always get it wrong...
+
+. . .
+
+
+::: {.callout-tip }
+
+Here's a few ideas to help you:
+
+-   [check whether your regular expression works using this interactive online tool: <https://regexr.com/>]{.smaller_size}
+
+-   [Consult this helpful cheatsheet: <https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf>]{.smaller_size}
+
+-   [ask ChatGPT to write the regex for you (regex are largely language agnostic, but still probably good to include R in the prompt)]{.smaller_size}
+
+:::
+
+# The building blocs of regular expressions
+
+## Character classes
+
+These allow you to match specific sets of characters, for example "\[a-z\]" matches any lowercase character, "\[A-z\]" matches both lower and upper case.
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match any lowercase letter
+pattern <- "[a-z]"
+str <- "Hello World"
+str_view(str, pattern, html = TRUE)
+```
+
+## Character classes {.smaller}
+
+You can define your own classes using the [] notation. But there's also quite a few pre-defined character classes to choose from, including:
+
+. . .
+
+| R regex |	What matches |
+|------ | ---- |
+| \\w	| Any word character (any letter, digit, or underscore) |
+| \\W	| Any non-word character |
+| \\d	| Any digit |
+| \\D	| Any non-digit |
+| \\s	| Any space character (a space, a tab, a new line, etc.) |
+| \\S	| Any non-space character |
+
+## Character classes {.smaller .scrollable}
+
+To make things more confusing, there's also other ways to specify classes. 
+
+| R regex |	What matches |
+|--------- | ----------- |
+| [:alpha:] |	Any letter |
+| [:lower:] |	Any lowercase letter |
+| [:upper:] |	Any uppercase letter |
+| [:digit:] |	Any digit (equivalent to \\d) |
+| [:alnum:] |	Any letter or number |
+| [:word:] |	Any letter or number, as well as underscores |
+| [:xdigit:] |	Any hexadecimal digit |
+| [:punct:] |	Any punctuation character |
+| [:graph:] |	Any letter, number, or punctuation character |
+| [:space:] |	A space, a tab, a new line, etc. (equivalent to \\s) |
+
+<br>
+
+::: aside
+Note that you often need to write double "[[]]" brackets when specifying your regular expressions, to make clear that you are defining a class, e.g. `pattern = "[[:lower:]]"`
+:::
+
+## Example
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match any A-z 0-9 and _
+pattern <- "[[:word:]]"
+str <- c("Hello World &!&!&1234")
+str_view(str, pattern, html = TRUE)
+```
+
+. . . 
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match any space character
+# Note that you need two "\" characters
+# otherwise you'll get an error: "unrecognized escape in character string"
+pattern <- "\\s"
+str <- "Hello World"
+str_view(str, pattern, html = TRUE)
+```
+
+
+## Metacharacters {.scrollable}
+
+These are special characters with special meanings in regular expressions, including ".", "-", "\\", "^", "[]", "()", or "$"
+
+```{r}
+#| results: asis
+#| output-location: fragment
+
+# Match any character
+pattern <- "."
+str <- "Hello World"
+str_view(str, pattern, html = TRUE)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+
+# Match first character
+pattern <- "^H"
+str <- "Hello Hello"
+str_view(str, pattern, html = TRUE)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+
+# Match last character
+pattern <- "d$"
+str <- "World World"
+str_view(str, pattern, html = TRUE)
+```
+
+## Anchors {.scrollable}
+
+These allow you to specify where a match should occur within a string, e.g. at the start or end of the string.
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match the start of a string
+pattern <- "^Hello"
+str <- c("Hello World", "World Hello")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match the start of a string
+pattern <- "Hello$"
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+
+## Quantifiers {.scrollable}
+
+These specify the number of times a pattern should repeat. Examples include
+
+- "\*" (zero or more occurrences) 
+- "+" (one or more occurrences)
+- "?" (zero or one occurrence)
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+
+# Match zero or more occurrences of "o" following a Y
+pattern <- "Yo*"
+str <- c("Yo World", "Yoooooo Wlrd", "Y world")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match one or more occurrences of "o" following a Y
+pattern <- "Yo+"
+str <- c("Yo World", "Yoooooo Wlrd", "Y world")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+
+# Match zero or one occurrence of "u" 
+pattern <- "colou?r"
+str <- c("colour", "color", "colouur")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+
+## Grouping and capturing {.scrollable}
+
+Parentheses are used to group patterns together and capture specific parts of a match. This is useful for extracting specific information from a string. 
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match and capture the word after "Hello"
+pattern <- "Hello (\\w+)"
+str <- c("Hello World", "Hello you", "Hello +1234")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+# Access the groups
+str_match_all(str, pattern)
+```
+
+## Grouping
+
+Grouping can also be used together with quantifiers to specify that a certain pattern will repeat 
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# look for repetitions of the pattern "ab"
+
+pattern <- "(ab)+"
+str <- "abba ababababa aaab"
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# compare this to:
+pattern <- "[ab]+"
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+
+## Alternation {.scrollable}
+
+The pipe symbol "\|" allows you to specify multiple alternative patterns. For example, "cat\|dog" matches either "cat" or "dog".
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match either "cat" or "dog"
+pattern <- "cat|dog"
+str <- c("I have a cat", "I have a dog", "I have a dog and a cat")
+
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+## Escape sequences {.scrollable}
+
+These are used to match special metacharacters that would otherwise have a special meaning in regular expressions. For example, to match a literal dot, you need to escape it as "\\\\."
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match a literal dot
+pattern <- "\\."
+str <- "Hello. World"
+
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+## Lookarounds {.scrollable}
+
+These are used to perform lookahead and lookbehind assertions. They allow you to match patterns based on what comes before or after the current position without including it in the final match.
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Match "cat" followed by "s"
+pattern <- "cat(?=s)"
+str <- c("cats", "cat", "caterpillars")
+str_view(str, pattern, html = TRUE, match = NA)
+```
+
+## Greedy vs. non-greedy matching {.scrollable}
+
+By default, regular expressions are greedy, meaning they match as much as possible. Adding a "?" after a quantifier makes it non-greedy, matching as little as possible.
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Greedy matching: match as much as possible
+pattern <- "a.*b"
+str <- "an abnormally long sentence that ends with b"
+str_view(str, regex(pattern), html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Non-greedy matching: match as little as possible
+pattern <- "a.*?b"
+str_view(str, regex(pattern), html = TRUE, match = NA)
+```
+
+## Modifiers {.scrollable}
+
+Regular expressions often have modifiers that can change their behavior. Common modifiers include "i" (case-insensitive matching) and "g" (global matching).
+
+Most R functions allow you to specify to ignore case as an argument
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Case-insensitive matching with argument
+pattern <- "hello"
+str <- "Hello World"
+str_view(str, regex(pattern, ignore_case = TRUE), html = TRUE, match = NA)
+```
+
+. . .
+
+```{r}
+#| results: asis
+#| output-location: fragment
+# Case-insensitive matching regex style
+pattern <- "(?i)hello"
+str <- "Hello World"
+str_view(str, regex(pattern), html = TRUE, match = NA)
+```
+
+
+# How to use regex in your daily R use?
+
+. . .
+
+## When working with text data of course...
+
+Use the great {stringr} package to do all sorts of things with strings..
+
+- `str_remove()`
+- `str_replace()`
+- `str_extract()`
+- `str_detect()`
+- `str_split()`
+
+
+## ..but also for selecting columns using tidyselect functions :)
+
+```{r}
+mtcars %>% 
+  select(matches("[t$]")) %>% 
+  head
+```
+
+## ..and when using pivot_ , or separate_ function families {.smaller .scrollable}
+
+```{r}
+head(who)
+```
+
+. . .
+
+```{r}
+names(who)
+```
+
+<br>
+
+. . . 
+
+```{r}
+#| output-location: fragment
+
+who %>% pivot_longer(
+  cols = new_sp_m014:newrel_f65,
+  names_to = c("diagnosis", "gender", "age"),
+  names_pattern = "new_?(.*)_(.)(.*)",
+  values_to = "count"
+)
+```
+
+
+::: footer
+See the help documentation for the ?pivot_wider(), or related functions
+:::
+
+
+## Exercise {.scrollable}
+
+Use the inbuilt `sentences` dataset (comes with the stringr package) and do the following:
+
+1.  Use `str_view()` to find all sentences that start with the definite article "The". Tip: be sure that you don't accidentally capture sentences that start with "They", or "These"...
+
+```{r}
+#| eval: false
+str_view(sentences, pattern = "")
+```
+
+
+2. Use `str_view()` to find all sentences that begin with a pronoun (He, She, It, They).
+
+```{r}
+#| eval: false
+str_view(sentences, pattern = "")
+```
+
+. . .
+
+3. Use the `words` dataset and str_detect() to only get those words that are a colour. Tip, the `colours()` function prints a nice list of colours ;)
+
+```{r}
+#| eval: false
+colors()
+```
+
+```{r}
+#| eval: false
+words[str_detect(words, pattern)]
+```
+
+
+::: footer
+Try regex interactively: <https://regexr.com/>
+:::
+
+# Resources
+
+[Write regex code interactively](https://regexr.com/)
+
+Helpful regex guides:
+
+- [The stringr documentation](https://stringr.tidyverse.org/articles/regular-expressions.html)
+- [Hadley's guide](https://r4ds.hadley.nz/regexps.html)
+- [A datacamp tutorial](https://www.datacamp.com/tutorial/regex-r-regular-expressions-guide) 
+- [Homer White's free R book!](https://homerhanumat.github.io/r-notes/regex.html)

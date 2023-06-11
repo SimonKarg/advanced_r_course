@@ -1,0 +1,302 @@
+---
+title: "Additional ggplot things.."
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+
+# Combining Plots using {Patchwork}
+
+## Patchwork 
+
+::: aside
+Courtesy to [Albert Rapp's blogpost](
+https://albert-rapp.de/posts/ggplot2-tips/04_arranging_plots/04_arranging_plots.html)
+:::
+
+Patchwork is the easiest way to combine ggplot objects.
+
+```{r}
+# setup
+library(tidyverse)
+library(patchwork)
+
+dat <- gapminder::gapminder
+
+```
+
+
+```{r}
+plot1 <- dat %>% 
+  ggplot(aes(lifeExp, gdpPercap, colour = continent)) +
+  geom_point(alpha = 0.5) +
+  scale_y_continuous(trans = "log10") 
+
+plot1
+```
+
+
+```{r}
+plot2 <- dat %>% 
+  ggplot(aes(year, lifeExp, colour = continent)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm")
+
+plot2
+```
+
+```{r}
+plot3 <- dat %>% 
+  ggplot(aes(pop, continent, colour = continent)) +
+  ggbeeswarm::geom_quasirandom(orientation = "y") +
+  scale_x_log10()
+
+plot3
+```
+
+
+## Combining plots is as easy as 1 + 1 
+
+## adding plots with `+` puts them side by side
+
+```{r}
+plot1 + plot2
+```
+
+## dividing plots with `/ `puts them beneath each other 
+
+```{r}
+plot1 / plot2
+```
+
+## Create groups of plots by using parentheses:
+
+```{r}
+(plot1 + plot2) / plot3
+```
+
+## This is nice, but we need to a few more things
+. . .
+```{r}
+combined_plots <- (plot1 + plot2) / plot3 +
+  plot_layout(guides = "collect")
+
+combined_plots
+```
+
+## Try again, with just one legend
+```{r}
+plot1 <- plot1 + guides(colour = "none")
+plot2 <- plot2 + guides(colour = "none")
+
+combined_plots <- (plot1 + plot2) / plot3 +
+  plot_layout(guides = "collect")
+
+combined_plots
+```
+
+
+## You can do global changes to all ggplot elements using the `&` operator
+```{r}
+combined_plots & 
+  theme_light() &
+  theme(legend.position = "top") &
+  scale_fill_brewer(palette = "Dark2") &
+  scale_colour_brewer(palette = "Dark2") 
+```
+
+## Finally, control layouts and add annotations
+```{r}
+combined_plots +
+  plot_layout(guides = "collect", 
+              heights = c(0.6, 0.4)) +
+  plot_annotation(
+    title = "This is already a pretty neat arrangement",
+    subtitle = "Wow, look at them plots",
+    caption = "Your APA ready caption goes here..",
+    tag_levels = "A",
+    tag_prefix = "(",
+    tag_suffix = ")"
+  ) & 
+  theme_light() &
+  theme(legend.position = "bottom",
+        plot.caption = element_text(hjust=0)) &
+  scale_fill_brewer(palette = "Dark2") &
+  scale_colour_brewer(palette = "Dark2") 
+```
+
+
+## Patchwork can also inset plots
+
+```{r}
+plot3 <- plot3 +
+  guides(colour = "none") +
+  labs(y = "") +
+  scale_x_log10(labels = scales::label_log(), 
+                name = "Population")
+
+plot1 +
+  # get the legend back in
+  guides(colour = "legend") +
+  
+  # make some room
+  coord_cartesian(xlim = c(15, 90),
+                  ylim = c(150,1e6)) +
+  
+  # inset the plot
+  inset_element(
+    plot3,
+    left = 0.01,
+    right = 0.45,
+    top = 0.99,
+    bottom = 0.45
+    )  &
+  theme_bw() &
+  theme(legend.position = "bottom",
+        plot.caption = element_text(hjust=0)) &
+  scale_fill_brewer(palette = "Dark2") &
+  scale_colour_brewer(palette = "Dark2") 
+```
+
+## {background-iframe="https://patchwork.data-imaginist.com/index.html" background-interactive="true"}
+
+
+## Raincloud Plots
+
+I love raincloud plots, so I have to shout them out here! They are unfortunately a bit tricky to create, and only work for some data types (real continuous data, not likert type data). 
+
+But to just give some inspiration. 
+
+There's several ways to create raincloud plots. The easiest is probably via the ggrain package:
+
+```{r}
+install.packages("ggrain")
+```
+
+```{r}
+library(ggrain)
+
+ggplot(iris, aes(Species, Sepal.Length, fill = Species)) + 
+	geom_rain() +
+  coord_flip()
+```
+
+But it's also possible with the ggdist and gghalves packages. 
+See this great [blog post by Cedric Scherer](https://www.cedricscherer.com/2021/06/06/visualizing-distributions-with-raincloud-plots-and-how-to-create-them-with-ggplot2/)
+
+
+# Plotting Models
+
+## Plotting Models
+
+Several packages produce amazing plots that can go right in your papers :)
+
+Here's a couple of recommendations.
+
+## {ggstatsplot}
+
+{Ggstatsplot} is amazing for plotting relatively simple tests (t-tests, ANOVA, simple correlations).
+
+The default can look a bit unwieldy at times, but the plots can be highly customized.
+
+```{r}
+library(ggstatsplot)
+```
+
+```{r}
+# the default ANOVA
+iris %>% 
+  ggstatsplot::ggbetweenstats(Species, Sepal.Length)
+```
+
+## {ggstatsplot} - ANOVA
+
+```{r}
+# changing things is super easy, as ggstatsplot outputs a ggplot object
+iris %>% 
+  ggstatsplot::ggbetweenstats(Species, Sepal.Length) +
+  ggsci::scale_color_jama() +
+  labs(title = "My new title!",
+       y = "Sepal length (mm)") +
+  theme_light(base_size = 14) +
+  theme(legend.position = "none")
+```
+
+## {ggstatsplot} - Correlation
+
+```{r}
+iris %>% 
+  ggstatsplot::ggscatterstats(Sepal.Length, Sepal.Width, 
+                              bf.message = FALSE)
+```
+
+
+## {ggstatsplot} - model parameters
+
+```{r}
+mod <- lm(formula = mpg ~ cyl * am, data = mtcars)
+
+# creating a plot
+p <- ggcoefstats(mod)
+p
+```
+
+## {ggstatsplot} - model parameters
+
+Not great for more complex models
+```{r}
+# predicting life expectancy in gapminder data
+my_model <- lme4::lmer(lifeExp ~ gdpPercap_log + year0 * continent + (1+year0|country),
+                       data = dat %>% mutate(year0 = year - 1952,
+                                             gdpPercap_log = log10(gdpPercap)),
+                       control = lme4::lmerControl(optimizer = "bobyqa"))
+```
+
+```{r}
+ggcoefstats(my_model, effects = "fixed", sort = "ascending")
+```
+
+## {sjPlot}
+
+sjPlot is an amazing package that is particularly nice for plotting complexer models.
+```{r}
+my_model %>% sjPlot::plot_model()
+```
+
+```{r}
+my_model %>% sjPlot::plot_model(type = "pred", terms = c("year0", "continent"))
+```
+
+## {sjPlot}
+
+```{r}
+my_model %>% sjPlot::plot_model(type = "pred", terms = c("year0", "continent")) +
+  scale_x_continuous(labels = \(x) x + 1952) +
+  theme_light() +
+  theme(legend.position = "top") +
+  labs(x = "year",
+       y = "Life Expectancy",
+       title = "Predicted life expectancy for different continents",
+       subtitle = "Model: lifeExp ~ gdpPercap_log + year0 * continent + (1 + year0 | country)")
+```
+
+
+## Dotwhisker
+
+Also used by some people...
+
+```{r}
+library(dotwhisker)
+
+dotwhisker::dwplot(my_model)
+```
+
+
+# What are you favorite packages to plot models?
+

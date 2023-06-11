@@ -2,9 +2,13 @@
 title: "Reproducible Documents using Quarto & Rmarkdown"
 format: 
   revealjs:
-    theme: simple
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
 execute: 
   echo: true
+link-external-newwindow: true
 ---
 
 ```{r}
@@ -19,7 +23,11 @@ library(tidyverse)
 
 ## Working in RMarkdown
 
+. . . 
+
 Rmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.
+
+. . .
 
 There's a ton of stuff to learn with rmarkdown. Get inspiration [here](https://rmarkdown.rstudio.com/index.html)
 
@@ -27,19 +35,37 @@ There's a ton of stuff to learn with rmarkdown. Get inspiration [here](https://r
 
 Rmarkdown documents have 3 basic ingredients
 
--   *a YAML header* - specifying general output options
--   *Text in markdown format* - any explanatory text you like to add, e.g. documentation
--   *Code chunks* - your R code (can also run python, Stan, ...)
+::: {.incremental}
 
-## Quarto vs. Rmarkdown
+-   **a YAML header** - specifying general output options
+-   **Text in markdown format** - any explanatory text you like to add, e.g. documentation
+-   **Code chunks** - your R code (can also run python, Stan, ...)
+
+:::
+
+## Quarto vs. Rmarkdown {.smaller}
+
+. . .
 
 Quarto is the new cool kid in town.
 
-For all intends and purposes, quarto and rmarkdown are practically interchangeable. Rmarkdown will not be deprecated, but Quarto is likely to see more development in the future than rmarkdown. Right now, rmarkdown has a bit more user friendliness within RStudio (clearing knitr cache, and setting knitr working directory), but quarto has nicer defaults regarding outputs
+. . .
 
-See also: https://quarto.org/docs/faq/rmarkdown.html
+For all intends and purposes, quarto and rmarkdown are **practically interchangeable**. Rmarkdown will not be deprecated, but Quarto is likely to see more development in the future than rmarkdown. 
 
-I will use Quarto going forward (.qmd). But it's totally fine for you to continue rmarkdown.
+. . .
+
+Right now, rmarkdown has a bit more user friendliness within RStudio (clearing knitr cache, and setting knitr working directory), but quarto has nicer defaults regarding outputs.
+
+. . .
+
+If you've never used rmarkdown, it's probably a good idea to start with quarto. 
+I will use Quarto going forward. But it's totally fine for you to continue with rmarkdown.
+
+. . .
+
+See also the [FAQ from posit](https://quarto.org/docs/faq/rmarkdown.html)
+
 
 ## Look at an example
 
@@ -51,18 +77,21 @@ open up `example_rmd_file.Rmd` and `example_rmd_file.html`
 -   `-` creates an unordered list
 -   `1.` creates ordererd lists
 -   `*one asterisk*` makes text *italics*
--   `**two astersisks**` makes text **bold**
+-   `**two asterisks**` makes text **bold**
 -   NB: for html documents, you can also use `<html>` tags if you prefer (e.g. I often use `<br>` to add a line break)
 
-for more, see: <https://www.markdownguide.org/basic-syntax/>
+For more, see this [markdown guide](https://www.markdownguide.org/basic-syntax/)
+
 
 ## A neat feature: Tabbed Content
 
+::: {.callout-tip}
 Html Documents allow you to use tabs to let viewers compare different types of things.
 
 I love this feature to contrast and compare plots or models that rely on similar but different data, e.g. subsamples, or robustness checks.
 
-For .rmd documents you can use tabs by writing {.tabset} after a heading. Then, the next sub-headings after this will be tabbed:
+For .rmd documents you can use tabs by writing {.tabset} after a heading. Then, the next sub-headings after this will be tabbed (see next slide).
+:::
 
 ## Example
 
@@ -90,7 +119,7 @@ iris %>%
         legend.direction = "horizontal")
 ```
 
-## My Heading {.smaller}
+## My Heading {.smaller .scrollable}
 
 ::: panel-tabset
 ## This is tab 1
@@ -185,11 +214,19 @@ options(width = 200)
 ```
 ````
 
+## 
+
+::: {.callout-tip}
 ## Tip: save your favorite rmarkdown format as a template
 
-See [here for a guide](https://bookdown.org/yihui/rmarkdown/document-templates.html) Bonus: doing this will let you create your own first (?) package!
+Saving your go-to approach as a template helps you be more consistent and faster.
 
-## My go to qmd snippet yaml header
+See [here for a guide](https://bookdown.org/yihui/rmarkdown/document-templates.html) on how to set things up :)
+
+**Bonus experience:** doing this will let you create your own first (?) package!
+:::
+
+## My go to .qmd snippet yaml header
 
 ``` yaml
 ---
@@ -214,32 +251,54 @@ execute:
 
 ## Tip: browse the pre-installed themes for rmarkdown & quarto
 
-{background-iframe="https://bootswatch.com/3/" background-interactive="true"}
+## {background-iframe="https://bootswatch.com/3/" background-interactive="true"}
+ 
 
 # Reproducibility
 
+. . . 
+
+How can we ensure that the work we're doing is computationally reproducible in **5 years?**
+
 ## A quick aside: `set.seed()`
+
+. . .
 
 This function sets a seed that lets you reproduce random outcomes.
 
 ```{r}
+#| output-location: column-fragment
 sample(letters, size = 2)
 ```
 
+. . .
+
 ```{r}
+#| output-location: column-fragment
 sample(letters, size = 2)
 ```
 
+. . .
+
 ```{r}
+#| output-location: column-fragment
 set.seed(1)
 sample(letters, size = 2)
+```
+
+. . . 
+
+```{r}
+#| output-location: column-fragment
 set.seed(1)
 sample(letters, size = 2)
 ```
 
 ## A quick aside: `set.seed()`
 
-be aware: the following code chunk does not work:
+::: {.callout-warning}
+be aware: the following code chunk does not work as perhaps intended:
+
 ```` markdown
 ```{{r}}
 set.seed(1)
@@ -247,6 +306,10 @@ sample(letters, size = 2)
 sample(letters, size = 2)
 ```
 ````
+
+:::
+
+. . .
 
 This will evaluate as:
 ```{r}
@@ -271,28 +334,37 @@ sample(letters, size = 2)
 
 ## A minimal requirement: `sessionInfo()`
 
+. . .
+
 --\> prints information about your R session.
 
 ```{r}
+#| output-location: fragment
 sessionInfo()
 ```
 
 ## A golden middle?
 
--   The {renv} package allows you to save a snapshot of your packages used, and track versions of packages
+. . .
 
--   former {packrat} package
+-   The [{renv}]{.blue_highlight} package allows you to save a snapshot of your packages used, and track versions of packages
 
-<https://rstudio.github.io/renv/articles/renv.html#workflow>
+-   (this is the former {packrat} package)
 
-## The {Renv} workflow {.smaller}
+-   Documentation: <https://rstudio.github.io/renv/articles/renv.html#workflow>
 
-1.  Call `renv::init()` to initialize a new project-local environment with a private R library,
 
-2.  Work in the project as normal, installing and removing new R packages as they are needed in the project,
+## The [{Renv}]{.blue_highlight} workflow {.smaller}
 
-3.  Call `renv::snapshot()` to save the state of the project library to the lockfile (called renv.lock),
+::: {.incremental}
+1.  Call `renv::init()` to initialize a new project-local environment with a private R library
 
-4.  Continue working on your project, installing and updating R packages as needed.
+2.  Work in the project as normal, installing and removing new R packages as they are needed in the project
+
+3.  Call `renv::snapshot()` to save the state of the project library to the lockfile (called renv.lock)
+
+4.  Continue working on your project, installing and updating R packages as needed
 
 5.  Call `renv::snapshot()` again to save the state of your project library if your attempts to update R packages were successful, or call `renv::restore()` to revert to the previous state as encoded in the lockfile if your attempts to update packages introduced some new problems.
+
+:::

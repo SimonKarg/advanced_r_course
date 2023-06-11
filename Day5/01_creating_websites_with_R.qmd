@@ -1,0 +1,84 @@
+---
+title: "Day 5 - Building a Website with R"
+format: 
+  revealjs:
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+---
+
+# Websites with R - two approaches
+
+## Why even have a website? {.smaller}
+
+. . . 
+
+Full Disclosure: I didn't have a website until this course...
+
+. . .
+
+But it's generally assumed to be a good idea for an academic to have a website. 
+
+- people will search for you and it's much easier to tell your story how you want it
+- you can showcase whatever you want (create a blog, write tutorials, a think piece, pre-prints, ...)
+- PURE and other university platforms are 
+  - limited temporally  
+  - limited in scope
+  - difficult to navigate
+
+
+## Brainstorm session (~15 min)
+
+- Do you have a website? If so, what's on it? What are your experiences?
+- What (what skills) would you want to put on your website?
+
+
+## Some examples
+
+- <https://www.mrworthington.com/> (built with quarto)
+- <https://lnalborczyk.github.io/> (built with quarto)
+- <https://tobiaswidmann.eu/> (built with blogdown + hugo)
+- <https://www.dsquintana.com/> (built with blogdown + hugo)
+- <https://www.savhannahschulz.com/about> (built with googlesites)
+- <https://simonkarg.github.io/> (built with quarto)
+
+
+## Quarto vs. Blogdown
+
+As with reproducible documents, there's two general ways to build a website with R:
+
+1. The Blogdown (.rmarkdown) approach
+
+2. The Quarto (.qmd) approach
+
+
+Both work perfectly well, have good documentation / tutorials, and will be supported for the forseeable future.
+
+
+## For today's purposes, I will focus on the Quarto approach, because this what I've done.
+
+If after today you feel like you like the blogdown approach better, that's fine!
+
+Here's a [great tutorial by Dan Quintana](https://www.youtube.com/watch?v=ox_Ue9yzf-0&ab_channel=DanielQuintana)
+--> also see his [website](https://www.dsquintana.com/) 
+
+
+## Let's get going with creating a Quarto website / blog
+
+We're following these two tutorials:
+
+<https://quarto.org/docs/websites/>
+
+<https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html>
+
+
+## Resources
+
+Quarto Styling tips: https://www.youtube.com/watch?v=ErRX8plZpQE&ab_channel=AlbertRapp
+
+see my page for reference: https://simonkarg.github.io/
+see source code of my page for reference: https://github.com/SimonKarg/SimonKarg.github.io 
+

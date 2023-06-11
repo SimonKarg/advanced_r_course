@@ -2,10 +2,12 @@
 title: "Good Code"
 format: 
   revealjs:
-    theme: simple
+    theme: [simple, ../assets/custom.scss]
+    df-print: paged
+    code-line-numbers: true
+editor: source
 execute: 
   echo: true
-  
 ---
 
 ```{r}
@@ -20,12 +22,17 @@ library(tidyverse)
 
 ## {background-iframe="https://style.tidyverse.org/index.html" background-interactive="true"}
 
-## Tip: automatic formatting
 
+## Automatic formatting
+
+::: {.callout-tip}
+## Use automatic formatting to do some automatic cleaning of your code
 - For mac: Cmd + Shift + A 
 - For windows: Ctrl + Shift + A 
 
 Helps with many things, but not a magic bullet.. 
+
+:::
 
 :::{.fragment}
 ```{r}
@@ -51,12 +58,15 @@ a_random_function <-
 :::
 
 
-## Tip: the {styler} package
+## The [{styler}]{.blue_highlight} package
 
-You can also automatically style code and entire scripts using the styler package.
+. . .
 
-This is especially handy for using rmarkdown files.
-Here, you can simply specify the tidier as a knitr chunk option. 
+::: {.callout-tip}
+- You can automatically style code and entire scripts using the [{styler}]{.blue_highlight} package.
+
+- This is especially handy for using .rmd or .qmd files. Here, you can simply specify the tidier as a knitr chunk option. 
+
 
 ```{r}
 knitr::opts_chunk$set(tidy = "styler")
@@ -68,12 +78,15 @@ Note that this doesn't affect the source document (i.e. the script), but only af
 an_unstylized_example<-"asdf"
 ```
 
+:::
 
 # Naming conventions
 
 ## Consistency is key!
 
 Use one system and stick to it. This will help not only with readibility, but also writing code to for example select key variables of interest.
+
+. . .
 
 Compare:
 
@@ -87,7 +100,6 @@ my_data %>%
          "What.is.this.item?")
 ```
 
-<nb>
 
 :::{.fragment}
 ```{r}
@@ -101,13 +113,18 @@ my_data %>%
  
 I like the following:
 
+::: {.incremental}
+
 - small case for all variables
 - snake_case 
 - nouns for variables and datasets, verbs for functions
 
-## Tip: the `clean_names()` function from the janitor package
+:::
+
+## Tip: the `clean_names()` function from the {janitor} package
 
 ```{r}
+#| output-location: fragment
 data_with_bad_names <- tibble(
   BAD_NAME = 1,
   `really bad name` = 2,
@@ -123,7 +140,8 @@ data_with_bad_names %>%
 
 :::{.fragment}
 ```{r}
-# also works with other cases, if you prefer those (see ?sankecase::to_any_case)
+# also works with other cases, if you prefer those 
+# (see ?sankecase::to_any_case)
 data_with_bad_names %>% 
   janitor::clean_names(case = "upper_camel") %>% 
   names()
@@ -134,8 +152,12 @@ data_with_bad_names %>%
 
 ## Code commenting practices
 
+. . .
+
 - more is not always better
-- general advice: comments shouldn't focus on the how, but the why
+- general advice: comments shouldn't focus on the *how*, but the **why**
+
+. . .
 
 ```{r}
 #| eval: false
@@ -143,23 +165,23 @@ data_with_bad_names %>%
 df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv')
 ```
 
-<br>
-
 :::{.fragment}
 
 ```{r}
 #| eval: false
-# get tidytuesday dataset on artists
+# load tidytuesday dataset on artists
 # see documentation: https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-17/readme.md
 df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
-
 ```
 
 :::
 
-## Code commenting exercise (15 min?)
+## Code commenting exercise (~15 min?)
 
-Go back to an old script (e.g. for data cleaning, ...) of yours (preferably older than 6 months) and take a look it 
+. . .
+
+Go back to an old script (e.g. for data cleaning, ...) of yours (*preferably older than 6 months*) and take a look at it 
+
 - What have you commented, what haven't you commented?
 - Which comments make sense to you? Which don't?
 - Show the code to your neighbor without explaining it. What can they understand, what don't they understand?
@@ -169,31 +191,38 @@ Go back to an old script (e.g. for data cleaning, ...) of yours (preferably olde
 
 ## Workflow
 
-data cleaning / manipulation then analyses.
+. . .
 
-Keep data cleaning and analysis separate. Create all necessary variables at the start of your script, then move on to analyses.
+General logic: all data cleaning / manipulation first, then analyses
+
+. . .
+
+For more complex projects, keep data cleaning and analysis in separate scripts.
 
 
+## Load all necessary packages at the start of the script
 
-## Load all necessary packages at the start
+. . . 
 
 - makes it easier to understand which packages are needed
 
-- for big packages, do not necessary load in all packages, you can also just "require" a package to indicate that you need a function from it later. 
+- if you only need a function from a specific function once, do not necessary load in the package, you can also just call a function with reference to its namespace using the `::` notation
 
 ```{r}
 #| eval: false
-# at the start of your document
-require(MASS)
-
-# somewhere later
 MASS::bcv()
 ```
 
-(This has become less relevant in new versions of Rstudio, which will tell you when a script contains package that you haven't installed yet).
 
+## The [{conflicted}]{.blue_highlight} package
 
-## Other tricks
+::: {.callout-tip}
+## Dealing with name conflicts
 
-- multiline editing
+The [{conflicted}]{.blue_highlight} package helps navigate name conflicts of functions from different packages (functions having the same name, such as `base::filter()` and `dplyr::filter()`)
+
+The `conflicted::conflict_prefer()` function lets you set defaults for which function you prefer in this case.
+
+If you deal with packages that have naming conflicts, loading the [{conflicted}]{.blue_highlight} package at the start of your R scripts is a good idea.
+:::
 
