@@ -69,7 +69,14 @@ See also the [FAQ from posit](https://quarto.org/docs/faq/rmarkdown.html)
 
 ## Look at an example
 
-open up `example_rmd_file.Rmd` and `example_rmd_file.html`
+#### Rmarkdown
+
+-> open `example_rmd_file.Rmd` and `example_rmd_file.html` in example_rmd folder
+
+#### Quarto
+- open `example_quarto.qmd` and `example_quarto.html` in example_quarto folder
+
+
 
 ## Markdown syntax basics
 
