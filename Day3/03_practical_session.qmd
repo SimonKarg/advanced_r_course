@@ -1,0 +1,68 @@
+---
+title: "Day 3 - Practical Session"
+format: 
+  revealjs:
+    theme: [simple]
+    df-print: paged
+    code-line-numbers: true
+editor: source
+execute: 
+  echo: true
+link-external-newwindow: true
+---
+
+## Pick one {.smaller .scrollable}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+##### **Plot your own data** 
+
+- plot your data in nice ways
+- play with different themes
+- try to combine plots using the [{patchwork}]{.blue_highlight} package
+
+:::
+
+::: {.column width="50%"}
+
+##### **Recreate the plot challenge**
+
+See next slides for examples of plots with the chocolate data.
+
+:::
+
+::::
+
+## Recreate the plot! {.smaller .scrollable}
+
+### Plot 1
+
+![](images/pablo_alvarez.png)
+
+<https://twitter.com/pablo_alvrez/status/1484570382875213829>
+
+### Plot 2
+
+![](images/lorena_abad.jpg)
+<https://twitter.com/loreabad6/status/1484184426963603466/photo/1>
+
+
+### Plot 3
+
+![](images/luis_freites.jpg)
+<https://twitter.com/Luisfreii/status/1484173962938564613/photo/1>
+
+### Plot 4
+
+![](images/jamie_hudson.jpg)
+<https://twitter.com/Jamie_Bio/status/1484560753520697347/photo/1>
+
+
+Get the chocolate data like this:
+```{r}
+#| eval: false
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+```
+

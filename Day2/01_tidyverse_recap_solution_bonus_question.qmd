@@ -25,10 +25,14 @@ chocolate_wide <- chocolate %>%
     delim = ",",
     names_sep = "_",
     too_few = "align_start"
-  )  %>% 
+  ) 
   
   # repair first ingredient column
-  separate_wider_delim(cols = ingredients_1, delim = "-", names = c("num_ingredients", "ingredients_1")) %>% 
+  separate_wider_delim(
+    cols = ingredients_1,
+    delim = "-",
+    names = c("num_ingredients", "ingredients_1")
+  ) %>% 
   
   # make num_ingredients numeric
   mutate(num_ingredients = as.numeric(num_ingredients))
@@ -54,6 +58,20 @@ And then we can plot... For instance the mean rating for each ingredient :)
 ```{r}
 chocolate_ingredients_long %>% 
   ggplot(aes(ingredient, rating)) +
+  stat_summary(geom = "pointrange")
+```
+
+
+```{r}
+my_data_frame <- data.frame(
+  
+)
+```
+
+
+```{r}
+chocolate_ingredients_long %>% 
+  ggplot(aes(num_ingredients, rating)) +
   stat_summary(geom = "pointrange")
 ```
 

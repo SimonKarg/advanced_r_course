@@ -327,12 +327,52 @@ the fct_ family helps dealing with factor variables, e.g.
 - ... (not always the most helpful naming conventions, but good documentation)
 
 
+## Ordering columns in ggplot using `fct_infreq()` {auto-animate=true}
+
+```{r}
+#| output-location: column
+#| fig-height: 3
+#| fig-width: 5
+msleep %>% 
+  ggplot(aes(y = vore)) +
+  geom_bar(stat = "count") +
+  theme_light()
+```
+
+## Ordering columns in ggplot using `fct_infreq()` {auto-animate=true}
+
+```{r}
+#| output-location: column
+#| fig-height: 3
+#| fig-width: 5
+msleep %>% 
+  mutate(vore = fct_infreq(vore)) %>% 
+  ggplot(aes(y = vore)) +
+  geom_bar(stat = "count") +
+  theme_light()
+```
+
+## Ordering columns in ggplot using `fct_infreq()` {auto-animate=true}
+
+```{r}
+#| output-location: column
+#| fig-height: 3
+#| fig-width: 5
+msleep %>% 
+  mutate(vore = fct_rev(fct_infreq(vore))) %>% 
+  ggplot(aes(y = vore)) +
+  geom_bar(stat = "count") +
+  theme_light()
+```
+
+
 ## `case_when()` 
 
 When using one ifelse() is not enough.
 
 ```{r}
 #| output-location: column-fragment
+
 data <- data.frame(x = 1:70)
 
 data %>%
@@ -345,14 +385,16 @@ data %>%
 ```
 
 
-## dates, time, and the [{lubridate}]{.blue_highlight} package
+## Dates, time, and the [{lubridate}]{.blue_highlight} package
 
-The {lubridate}{.blue_highlight} package provides super easy ways to detect and convert date variables into any format imaginable. If you are working with data that has date/time information, you should work with lubridate.
+The [{lubridate}]{.blue_highlight} package provides super easy ways to detect and convert date variables into any format imaginable. 
+
+If you are working with data that has date/time information, you should work with lubridate.
 
 See the [introduction to lubridate](https://lubridate.tidyverse.org/articles/lubridate.html) to get started.
 
 
-## strings using the stringr package
+## Strings using the stringr package
 
 We'll come to that in the regex section later today.
 
