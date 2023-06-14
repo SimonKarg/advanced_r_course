@@ -37,27 +37,36 @@ See next slides for examples of plots with the chocolate data.
 
 ## Recreate the plot! {.smaller .scrollable}
 
-### Plot 1
+### Plot 1 - using {ggalluvial}
 
 ![](images/pablo_alvarez.png)
 
-<https://twitter.com/pablo_alvrez/status/1484570382875213829>
+[Link to twitter post](https://twitter.com/pablo_alvrez/status/1484570382875213829)
 
-### Plot 2
+[Link to code](https://github.com/Pablo-Alvarez-Baeza/tidytuesday/blob/main/2022/03_chocolate_bar_ratings/2022_3_chocolate.R)
+
+
+### Plot 2 - using {ggridges}
 
 ![](images/lorena_abad.jpg)
-<https://twitter.com/loreabad6/status/1484184426963603466/photo/1>
+[Link to twitter post](https://twitter.com/loreabad6/status/1484184426963603466/photo/1)
 
+[Link to code](https://github.com/loreabad6/TidyTuesday/blob/master/R/2022/week_03.Rmd)
 
 ### Plot 3
 
 ![](images/luis_freites.jpg)
-<https://twitter.com/Luisfreii/status/1484173962938564613/photo/1>
+[Link to twitter post](https://twitter.com/Luisfreii/status/1484173962938564613/photo/1)
 
-### Plot 4
+[Link to code](https://github.com/luisfrein/R_Tidytuesday/blob/master/2022/W03_Chocolate_Ratings/W03_Chocolate_Ratings.R)
+
+
+### Plot 4 - using {waffle}
 
 ![](images/jamie_hudson.jpg)
-<https://twitter.com/Jamie_Bio/status/1484560753520697347/photo/1>
+[Link to twitter](https://twitter.com/Jamie_Bio/status/1484560753520697347/photo/1)
+
+[Link to code](https://github.com/HudsonJamie/tidy_tuesday/blob/main/2022/week_3/choc_ratings.R)
 
 
 Get the chocolate data like this:
