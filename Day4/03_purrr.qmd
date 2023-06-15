@@ -39,6 +39,10 @@ dat %>%
   theme(legend.position = "top")
 ```
 
+::: footer 
+Inspired by Albert Rapp: <https://yards.albert-rapp.de/lm-with-lists.html?q=purrr#lm-with-lists>
+
+:::
 
 ## A first idea {.smaller}
 
