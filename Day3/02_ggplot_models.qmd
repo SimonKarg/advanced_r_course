@@ -5,9 +5,14 @@ format:
     theme: [simple, ../assets/custom.scss]
     df-print: paged
     code-line-numbers: true
+    scrollable: true
 editor: source
 execute: 
   echo: true
+  fig-width: 6
+  fig-height: 5
+editor_options: 
+  chunk_output_type: inline
 ---
 
 
@@ -15,7 +20,7 @@ execute:
 
 ## Patchwork 
 
-::: aside
+::: footer
 Courtesy to [Albert Rapp's blogpost](
 https://albert-rapp.de/posts/ggplot2-tips/04_arranging_plots/04_arranging_plots.html)
 :::
@@ -61,37 +66,47 @@ plot3
 ```
 
 
-## Combining plots is as easy as 1 + 1 
-
-## adding plots with `+` puts them side by side
+## Adding plots with `+` puts them side by side {.scrollable}
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 5
 plot1 + plot2
 ```
 
 ## dividing plots with `/ `puts them beneath each other 
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
 plot1 / plot2
 ```
 
-## Create groups of plots by using parentheses:
+## Create groups of plots by using parentheses: {.scrollable}
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
 (plot1 + plot2) / plot3
 ```
 
-## This is nice, but we need to a few more things
+## This is nice, but we need to a few more things 
 . . .
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| output-location: fragment
 combined_plots <- (plot1 + plot2) / plot3 +
   plot_layout(guides = "collect")
 
 combined_plots
 ```
 
-## Try again, with just one legend
+## Try again, with just one legend 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| output-location: fragment
 plot1 <- plot1 + guides(colour = "none")
 plot2 <- plot2 + guides(colour = "none")
 
@@ -102,8 +117,11 @@ combined_plots
 ```
 
 
-## You can do global changes to all ggplot elements using the `&` operator
+## You can do global changes to all ggplot elements using the `&` operator 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| output-location: fragment
 combined_plots & 
   theme_light() &
   theme(legend.position = "top") &
@@ -111,8 +129,11 @@ combined_plots &
   scale_colour_brewer(palette = "Dark2") 
 ```
 
-## Finally, control layouts and add annotations
+## Finally, control layouts and add annotations {.scrollable}
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| output-location: fragment
 combined_plots +
   plot_layout(guides = "collect", 
               heights = c(0.6, 0.4)) +
@@ -132,9 +153,10 @@ combined_plots +
 ```
 
 
-## Patchwork can also inset plots
+## Patchwork can also inset plots {.smaller}
 
 ```{r}
+#| output-location: fragment
 plot3 <- plot3 +
   guides(colour = "none") +
   labs(y = "") +
@@ -164,10 +186,11 @@ plot1 +
   scale_colour_brewer(palette = "Dark2") 
 ```
 
+
 ## {background-iframe="https://patchwork.data-imaginist.com/index.html" background-interactive="true"}
 
 
-## Raincloud Plots
+## Raincloud Plots {.smaller}
 
 I love raincloud plots, so I have to shout them out here! They are unfortunately a bit tricky to create, and only work for some data types (real continuous data, not likert type data). 
 
@@ -176,10 +199,9 @@ But to just give some inspiration.
 There's several ways to create raincloud plots. The easiest is probably via the ggrain package:
 
 ```{r}
-install.packages("ggrain")
-```
-
-```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| output-location: fragment
 library(ggrain)
 
 ggplot(iris, aes(Species, Sepal.Length, fill = Species)) + 
@@ -187,21 +209,18 @@ ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
   coord_flip()
 ```
 
-But it's also possible with the ggdist and gghalves packages. 
-See this great [blog post by Cedric Scherer](https://www.cedricscherer.com/2021/06/06/visualizing-distributions-with-raincloud-plots-and-how-to-create-them-with-ggplot2/)
+But it's also possible with the ggdist and gghalves packages. See this great [blog post by Cedric Scherer](https://www.cedricscherer.com/2021/06/06/visualizing-distributions-with-raincloud-plots-and-how-to-create-them-with-ggplot2/)
 
 
 # Plotting Models
-
-## Plotting Models
 
 Several packages produce amazing plots that can go right in your papers :)
 
 Here's a couple of recommendations.
 
-## {ggstatsplot}
+## The [{ggstatsplot}]{.blue_highlight} package
 
-{Ggstatsplot} is amazing for plotting relatively simple tests (t-tests, ANOVA, simple correlations).
+[{ggstatsplot}]{.blue_highlight} is amazing for plotting relatively simple tests (t-tests, ANOVA, simple correlations).
 
 The default can look a bit unwieldy at times, but the plots can be highly customized.
 
@@ -210,14 +229,16 @@ library(ggstatsplot)
 ```
 
 ```{r}
+#| output-location: fragment
 # the default ANOVA
 iris %>% 
   ggstatsplot::ggbetweenstats(Species, Sepal.Length)
 ```
 
-## {ggstatsplot} - ANOVA
+## {ggstatsplot} - ANOVA 
 
 ```{r}
+#| output-location: fragment
 # changing things is super easy, as ggstatsplot outputs a ggplot object
 iris %>% 
   ggstatsplot::ggbetweenstats(Species, Sepal.Length) +
@@ -228,18 +249,20 @@ iris %>%
   theme(legend.position = "none")
 ```
 
-## {ggstatsplot} - Correlation
+## {ggstatsplot} - Correlation 
 
 ```{r}
+#| output-location: fragment
 iris %>% 
   ggstatsplot::ggscatterstats(Sepal.Length, Sepal.Width, 
                               bf.message = FALSE)
 ```
 
 
-## {ggstatsplot} - model parameters
+## {ggstatsplot} - model parameters 
 
 ```{r}
+#| output-location: fragment
 mod <- lm(formula = mpg ~ cyl * am, data = mtcars)
 
 # creating a plot
@@ -247,10 +270,11 @@ p <- ggcoefstats(mod)
 p
 ```
 
-## {ggstatsplot} - model parameters
+## using {ggstatsplot} for model parameters
 
 Not great for more complex models
 ```{r}
+#| output-location: fragment
 # predicting life expectancy in gapminder data
 my_model <- lme4::lmer(lifeExp ~ gdpPercap_log + year0 * continent + (1+year0|country),
                        data = dat %>% mutate(year0 = year - 1952,
@@ -259,23 +283,27 @@ my_model <- lme4::lmer(lifeExp ~ gdpPercap_log + year0 * continent + (1+year0|co
 ```
 
 ```{r}
+#| output-location: fragment
 ggcoefstats(my_model, effects = "fixed", sort = "ascending")
 ```
 
-## {sjPlot}
+## The {sjPlot} package
 
 sjPlot is an amazing package that is particularly nice for plotting complexer models.
 ```{r}
+#| output-location: fragment
 my_model %>% sjPlot::plot_model()
 ```
 
 ```{r}
+#| output-location: fragment
 my_model %>% sjPlot::plot_model(type = "pred", terms = c("year0", "continent"))
 ```
 
-## {sjPlot}
+## The {sjPlot} package
 
 ```{r}
+#| output-location: fragment
 my_model %>% sjPlot::plot_model(type = "pred", terms = c("year0", "continent")) +
   scale_x_continuous(labels = \(x) x + 1952) +
   theme_light() +
@@ -287,11 +315,12 @@ my_model %>% sjPlot::plot_model(type = "pred", terms = c("year0", "continent")) 
 ```
 
 
-## Dotwhisker
+## The [{Dotwhisker}]{.blue_highlight} package
 
 Also used by some people...
 
 ```{r}
+#| output-location: fragment
 library(dotwhisker)
 
 dotwhisker::dwplot(my_model)
@@ -299,4 +328,16 @@ dotwhisker::dwplot(my_model)
 
 
 # What are you favorite packages to plot models?
+
+## Modelsummary
+
+
+Modelplot from {modelsummary} can produce nice comparison plots from a set of models. Just provide a list of models to compare.
+
+```{r}
+#| output-location: fragment
+library(modelsummary)
+modelplot(list("model 1" = my_model, 
+               "model 2" = my_model))
+```
 

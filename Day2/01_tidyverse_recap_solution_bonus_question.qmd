@@ -25,7 +25,7 @@ chocolate_wide <- chocolate %>%
     delim = ",",
     names_sep = "_",
     too_few = "align_start"
-  ) 
+  ) %>% 
   
   # repair first ingredient column
   separate_wider_delim(
@@ -59,13 +59,6 @@ And then we can plot... For instance the mean rating for each ingredient :)
 chocolate_ingredients_long %>% 
   ggplot(aes(ingredient, rating)) +
   stat_summary(geom = "pointrange")
-```
-
-
-```{r}
-my_data_frame <- data.frame(
-  
-)
 ```
 
 

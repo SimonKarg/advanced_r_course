@@ -317,8 +317,9 @@ continent_list %>%
 
 ## A final way: all in one go! {.smaller auto-animate=true}
 
+. . .
 
-The previous idea was nice, but you still need to create a list of dataframes at the start (continent list). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).
+The previous idea was nice, but you still need to create a list of dataframes at the start (`continent_list`). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).
 
 Here's where you can use the `nest()` function :)
 

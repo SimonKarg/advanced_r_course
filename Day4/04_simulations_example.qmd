@@ -8,13 +8,16 @@ format:
 editor: source
 execute: 
   echo: true
+  cache: true
 ---
 
 # A short guide to doing simulations with purrr
 
 ## A simple example {.smaller .scrollable}
 
-Let's say we want to calculate the power to detect a correlation of .3^[we're actually doing something slightly different, but it's fine enough for our purposes. If you want to generate a precise correlation, use the `MASS::mvnorm()` function]
+. . .
+
+Let's say we want to calculate the power to detect a **correlation of .3**^[we're actually doing something slightly different, but it's fine enough for our purposes. If you want to generate a precise correlation, use the `MASS::mvnorm()` function]
 
 ```{r}
 library(tidyverse)
@@ -23,26 +26,32 @@ library(tidyverse)
 
 ```{r}
 x <- rnorm(100)
-error <- rnorm(100, mean = 0, sd = 1)
+error <- rnorm(100)
 y <- x * 0.3 + error
 
 dat <- data.frame(x = x, y = y)
 
-lm(y ~ x, data = dat) %>% broom::tidy()
+lm(y ~ x, data = dat) %>% 
+  broom::tidy()
 ```
 
+. . .
 
 ```{r}
+#| output-location: fragment
 dat %>% 
   ggplot(aes(x,y)) +
-  geom_smooth()
+  geom_point() +
+  geom_smooth(method = "lm")
 ```
 
 
 ## enter purrr {.smaller .scrollable}
 
+. . .
+
 ```{r}
-# define a function that generates a random dataset
+# Define a function that generates a random dataset
 generate_data <- function(x){
   # adding the x as an argument is a bit of a hack because we don't need it
   # there's an easier way to do this in R using the replicate function
@@ -51,7 +60,11 @@ generate_data <- function(x){
   
   result <- data.frame(measure_1, measure_2)
 }
+```
 
+. . .
+
+```{r}
 simulations_data <- tibble(simulation_id = c(1:1000)) %>% 
   
   mutate(sim_dat = map(simulation_id, generate_data),
@@ -60,14 +73,16 @@ simulations_data <- tibble(simulation_id = c(1:1000)) %>%
          p_value_measure_2 = map_dbl(tidy_model, \(x) x %>% 
                                        filter(term == "measure_1") %>%  
                                        pull(p.value)))
-
-
-simulations_data %>% 
-  summarise(n_sims = n(),
-            n_sig = sum(p_value_measure_2 < 0.05),
-            power = n_sig / n_sims)
 ```
 
+. . .
+
+```{r}
+simulations_data %>% 
+  summarise(power = mean(p_value_measure_2 < 0.05))
+```
+
+. . .
 
 This is nice, but only for a fixed sample size...
 
@@ -80,13 +95,18 @@ generate_data2 <- function(N){
   
   result <- data.frame(measure_1, measure_2)
 }
+```
 
+. . .
+
+```{r}
 simulations_data_2 <- crossing(
   simulation_id = c(1:500),
   sample_size = seq(50, 150, by = 10)
 )
 ```
 
+. . .
 
 ```{r}
 sim_outcome <- simulations_data_2 %>% 
@@ -98,6 +118,7 @@ sim_outcome <- simulations_data_2 %>%
                                        pull(p.value)))
 ```
 
+. . .
 
 ```{r}
 sim_outcome %>% 
@@ -108,6 +129,7 @@ sim_outcome %>%
   geom_point()
 ```
 
+. . .
 
 ```{r}
 sim_outcome %>% 
@@ -122,7 +144,8 @@ sim_outcome %>%
 
 
 # Practice: Do the same for a t-test 
-Bonus: what about different effect sizes?
+
+**Bonus:** what about different effect sizes?
 
 
 # Resources

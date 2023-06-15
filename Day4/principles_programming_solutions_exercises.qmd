@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+# Exercise 
+
+1. Create a create_barchart() function that plots a bar chart of a given variable.
+
+Bonus: make it so that bars are sorted by size (tip: use a function from the fct_ family)
+```{r}
+create_barplot <- function(data, variable_to_plot){
+  data %>% 
+    mutate({{variable_to_plot}} := fct_rev(fct_infreq({{variable_to_plot}}))) %>% 
+    ggplot(aes(y = {{variable_to_plot}})) +
+    geom_bar() +
+    theme_light()
+}
+
+create_barplot(iris, Species)
+```
+
+
+2. Change the create_scatterplot() function so that it has a title that describes which variables are plotted.
+
+Tip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you.
+
+```{r}
+create_scatter_plot <- function(data, variable1, variable2) {
+  variable_name1 <- ensym(variable1)
+  variable_name2 <- ensym(variable2)
+  
+  data %>% 
+    ggplot(aes({{variable1}}, {{variable2}})) +
+    geom_point() +
+    theme_light() +
+    labs(title = glue("Scatterplot between {variable_name1} and {variable_name2}"))
+}
+
+```
