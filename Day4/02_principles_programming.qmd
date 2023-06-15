@@ -8,6 +8,7 @@ format:
 editor: source
 execute: 
   echo: true
+link-external-newwindow: true
 ---
 
 # What is a function anyway?
@@ -385,13 +386,13 @@ str(lapply(x, mean, na.rm = TRUE))
 
 ## Practice
 
-Define a function that calculates standard error for a vector of numbers.
+Define a function that calculates the **standard error** for a vector of numbers.
 
-Bonus: make it so you can specify na.rm = TRUE
+**Bonus 1:** make it so you can specify na.rm = TRUE
 
-Bonus: make it so that it gives some informative errors when given wrong input (e.g. a character value). Tip: check out the `stopifnot()` function, or use an if statement 
+**Bonus 2:** make it so that it gives some informative errors when given wrong input (e.g. a character value). Tip: check out the `stopifnot()` function, or use an if statement.
 
-## Practice - Solution
+## Practice - Solution {.scrollable}
 
 . . .
 
@@ -403,18 +404,29 @@ se <- function(x, na.rm = FALSE) {
   # with an if statement
   if(!is.numeric(x)) {stop("x needs to be numeric")}
   
-  st.var <- sd(x, na.rm = na.rm)
-  len <- if(!na.rm) {
-    length(x)} else {
-      length(x[!is.na(x)])
-    }
+  std.dev <- sd(x, na.rm = na.rm)
   
-  out <- st.var / sqrt(len)
+  len <- if (!na.rm) {
+    length(x)
+  } else {
+    length(x[!is.na(x)])
+  }
+  
+  out <- std.dev / sqrt(len)
   out
 }
+```
 
-se(c(rnorm(10), NA), na.rm=TRUE)
 
+```{r}
+x <- c(NA, 1, 5, 2, NA, -3)
+
+se(x)
+```
+
+
+```{r}
+se(x, na.rm = TRUE)
 ```
 
 
@@ -423,7 +435,7 @@ se(c(rnorm(10), NA), na.rm=TRUE)
 
 ## Disclaimer
 
-Non-standard evaluation (also called tidy evaluation) is a tricky concept, and to be honest, I haven't understood it fully myself.
+[Non-standard evaluation]{.blue_highlight} (also called *tidy evaluation*) is a tricky concept, and to be honest, I haven't understood it fully myself.
 
 . . .
 
@@ -433,7 +445,7 @@ For most things you're likely to do with R, you probably won't need a deep under
 
 To learn more, Hadley Wickham's book Advanced R gives a good [introduction](https://adv-r.hadley.nz/metaprogramming.html)
 
-## Non-standard evaluation light {.smaller}
+## Non-standard evaluation *light* {.smaller}
 
 How does `select()` know what you are talking about?
 
@@ -449,7 +461,7 @@ my_data %>% select(col2)
 
 Tidyverse functions blur the boundary between **environment variables** (variables that exist within the global or function environment) and **data variables** (variables that exist as named columns in a dataframe). 
 
-## Non-standard evaluation light {.smaller}
+## Non-standard evaluation *light* {.smaller}
 
 In base R, you would need to quote column names to select them.
 
@@ -467,7 +479,7 @@ my_data[col2]
 my_data["col2"]
 ```
 
-## Non-standard evaluation light {.smaller}
+## Non-standard evaluation *light* {.smaller}
 
 Tidyverse code works by combining [code expressions]{.blue_highlight} (capturing the intent of a piece of code without evaluating it), with a data mask (a special object that basically turn data columns into objects). 
 
@@ -475,7 +487,7 @@ Tidyverse code works by combining [code expressions]{.blue_highlight} (capturing
 
 It does this to make working with these functions more convenient for you - so that you don't need to use `""` all the time.
 
-. . 
+. . .
 
 This however comes at a cost when you define your own functions that use tidyverse functions.
 
@@ -535,6 +547,8 @@ grouped_mean2(iris, Species, Sepal.Length)
 ```
 
 ## A final complication {.smaller}
+
+Using curly curly on the LHS of an assignment requires a special operator.
 
 ```{r}
 #| output-location: fragment

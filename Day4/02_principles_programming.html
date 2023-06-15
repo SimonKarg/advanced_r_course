@@ -827,11 +827,11 @@ $y</code></pre>
 </section>
 <section id="practice" class="slide level2">
 <h2>Practice</h2>
-<p>Define a function that calculates standard error for a vector of numbers.</p>
-<p>Bonus: make it so you can specify na.rm = TRUE</p>
-<p>Bonus: make it so that it gives some informative errors when given wrong input (e.g.&nbsp;a character value). Tip: check out the <code>stopifnot()</code> function, or use an if statement</p>
+<p>Define a function that calculates the <strong>standard error</strong> for a vector of numbers.</p>
+<p><strong>Bonus 1:</strong> make it so you can specify na.rm = TRUE</p>
+<p><strong>Bonus 2:</strong> make it so that it gives some informative errors when given wrong input (e.g.&nbsp;a character value). Tip: check out the <code>stopifnot()</code> function, or use an if statement.</p>
 </section>
-<section id="practice---solution" class="slide level2">
+<section id="practice---solution" class="slide level2 scrollable">
 <h2>Practice - Solution</h2>
 <div class="fragment">
 <div class="cell">
@@ -842,19 +842,30 @@ $y</code></pre>
 <span id="cb55-5"><a href="#cb55-5"></a>  <span class="co"># with an if statement</span></span>
 <span id="cb55-6"><a href="#cb55-6"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.numeric</span>(x)) {<span class="fu">stop</span>(<span class="st">"x needs to be numeric"</span>)}</span>
 <span id="cb55-7"><a href="#cb55-7"></a>  </span>
-<span id="cb55-8"><a href="#cb55-8"></a>  st.var <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb55-9"><a href="#cb55-9"></a>  len <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="sc">!</span>na.rm) {</span>
-<span id="cb55-10"><a href="#cb55-10"></a>    <span class="fu">length</span>(x)} <span class="cf">else</span> {</span>
-<span id="cb55-11"><a href="#cb55-11"></a>      <span class="fu">length</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])</span>
-<span id="cb55-12"><a href="#cb55-12"></a>    }</span>
-<span id="cb55-13"><a href="#cb55-13"></a>  </span>
-<span id="cb55-14"><a href="#cb55-14"></a>  out <span class="ot">&lt;-</span> st.var <span class="sc">/</span> <span class="fu">sqrt</span>(len)</span>
-<span id="cb55-15"><a href="#cb55-15"></a>  out</span>
-<span id="cb55-16"><a href="#cb55-16"></a>}</span>
-<span id="cb55-17"><a href="#cb55-17"></a></span>
-<span id="cb55-18"><a href="#cb55-18"></a><span class="fu">se</span>(<span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="cn">NA</span>), <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb55-8"><a href="#cb55-8"></a>  std.dev <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb55-9"><a href="#cb55-9"></a>  </span>
+<span id="cb55-10"><a href="#cb55-10"></a>  len <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="sc">!</span>na.rm) {</span>
+<span id="cb55-11"><a href="#cb55-11"></a>    <span class="fu">length</span>(x)</span>
+<span id="cb55-12"><a href="#cb55-12"></a>  } <span class="cf">else</span> {</span>
+<span id="cb55-13"><a href="#cb55-13"></a>    <span class="fu">length</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])</span>
+<span id="cb55-14"><a href="#cb55-14"></a>  }</span>
+<span id="cb55-15"><a href="#cb55-15"></a>  </span>
+<span id="cb55-16"><a href="#cb55-16"></a>  out <span class="ot">&lt;-</span> std.dev <span class="sc">/</span> <span class="fu">sqrt</span>(len)</span>
+<span id="cb55-17"><a href="#cb55-17"></a>  out</span>
+<span id="cb55-18"><a href="#cb55-18"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="sc">-</span><span class="dv">3</span>)</span>
+<span id="cb56-2"><a href="#cb56-2"></a></span>
+<span id="cb56-3"><a href="#cb56-3"></a><span class="fu">se</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3278084</code></pre>
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">se</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.652019</code></pre>
 </div>
 </div>
 </div>
@@ -866,7 +877,7 @@ $y</code></pre>
 </section>
 <section id="disclaimer" class="slide level2">
 <h2>Disclaimer</h2>
-<p>Non-standard evaluation (also called tidy evaluation) is a tricky concept, and to be honest, I haven’t understood it fully myself.</p>
+<p><span class="blue_highlight">Non-standard evaluation</span> (also called <em>tidy evaluation</em>) is a tricky concept, and to be honest, I haven’t understood it fully myself.</p>
 <div class="fragment">
 <p>For most things you’re likely to do with R, you probably won’t need a deep understanding of it. However, if you want to program with <span class="blue_highlight">tidyverse</span> functions, you will need to understand a few tricks.</p>
 </div>
@@ -875,20 +886,20 @@ $y</code></pre>
 </div>
 </section>
 <section id="non-standard-evaluation-light" class="slide level2 smaller">
-<h2>Non-standard evaluation light</h2>
+<h2>Non-standard evaluation <em>light</em></h2>
 <p>How does <code>select()</code> know what you are talking about?</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">col1 =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb57-2"><a href="#cb57-2"></a>                  <span class="at">col2 =</span> <span class="fu">rnorm</span>(<span class="dv">5</span>))</span>
-<span id="cb57-3"><a href="#cb57-3"></a></span>
-<span id="cb57-4"><a href="#cb57-4"></a>my_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(col2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">col1 =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb60-2"><a href="#cb60-2"></a>                  <span class="at">col2 =</span> <span class="fu">rnorm</span>(<span class="dv">5</span>))</span>
+<span id="cb60-3"><a href="#cb60-3"></a></span>
+<span id="cb60-4"><a href="#cb60-4"></a>my_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(col2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["col2"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"-0.7257948"},{"1":"0.9257793"},{"1":"1.2965143"},{"1":"0.6885665"},{"1":"0.5554698"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["col2"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1.1741471"},{"1":"1.2104010"},{"1":"0.4441852"},{"1":"1.5248852"},{"1":"0.8894267"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -899,12 +910,12 @@ $y</code></pre>
 </div>
 </section>
 <section id="non-standard-evaluation-light-1" class="slide level2 smaller">
-<h2>Non-standard evaluation light</h2>
+<h2>Non-standard evaluation <em>light</em></h2>
 <p>In base R, you would need to quote column names to select them.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># this does not work</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>my_data[col2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># this does not work</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>my_data[col2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'col2' not found</code></pre>
@@ -914,13 +925,13 @@ $y</code></pre>
 <div class="fragment">
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>my_data[<span class="st">"col2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>my_data[<span class="st">"col2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["col2"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"-0.7257948"},{"1":"0.9257793"},{"1":"1.2965143"},{"1":"0.6885665"},{"1":"0.5554698"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["col2"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1.1741471"},{"1":"1.2104010"},{"1":"0.4441852"},{"1":"1.5248852"},{"1":"0.8894267"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -929,11 +940,12 @@ $y</code></pre>
 </div>
 </section>
 <section id="non-standard-evaluation-light-2" class="slide level2 smaller">
-<h2>Non-standard evaluation light</h2>
+<h2>Non-standard evaluation <em>light</em></h2>
 <p>Tidyverse code works by combining <span class="blue_highlight">code expressions</span> (capturing the intent of a piece of code without evaluating it), with a data mask (a special object that basically turn data columns into objects).</p>
 <div class="fragment">
 <p>It does this to make working with these functions more convenient for you - so that you don’t need to use <code>""</code> all the time.</p>
-<p>. .</p>
+</div>
+<div class="fragment">
 <p>This however comes at a cost when you define your own functions that use tidyverse functions.</p>
 </div>
 </section>
@@ -941,10 +953,10 @@ $y</code></pre>
 <h2>An example: defining a <code>grouped_mean()</code> function</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># Let's turn this following code into a function</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb61-3"><a href="#cb61-3"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-4"><a href="#cb61-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_sep_length =</span> <span class="fu">mean</span>(Sepal.Length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="co"># Let's turn this following code into a function</span></span>
+<span id="cb64-2"><a href="#cb64-2"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-4"><a href="#cb64-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_sep_length =</span> <span class="fu">mean</span>(Sepal.Length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output-display">
 
@@ -958,17 +970,17 @@ $y</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>grouped_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var) {</span>
-<span id="cb62-2"><a href="#cb62-2"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb62-3"><a href="#cb62-3"></a>    <span class="fu">group_by</span>(grouping_var) <span class="sc">%&gt;%</span> </span>
-<span id="cb62-4"><a href="#cb62-4"></a>    <span class="fu">summarise</span>(<span class="at">mean_variable =</span> <span class="fu">mean</span>(values_var))</span>
-<span id="cb62-5"><a href="#cb62-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>grouped_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var) {</span>
+<span id="cb65-2"><a href="#cb65-2"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="#cb65-3"></a>    <span class="fu">group_by</span>(grouping_var) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-4"><a href="#cb65-4"></a>    <span class="fu">summarise</span>(<span class="at">mean_variable =</span> <span class="fu">mean</span>(values_var))</span>
+<span id="cb65-5"><a href="#cb65-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">grouped_mean</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="fu">grouped_mean</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output cell-output-error">
 <pre><code>Error in `group_by()`:
@@ -992,13 +1004,13 @@ $y</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>grouped_mean2 <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var) {</span>
-<span id="cb65-2"><a href="#cb65-2"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="#cb65-3"></a>    <span class="fu">group_by</span>({{ grouping_var }}) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-4"><a href="#cb65-4"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{ values_var }}))</span>
-<span id="cb65-5"><a href="#cb65-5"></a>}</span>
-<span id="cb65-6"><a href="#cb65-6"></a></span>
-<span id="cb65-7"><a href="#cb65-7"></a><span class="fu">grouped_mean2</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>grouped_mean2 <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var) {</span>
+<span id="cb68-2"><a href="#cb68-2"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3"></a>    <span class="fu">group_by</span>({{ grouping_var }}) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-4"><a href="#cb68-4"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{ values_var }}))</span>
+<span id="cb68-5"><a href="#cb68-5"></a>}</span>
+<span id="cb68-6"><a href="#cb68-6"></a></span>
+<span id="cb68-7"><a href="#cb68-7"></a><span class="fu">grouped_mean2</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output-display">
@@ -1014,16 +1026,17 @@ $y</code></pre>
 </section>
 <section id="a-final-complication" class="slide level2 smaller">
 <h2>A final complication</h2>
+<p>Using curly curly on the LHS of an assignment requires a special operator.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb66-2"><a href="#cb66-2"></a></span>
-<span id="cb66-3"><a href="#cb66-3"></a>grouped_mean3 <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var, <span class="at">prefix =</span> <span class="st">"avg"</span>) {</span>
-<span id="cb66-4"><a href="#cb66-4"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb66-5"><a href="#cb66-5"></a>    <span class="fu">group_by</span>({{ grouping_var }}) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-6"><a href="#cb66-6"></a>    <span class="fu">summarise</span>(<span class="st">"{prefix}_{{values_var}}"</span> <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>({{values_var}}))</span>
-<span id="cb66-7"><a href="#cb66-7"></a>}</span>
-<span id="cb66-8"><a href="#cb66-8"></a></span>
-<span id="cb66-9"><a href="#cb66-9"></a><span class="fu">grouped_mean3</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb69-2"><a href="#cb69-2"></a></span>
+<span id="cb69-3"><a href="#cb69-3"></a>grouped_mean3 <span class="ot">&lt;-</span> <span class="cf">function</span>(data, grouping_var, values_var, <span class="at">prefix =</span> <span class="st">"avg"</span>) {</span>
+<span id="cb69-4"><a href="#cb69-4"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb69-5"><a href="#cb69-5"></a>    <span class="fu">group_by</span>({{ grouping_var }}) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-6"><a href="#cb69-6"></a>    <span class="fu">summarise</span>(<span class="st">"{prefix}_{{values_var}}"</span> <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>({{values_var}}))</span>
+<span id="cb69-7"><a href="#cb69-7"></a>}</span>
+<span id="cb69-8"><a href="#cb69-8"></a></span>
+<span id="cb69-9"><a href="#cb69-9"></a><span class="fu">grouped_mean3</span>(iris, Species, Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output-display">
@@ -1043,15 +1056,15 @@ $y</code></pre>
 <h2 data-id="quarto-animate-title">Another example: programming with ggplot</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb67-1" class="hljs-ln-code"><a href="#cb67-1"></a>create_scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable1, variable2) {</span>
-<span id="cb67-2" class="hljs-ln-code"><a href="#cb67-2"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb67-3" class="hljs-ln-code"><a href="#cb67-3"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(variable1, variable2)) <span class="sc">+</span></span>
-<span id="cb67-4" class="hljs-ln-code"><a href="#cb67-4"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb67-5" class="hljs-ln-code"><a href="#cb67-5"></a>    <span class="fu">theme_light</span>()</span>
-<span id="cb67-6" class="hljs-ln-code"><a href="#cb67-6"></a>}</span>
-<span id="cb67-7" class="hljs-ln-code"><a href="#cb67-7"></a></span>
-<span id="cb67-8" class="hljs-ln-code"><a href="#cb67-8"></a><span class="co"># hello darkness, my old friend</span></span>
-<span id="cb67-9" class="hljs-ln-code"><a href="#cb67-9"></a><span class="fu">create_scatter_plot</span>(mtcars, mpg, cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb70-1" class="hljs-ln-code"><a href="#cb70-1"></a>create_scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable1, variable2) {</span>
+<span id="cb70-2" class="hljs-ln-code"><a href="#cb70-2"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb70-3" class="hljs-ln-code"><a href="#cb70-3"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(variable1, variable2)) <span class="sc">+</span></span>
+<span id="cb70-4" class="hljs-ln-code"><a href="#cb70-4"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb70-5" class="hljs-ln-code"><a href="#cb70-5"></a>    <span class="fu">theme_light</span>()</span>
+<span id="cb70-6" class="hljs-ln-code"><a href="#cb70-6"></a>}</span>
+<span id="cb70-7" class="hljs-ln-code"><a href="#cb70-7"></a></span>
+<span id="cb70-8" class="hljs-ln-code"><a href="#cb70-8"></a><span class="co"># hello darkness, my old friend</span></span>
+<span id="cb70-9" class="hljs-ln-code"><a href="#cb70-9"></a><span class="fu">create_scatter_plot</span>(mtcars, mpg, cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `geom_point()`:
 ! Problem while computing aesthetics.
@@ -1065,19 +1078,19 @@ Caused by error:
 <section id="another-example-programming-with-ggplot-1" class="slide level2 scrollable" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Another example: programming with ggplot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb69-1" class="hljs-ln-code"><a href="#cb69-1"></a>create_scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable1, variable2) {</span>
-<span id="cb69-2" class="hljs-ln-code"><a href="#cb69-2"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb69-3" class="hljs-ln-code"><a href="#cb69-3"></a>    <span class="co"># Curly Curly to the rescue!</span></span>
-<span id="cb69-4" class="hljs-ln-code"><a href="#cb69-4"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>({{variable1}}, {{variable2}})) <span class="sc">+</span></span>
-<span id="cb69-5" class="hljs-ln-code"><a href="#cb69-5"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb69-6" class="hljs-ln-code"><a href="#cb69-6"></a>    <span class="fu">theme_light</span>()</span>
-<span id="cb69-7" class="hljs-ln-code"><a href="#cb69-7"></a>}</span>
-<span id="cb69-8" class="hljs-ln-code"><a href="#cb69-8"></a></span>
-<span id="cb69-9" class="hljs-ln-code"><a href="#cb69-9"></a><span class="fu">create_scatter_plot</span>(mtcars, mpg, cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb72-1" class="hljs-ln-code"><a href="#cb72-1"></a>create_scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable1, variable2) {</span>
+<span id="cb72-2" class="hljs-ln-code"><a href="#cb72-2"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3" class="hljs-ln-code"><a href="#cb72-3"></a>    <span class="co"># Curly Curly to the rescue!</span></span>
+<span id="cb72-4" class="hljs-ln-code"><a href="#cb72-4"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>({{variable1}}, {{variable2}})) <span class="sc">+</span></span>
+<span id="cb72-5" class="hljs-ln-code"><a href="#cb72-5"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-6" class="hljs-ln-code"><a href="#cb72-6"></a>    <span class="fu">theme_light</span>()</span>
+<span id="cb72-7" class="hljs-ln-code"><a href="#cb72-7"></a>}</span>
+<span id="cb72-8" class="hljs-ln-code"><a href="#cb72-8"></a></span>
+<span id="cb72-9" class="hljs-ln-code"><a href="#cb72-9"></a><span class="fu">create_scatter_plot</span>(mtcars, mpg, cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output-display">
-<p><img data-src="02_principles_programming_files/figure-revealjs/unnamed-chunk-38-1.png" width="960"></p>
+<p><img data-src="02_principles_programming_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
 </div>
 </div>
 </section></section>
@@ -1499,6 +1512,20 @@ Caused by error:
           });
         }
       }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+              // target, if specified
+              link.setAttribute("target", "_blank");
+          }
+        }
     });
     </script>
     
