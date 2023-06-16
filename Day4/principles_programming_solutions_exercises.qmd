@@ -27,6 +27,9 @@ create_barplot(iris, Species)
 Tip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you.
 
 ```{r}
+library(tidyverse)
+library(glue)
+
 create_scatter_plot <- function(data, variable1, variable2) {
   variable_name1 <- ensym(variable1)
   variable_name2 <- ensym(variable2)
@@ -39,3 +42,8 @@ create_scatter_plot <- function(data, variable1, variable2) {
 }
 
 ```
+
+```{r}
+create_scatter_plot(mtcars, mpg, cyl)
+```
+

@@ -12,17 +12,19 @@ execute:
 
 # Publishing your webpage as a github page
 
-## Workflow: {.smaller .scrollable}
+## Workflow {.smaller .scrollable}
 
-1.  Create repo on github first! The name of the github needs to be <your_user_name>.github.io (see step 1 <https://pages.github.com/>) Repo needs to be public.
-2.  Copy repo link
-3.  Clone repo to machine, using Rstudio: create new project --\> version control: git --\> enter url
-4.  Copy paste files over (check in Rstudio git pane to see whether it worked)
-5.  Change output-location in \_quarto.yml to docs (see my website for example)
-6.  Render all the .qmd documents, so they appear in /docs folder
-7.  add a .nojekyll file to the /docs folder
-8.  add all files and push to git repo
-9.  go to your github repo: go to settings --\> pages --\> set branch to /docs
+This workflow sets up your quarto page as a github page. **Please also refer to the resources below!**
+
+1.  Create a repository on github first! The name of the github repository needs to be <your_user_name>.github.io (see step 1 <https://pages.github.com/>) The repository needs to be public.
+2.  Copy the link that github provides immediately after you create the repository
+3.  Clone the repo to your computer by using Rstudio. Open Rstudio, go to "create new project" --\> choose "version control: git" --\> enter the github url you just copied in there
+4.  Copy paste all files over from your website R project into the newly created R project folder. Restart Rstudio, reopen the Rproject and check for the git pane to see whether it worked (it should show a "git" pane in the window where the environment pane sits))
+5.  Open the "\_quarto.yml" file and change the output-location to "docs" (see resources below, and the _quarto.yml file for my website for an example)
+6.  Render all your .qmd documents for your website. Check whether they appear in the /docs folder
+7.  Add an empty file called ".nojekyll" to the /docs folder (the . at start is important!)
+8.  Go to the git pane within Rstudio, and push all files to the git repo. They should now appear when you look at the online repository on Github
+9.  Go to your online github repo (within your browser): go to settings --\> pages --\> set branch to /docs
 10. Your site should be live. Go check..
 
 Resource for step 1 (only do step 1 of this)! <https://pages.github.com/>
