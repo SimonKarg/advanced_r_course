@@ -1,0 +1,1451 @@
+[
+  {
+    "objectID": "Day1/05_exercise.html#pick-one",
+    "href": "Day1/05_exercise.html#pick-one",
+    "title": "Day 1 - Practical Session",
+    "section": "Pick one",
+    "text": "Pick one\n\n\nWork on an existing R project and make it more reproducible, ideas include:\n\ncomment your code\ninclude sessionInfo()\ntry out the {renv} package\norganize your files in a consistent structure\nsend your code to your neighbour, see if they can understand it, run it?\n\n\nStart a new R project\n\nGet some data to work with - My suggestion: tidytuesday squirrel data\nBuild an .rmd / .qmd document (your choice)\nDo some data exploration (cleaning, plotting, …)\nAdd some tabbed content\ntry out the {renv} package\n…\n\n\n\nGet the squirrel data like this\n\nsquirrel_data &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-23/squirrel_data.csv')"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#automatic-formatting",
+    "href": "Day1/03_good_code.html#automatic-formatting",
+    "title": "Good Code",
+    "section": "Automatic formatting",
+    "text": "Automatic formatting\n\n\n\n\n\n\nUse automatic formatting to do some automatic cleaning of your code\n\n\n\nFor mac: Cmd + Shift + A\nFor windows: Ctrl + Shift + A\n\nHelps with many things, but not a magic bullet..\n\n\n\n\n\n# before automatic formatting\na_random_function &lt;- function(something, something_else){result &lt;- do_something(something) %&gt;% \n  do_something_new(something_else)}\n\n\n\n\n\n# after automatic formatting\na_random_function &lt;-\n  function(something, something_else) {\n    result &lt;- do_something(something) %&gt;%\n      do_something_new(something_else)\n  }"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#the-styler-package",
+    "href": "Day1/03_good_code.html#the-styler-package",
+    "title": "Good Code",
+    "section": "The {styler} package",
+    "text": "The {styler} package\n\n\n\n\n\n\n\nTip\n\n\n\nYou can automatically style code and entire scripts using the {styler} package.\nThis is especially handy for using .rmd or .qmd files. Here, you can simply specify the tidier as a knitr chunk option.\n\n\nknitr::opts_chunk$set(tidy = \"styler\")\n\nNote that this doesn’t affect the source document (i.e. the script), but only affects the knitted document.\n\nan_unstylized_example &lt;- \"asdf\""
+  },
+  {
+    "objectID": "Day1/03_good_code.html#consistency-is-key",
+    "href": "Day1/03_good_code.html#consistency-is-key",
+    "title": "Good Code",
+    "section": "Consistency is key!",
+    "text": "Consistency is key!\nUse one system and stick to it. This will help not only with readibility, but also writing code to for example select key variables of interest.\n\nCompare:\n\nmy_data %&gt;%\n  select(\n    \"item_1\",\n    \"Item_2\",\n    \"This_is_the_3_item\",\n    \"Yet_another_item\",\n    \"What.is.this.item?\"\n  )\n\n\n\nmy_data %&gt;%\n  select(starts_with(\"scale_name\"))"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#my-best-practices-for-naming-stuff",
+    "href": "Day1/03_good_code.html#my-best-practices-for-naming-stuff",
+    "title": "Good Code",
+    "section": "My best practices for naming stuff",
+    "text": "My best practices for naming stuff\nI like the following:\n\n\nsmall case for all variables\nsnake_case\nnouns for variables and datasets, verbs for functions"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#tip-the-clean_names-function-from-the-janitor-package",
+    "href": "Day1/03_good_code.html#tip-the-clean_names-function-from-the-janitor-package",
+    "title": "Good Code",
+    "section": "Tip: the clean_names() function from the {janitor} package",
+    "text": "Tip: the clean_names() function from the {janitor} package\n\ndata_with_bad_names &lt;- tibble(\n  BAD_NAME = 1,\n  `really bad name` = 2,\n  `1 - another bad (name)` = 3\n)\n\ndata_with_bad_names %&gt;%\n  janitor::clean_names() %&gt;%\n  names()\n\n\n\n[1] \"bad_name\"            \"really_bad_name\"     \"x1_another_bad_name\"\n\n\n\n\n\n# also works with other cases, if you prefer those\n# (see ?sankecase::to_any_case)\ndata_with_bad_names %&gt;%\n  janitor::clean_names(case = \"upper_camel\") %&gt;%\n  names()\n\n[1] \"BadName\"          \"ReallyBadName\"    \"X1AnotherBadName\""
+  },
+  {
+    "objectID": "Day1/03_good_code.html#code-commenting-practices",
+    "href": "Day1/03_good_code.html#code-commenting-practices",
+    "title": "Good Code",
+    "section": "Code commenting practices",
+    "text": "Code commenting practices\n\n\nmore is not always better\ngeneral advice: comments shouldn’t focus on the how, but the why\n\n\n\n\n# load in data\ndf &lt;- readr::read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-17/artists.csv\")\n\n\n\n# load tidytuesday dataset on artists\n# see documentation: https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-17/readme.md\ndf &lt;- readr::read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv\")"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#code-commenting-exercise-15-min",
+    "href": "Day1/03_good_code.html#code-commenting-exercise-15-min",
+    "title": "Good Code",
+    "section": "Code commenting exercise (~15 min?)",
+    "text": "Code commenting exercise (~15 min?)\n\nGo back to an old script (e.g. for data cleaning, …) of yours (preferably older than 6 months) and take a look at it\n\nWhat have you commented, what haven’t you commented?\nWhich comments make sense to you? Which don’t?\nShow the code to your neighbor without explaining it. What can they understand, what don’t they understand?"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#workflow",
+    "href": "Day1/03_good_code.html#workflow",
+    "title": "Good Code",
+    "section": "Workflow",
+    "text": "Workflow\n\nGeneral logic: all data cleaning / manipulation first, then analyses\n\n\nFor more complex projects, keep data cleaning and analysis in separate scripts."
+  },
+  {
+    "objectID": "Day1/03_good_code.html#load-all-necessary-packages-at-the-start-of-the-script",
+    "href": "Day1/03_good_code.html#load-all-necessary-packages-at-the-start-of-the-script",
+    "title": "Good Code",
+    "section": "Load all necessary packages at the start of the script",
+    "text": "Load all necessary packages at the start of the script\n\n\nmakes it easier to understand which packages are needed\nif you only need a function from a specific function once, do not necessary load in the package, you can also just call a function with reference to its namespace using the :: notation\n\n\nMASS::bcv()"
+  },
+  {
+    "objectID": "Day1/03_good_code.html#the-conflicted-package",
+    "href": "Day1/03_good_code.html#the-conflicted-package",
+    "title": "Good Code",
+    "section": "The {conflicted} package",
+    "text": "The {conflicted} package\n\n\n\n\n\n\nDealing with name conflicts\n\n\nThe {conflicted} package helps navigate name conflicts of functions from different packages (functions having the same name, such as base::filter() and dplyr::filter())\nThe conflicted::conflict_prefer() function lets you set defaults for which function you prefer in this case.\nIf you deal with packages that have naming conflicts, loading the {conflicted} package at the start of your R scripts is a good idea."
+  },
+  {
+    "objectID": "Day1/01_intro.html#day-1",
+    "href": "Day1/01_intro.html#day-1",
+    "title": "Advanced R programming",
+    "section": "Day 1",
+    "text": "Day 1\n\nWhat we’ll do today\n\nIntroduction rounds\nKeeping your projects organized (project setup, data management, here::here(), …)\nGood code\nRmarkdown & Quarto for reports and analyses\nPackage documentation ({renv} / sessionInfo() …)\nExercise: work with reproducible documents"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html",
+    "href": "Day1/example_quarto/example_quarto.html",
+    "title": "Title",
+    "section": "",
+    "text": "This is an example of an Quarto document. Quarto is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.\nIt is super versatile, and a lot of formatting and styling options can be specified using the YAML header (the section at the very top of this document)."
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#heading-2",
+    "href": "Day1/example_quarto/example_quarto.html#heading-2",
+    "title": "Title",
+    "section": "Heading 2",
+    "text": "Heading 2\n\nHeading 3\nYou can also create a bullet list using -:\n\nitem 1\nitem 2\nitem 3"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#moving-from-rmarkdown-to-quarto",
+    "href": "Day1/example_quarto/example_quarto.html#moving-from-rmarkdown-to-quarto",
+    "title": "Title",
+    "section": "Moving from rmarkdown to quarto",
+    "text": "Moving from rmarkdown to quarto\nThe move from .rmd to .qmd is relatively easy. The basic layout and workflow is the same. The only bigger differences are that\n\ncode chunk options are no longer in the first line of the code chunk, but are now defined as fenced comments at the start of the code chunk, like so:\n\n\n\nCode\nsome_code_here\n\n\nImportantly, the names of the code-chunk options are largely the same, so not much relearning is necessary. Global chunk options can also be set in the yaml header at the top of the document, under the execute option (see above).\n\nUntil now, there is no change knitting directory to project directory option as there is with .rmd files in RStudio. This means that knitting scripts may sometimes fail because it can’t load your data. The easiest way to cope with this issue is to use the here::here function to load in data. This is good practice anyway, so it’s not a big loss.\n\nHere’s an example of how to work with the EU data"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#loading-data",
+    "href": "Day1/example_quarto/example_quarto.html#loading-data",
+    "title": "Title",
+    "section": "Loading Data",
+    "text": "Loading Data\nHere, we load the raw data from URL.\n\n\nCode\nraw_data &lt;- read_csv(\"https://comparativeagendas.s3.amazonaws.com/datasetfiles/ECC_7.0_1975-2014_1.csv\")"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#preprocessing",
+    "href": "Day1/example_quarto/example_quarto.html#preprocessing",
+    "title": "Title",
+    "section": "Preprocessing",
+    "text": "Preprocessing\nHere, we do some preprocessing of the data. For instance, we might get rid of a bunch of colums in the raw dataset that we do not need\n\n\nCode\ncleaned_dat &lt;- raw_data |&gt;\n  select(-starts_with(\"filter\"))"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#data-overview",
+    "href": "Day1/example_quarto/example_quarto.html#data-overview",
+    "title": "Title",
+    "section": "Data overview",
+    "text": "Data overview\nHere, we give an overview of the data in the cleaned dataset. We’re using the skimr package, which does this automatically for you.\n\n\nCode\nskimr::skim(cleaned_dat)\n\n\n\nData summary\n\n\nName\ncleaned_dat\n\n\nNumber of rows\n48321\n\n\nNumber of columns\n15\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n12\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\ndescription\n0\n1\n3\n1005\n0\n46536\n0\n\n\ndate\n0\n1\n6\n10\n0\n149\n0\n\n\necprc\n0\n1\n2\n2\n0\n78\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1\n24161.00\n13949.22\n1\n12081\n24161\n36241\n48321\n▇▇▇▇▇\n\n\nyear\n0\n1\n1999.59\n9.08\n1975\n1994\n2000\n2006\n2014\n▁▂▆▇▆\n\n\nmajortopic\n0\n1\n11.79\n7.21\n0\n5\n15\n19\n23\n▆▅▂▅▇\n\n\nsubtopic\n0\n1\n1185.60\n722.93\n0\n500\n1500\n1900\n2311\n▆▅▂▅▇\n\n\nmajortopic_eu\n0\n1\n1188.64\n726.38\n0\n500\n1500\n1900\n2399\n▅▃▂▇▃\n\n\nsubtopic_eu\n0\n1\n11.78\n7.22\n0\n5\n15\n19\n23\n▆▅▂▅▇\n\n\nplace\n0\n1\n16.57\n12.40\n1\n8\n8\n26\n49\n▇▂▂▂▂\n\n\necprs\n0\n1\n16.12\n7.54\n3\n11\n15\n23\n29\n▅▇▆▅▆\n\n\nid_quasisentence\n0\n1\n307.09\n325.85\n1\n89\n213\n410\n2259\n▇▂▁▁▁\n\n\nfiler_meetinfor\n0\n1\n0.01\n0.11\n0\n0\n0\n0\n1\n▇▁▁▁▁\n\n\nfiler_meetextr\n0\n1\n0.02\n0.14\n0\n0\n0\n0\n1\n▇▁▁▁▁\n\n\nfiler_meetcoun\n0\n1\n0.00\n0.03\n0\n0\n0\n0\n1\n▇▁▁▁▁"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#external-resources",
+    "href": "Day1/example_quarto/example_quarto.html#external-resources",
+    "title": "Title",
+    "section": "External resources",
+    "text": "External resources\nThere’s a ton of stuff to learn with quarto. Get inspiration here: https://quarto.org/docs/authoring/markdown-basics.html"
+  },
+  {
+    "objectID": "Day1/example_quarto/example_quarto.html#practical-tips",
+    "href": "Day1/example_quarto/example_quarto.html#practical-tips",
+    "title": "Title",
+    "section": "Practical tips",
+    "text": "Practical tips\n\nYAML header options\nHere’s the YAML header options I like to specify for my projects (see also above):\n\n\nCode\ntitle: \"Title\"\nformat: \n  html:\n    toc: true\n    self-contained: true\n    code-fold: true\n    code-tools: true\neditor: source\nauthor: Author\ntheme: flatly\nexecute: \n  cache: true\n  warning: false\n  message: false\n  fig-width: 12 \n  fig-height: 9\n\n\n\n\nHTML Styling\nIn contrast to .rmd, I’m not using additional styling for quarto docs. But it would of course be possible to add styling, either in the document, or as a separate css file.\n\n\nTabulated content\nWorking with tabulated content. You can do so by adding a markdown div with ::: {.panel-tabset} to the document. Each top-level heading within the div creates a new tab, like so\n\nTab 1Tab 2Tab 3\n\n\nSome content for tab 1\n\n\nDifferent content for tab 2\n\n\nYet other content content for tab 3\n\n\n\nNeat, right?"
+  },
+  {
+    "objectID": "Day5/02_intro_git_github.html#what-is-git",
+    "href": "Day5/02_intro_git_github.html#what-is-git",
+    "title": "Intro to git & github",
+    "section": "What is git?",
+    "text": "What is git?\n\nGit is a version control system\nit was designed to help a group of developers work collaboratively on software projects.\ngit manages the evolution of a set of files - a repository - in a highly structured way.\n\n\n\nThis is based on happy git with R, written by Jenny Bryan, the STAT 545 TAs, and Jim Hester."
+  },
+  {
+    "objectID": "Day5/02_intro_git_github.html#what-is-github",
+    "href": "Day5/02_intro_git_github.html#what-is-github",
+    "title": "Intro to git & github",
+    "section": "What is github?",
+    "text": "What is github?\n\ngithub is an online location where your git repositories can live (they could also just live on your computer, but it’s better to also have them in the cloud)\ngithub also provides some nice features that make sharing, communicating, collaborating, … much easier"
+  },
+  {
+    "objectID": "Day5/02_intro_git_github.html#should-you-use-git",
+    "href": "Day5/02_intro_git_github.html#should-you-use-git",
+    "title": "Intro to git & github",
+    "section": "Should you use git?",
+    "text": "Should you use git?\n\nMaybe.\n\n\nIf you’re only working alone and you’re not planning to one day get a job in a software or data science role, git is probably overkill.\n\n\nI personally use git only on projects where I work with other people on code, which is not a lot. So I am myself no git wizard.\n\n\nWhat we’ll be doing today is only a short introduction to git and github! There’s a lot more to learn :)"
+  },
+  {
+    "objectID": "Day5/02_intro_git_github.html#getting-started",
+    "href": "Day5/02_intro_git_github.html#getting-started",
+    "title": "Intro to git & github",
+    "section": "Getting started",
+    "text": "Getting started\nGetting git to work on your computer for the first time is tricky, and depends on your precise setup (Operating System, what developer tools you’ve got installed…).\nIt’s much easier if we try to work on things individually, and then I can help troubleshoot.\n\nWe’re following this amazing tutorial by Jenny Bryan and colleagues: https://happygitwithr.com/\nYou can start at step 4: Register a GitHub account\nWe will be working until step 14."
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#why-even-have-a-website",
+    "href": "Day5/01_creating_websites_with_R.html#why-even-have-a-website",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Why even have a website?",
+    "text": "Why even have a website?\n\nFull Disclosure: I didn’t have a website until this course…\n\n\nBut it’s generally assumed to be a good idea for an academic to have a website.\n\n\npeople will search for you and it’s much easier to tell your story how you want it\nyou can showcase whatever you want (create a blog, write tutorials, a think piece, pre-prints, …)\nPURE and other university platforms are\n\nlimited temporally\n\nlimited in scope\ndifficult to navigate"
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#brainstorm-session-15-min",
+    "href": "Day5/01_creating_websites_with_R.html#brainstorm-session-15-min",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Brainstorm session (~15 min)",
+    "text": "Brainstorm session (~15 min)\n\nDo you have a website? If so, what’s on it? What are your experiences?\nWhat (what skills) would you want to put on your website?"
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#some-examples",
+    "href": "Day5/01_creating_websites_with_R.html#some-examples",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Some examples",
+    "text": "Some examples\n\nhttps://www.mrworthington.com/ (built with quarto)\nhttps://lnalborczyk.github.io/ (built with quarto)\nhttps://tobiaswidmann.eu/ (built with blogdown + hugo)\nhttps://www.dsquintana.com/ (built with blogdown + hugo)\nhttps://www.savhannahschulz.com/about (built with googlesites)\nhttps://simonkarg.github.io/ (built with quarto)"
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#quarto-vs.-blogdown",
+    "href": "Day5/01_creating_websites_with_R.html#quarto-vs.-blogdown",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Quarto vs. Blogdown",
+    "text": "Quarto vs. Blogdown\nAs with reproducible documents, there’s two general ways to build a website with R:\n\nThe Blogdown (.rmarkdown) approach\nThe Quarto (.qmd) approach\n\nBoth work perfectly well, have good documentation / tutorials, and will be supported for the forseeable future."
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#for-todays-purposes-i-will-focus-on-the-quarto-approach-because-this-what-ive-done.",
+    "href": "Day5/01_creating_websites_with_R.html#for-todays-purposes-i-will-focus-on-the-quarto-approach-because-this-what-ive-done.",
+    "title": "Day 5 - Building a Website with R",
+    "section": "For today’s purposes, I will focus on the Quarto approach, because this what I’ve done.",
+    "text": "For today’s purposes, I will focus on the Quarto approach, because this what I’ve done.\nIf after today you feel like you like the blogdown approach better, that’s fine!\nHere’s a great tutorial by Dan Quintana\n–&gt; also see Dan’s built with blogdown website"
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#lets-get-going-with-creating-a-quarto-website-blog",
+    "href": "Day5/01_creating_websites_with_R.html#lets-get-going-with-creating-a-quarto-website-blog",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Let’s get going with creating a Quarto website / blog",
+    "text": "Let’s get going with creating a Quarto website / blog\nWe’re following these two tutorials:\nGetting started with websites: https://quarto.org/docs/websites/\nGetting started with blogs: https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html"
+  },
+  {
+    "objectID": "Day5/01_creating_websites_with_R.html#resources",
+    "href": "Day5/01_creating_websites_with_R.html#resources",
+    "title": "Day 5 - Building a Website with R",
+    "section": "Resources",
+    "text": "Resources\nQuarto Styling tips: https://www.youtube.com/watch?v=ErRX8plZpQE&ab_channel=AlbertRapp\nsee my page for reference: https://simonkarg.github.io/\nsee source code of my page for reference: https://github.com/SimonKarg/SimonKarg.github.io"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#questions-before-we-begin",
+    "href": "Day2/01_tidyverse_recap.html#questions-before-we-begin",
+    "title": "The Tidyverse - A Recap",
+    "section": "Questions before we begin?",
+    "text": "Questions before we begin?"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#data-cleaning-manipulation-in-the-tidyverse",
+    "href": "Day2/01_tidyverse_recap.html#data-cleaning-manipulation-in-the-tidyverse",
+    "title": "The Tidyverse - A Recap",
+    "section": "Data cleaning & manipulation in the tidyverse",
+    "text": "Data cleaning & manipulation in the tidyverse\n\nBasics - mutate, summarise, group_by, pivot_longer, pivot_wider, …\nAdvanced concepts - across, rowwise, tidyselect methods, …\nText data  - Regular expressions, {Stringr}, {Glue}\nPractice :)"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#bread-and-butter-functions",
+    "href": "Day2/01_tidyverse_recap.html#bread-and-butter-functions",
+    "title": "The Tidyverse - A Recap",
+    "section": "Bread and butter functions",
+    "text": "Bread and butter functions\n\nmutate()\ngroup_by()\nsummarise()\nfilter()\nselect()"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#new-as-of-dplyr-1.1.2",
+    "href": "Day2/01_tidyverse_recap.html#new-as-of-dplyr-1.1.2",
+    "title": "The Tidyverse - A Recap",
+    "section": "New as of dplyr 1.1.2",
+    "text": "New as of dplyr 1.1.2\nSince dplyr 1.1.2, you can use the “.by” argument to use group_by() within selected dplyr verbs\n\n\nmtcars %&gt;% \n  mutate(avg_mpg = mean(mpg), .by = cyl) %&gt;% \n  head()\n\n\n\n\n\n  \n\n\n\n\n\nAlso works with summarise(.by = ), reframe(.by = ), filter(.by = ), slice(.by = )"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#reshaping",
+    "href": "Day2/01_tidyverse_recap.html#reshaping",
+    "title": "The Tidyverse - A Recap",
+    "section": "Reshaping",
+    "text": "Reshaping\n\npivot_wider() (formerly: spread())\npivot_longer() (formerly: gather())"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#joining",
+    "href": "Day2/01_tidyverse_recap.html#joining",
+    "title": "The Tidyverse - A Recap",
+    "section": "Joining",
+    "text": "Joining\n\nleft_join()\nright_join()\ninner_join()\nfull_join()"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#the-pipe",
+    "href": "Day2/01_tidyverse_recap.html#the-pipe",
+    "title": "The Tidyverse - A Recap",
+    "section": "The “Pipe”",
+    "text": "The “Pipe”\n\n%&gt;%()\n|&gt;()\n\n\n\nThe_pipe %&gt;% \n  allows_us() %&gt;% \n  to_string_together() %&gt;% \n  multiple_functions()\n\n# this is the same as\nmultiple_functions(to_string_together(allows_us(The_pipe)))"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap.html#lets-play",
+    "href": "Day2/01_tidyverse_recap.html#lets-play",
+    "title": "The Tidyverse - A Recap",
+    "section": "Let’s play",
+    "text": "Let’s play\nExplore the chocolate dataset from tidytuesday, see here for documentation\n\nchocolate &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')\n\n\nUse group_by and summarise functions to explore mean ratings for different countries, beans, years…\nuse the pipe!\nPlot the data in different ways\n\n\nBonus:\nDo some data cleaning: the ingredients and characteristics column encode several observations. Separate out these columns, and make sure data is in long format :)"
+  },
+  {
+    "objectID": "Day2/01_tidyverse_recap_solution_bonus_question.html",
+    "href": "Day2/01_tidyverse_recap_solution_bonus_question.html",
+    "title": "01_tidyverse_recap_practice_solution",
+    "section": "",
+    "text": "Load packages\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n\nGet the data\n\nchocolate &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')\n\nRows: 2530 Columns: 10\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (7): company_manufacturer, company_location, country_of_bean_origin, spe...\ndbl (3): ref, review_date, rating\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n\nMake data tidy\nFirst make a wide dataset\n\nchocolate_wide &lt;- chocolate %&gt;% \n  # separating ingredients and characteristics out wider\n  separate_wider_delim(\n    cols = c(ingredients, most_memorable_characteristics),\n    delim = \",\",\n    names_sep = \"_\",\n    too_few = \"align_start\"\n  ) %&gt;% \n  \n  # repair first ingredient column\n  separate_wider_delim(\n    cols = ingredients_1,\n    delim = \"-\",\n    names = c(\"num_ingredients\", \"ingredients_1\")\n  ) %&gt;% \n  \n  # make num_ingredients numeric\n  mutate(num_ingredients = as.numeric(num_ingredients))\n\nThen we can pivot_wider()… for instance the ingredients columns\n\nchocolate_ingredients_long &lt;- chocolate_wide %&gt;%\n  pivot_longer(\n    cols = starts_with(\"ingredients\"),\n    names_to = \"ingredient_number\",\n    values_to = \"ingredient\",\n    values_drop_na = TRUE\n  ) %&gt;% \n  \n  # fix ingredient number\n  mutate(ingredient_number = parse_number(ingredient_number),\n         # remove starting / trailing whitespace from ingredients\n         ingredient = stringr::str_squish(ingredient))\n\nAnd then we can plot… For instance the mean rating for each ingredient :)\n\nchocolate_ingredients_long %&gt;% \n  ggplot(aes(ingredient, rating)) +\n  stat_summary(geom = \"pointrange\")\n\nNo summary function supplied, defaulting to `mean_se()`\n\n\n\n\n\n\nchocolate_ingredients_long %&gt;% \n  ggplot(aes(num_ingredients, rating)) +\n  stat_summary(geom = \"pointrange\")\n\nNo summary function supplied, defaulting to `mean_se()`"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#patchwork",
+    "href": "Day3/02_ggplot_models.html#patchwork",
+    "title": "Additional ggplot things..",
+    "section": "Patchwork",
+    "text": "Patchwork\n\nCourtesy to Albert Rapp’s blogpost\n\nPatchwork is the easiest way to combine ggplot objects.\n\n# setup\nlibrary(tidyverse)\nlibrary(patchwork)\n\ndat &lt;- gapminder::gapminder\n\n\nplot1 &lt;- dat %&gt;% \n  ggplot(aes(lifeExp, gdpPercap, colour = continent)) +\n  geom_point(alpha = 0.5) +\n  scale_y_continuous(trans = \"log10\") \n\nplot1\n\n\n\n\n\nplot2 &lt;- dat %&gt;% \n  ggplot(aes(year, lifeExp, colour = continent)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\")\n\nplot2\n\n\n\n\n\nplot3 &lt;- dat %&gt;% \n  ggplot(aes(pop, continent, colour = continent)) +\n  ggbeeswarm::geom_quasirandom(orientation = \"y\") +\n  scale_x_log10()\n\nplot3"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#adding-plots-with-puts-them-side-by-side",
+    "href": "Day3/02_ggplot_models.html#adding-plots-with-puts-them-side-by-side",
+    "title": "Additional ggplot things..",
+    "section": "Adding plots with + puts them side by side",
+    "text": "Adding plots with + puts them side by side\n\nplot1 + plot2"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#dividing-plots-with-puts-them-beneath-each-other",
+    "href": "Day3/02_ggplot_models.html#dividing-plots-with-puts-them-beneath-each-other",
+    "title": "Additional ggplot things..",
+    "section": "dividing plots with /puts them beneath each other",
+    "text": "dividing plots with /puts them beneath each other\n\nplot1 / plot2"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#create-groups-of-plots-by-using-parentheses",
+    "href": "Day3/02_ggplot_models.html#create-groups-of-plots-by-using-parentheses",
+    "title": "Additional ggplot things..",
+    "section": "Create groups of plots by using parentheses:",
+    "text": "Create groups of plots by using parentheses:\n\n(plot1 + plot2) / plot3"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#this-is-nice-but-we-need-to-a-few-more-things",
+    "href": "Day3/02_ggplot_models.html#this-is-nice-but-we-need-to-a-few-more-things",
+    "title": "Additional ggplot things..",
+    "section": "This is nice, but we need to a few more things",
+    "text": "This is nice, but we need to a few more things\n\n\ncombined_plots &lt;- (plot1 + plot2) / plot3 +\n  plot_layout(guides = \"collect\")\n\ncombined_plots"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#try-again-with-just-one-legend",
+    "href": "Day3/02_ggplot_models.html#try-again-with-just-one-legend",
+    "title": "Additional ggplot things..",
+    "section": "Try again, with just one legend",
+    "text": "Try again, with just one legend\n\nplot1 &lt;- plot1 + guides(colour = \"none\")\nplot2 &lt;- plot2 + guides(colour = \"none\")\n\ncombined_plots &lt;- (plot1 + plot2) / plot3 +\n  plot_layout(guides = \"collect\")\n\ncombined_plots"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#you-can-do-global-changes-to-all-ggplot-elements-using-the-operator",
+    "href": "Day3/02_ggplot_models.html#you-can-do-global-changes-to-all-ggplot-elements-using-the-operator",
+    "title": "Additional ggplot things..",
+    "section": "You can do global changes to all ggplot elements using the & operator",
+    "text": "You can do global changes to all ggplot elements using the & operator\n\ncombined_plots & \n  theme_light() &\n  theme(legend.position = \"top\") &\n  scale_fill_brewer(palette = \"Dark2\") &\n  scale_colour_brewer(palette = \"Dark2\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#finally-control-layouts-and-add-annotations",
+    "href": "Day3/02_ggplot_models.html#finally-control-layouts-and-add-annotations",
+    "title": "Additional ggplot things..",
+    "section": "Finally, control layouts and add annotations",
+    "text": "Finally, control layouts and add annotations\n\ncombined_plots +\n  plot_layout(guides = \"collect\", \n              heights = c(0.6, 0.4)) +\n  plot_annotation(\n    title = \"This is already a pretty neat arrangement\",\n    subtitle = \"Wow, look at them plots\",\n    caption = \"Your APA ready caption goes here..\",\n    tag_levels = \"A\",\n    tag_prefix = \"(\",\n    tag_suffix = \")\"\n  ) & \n  theme_light() &\n  theme(legend.position = \"bottom\",\n        plot.caption = element_text(hjust=0)) &\n  scale_fill_brewer(palette = \"Dark2\") &\n  scale_colour_brewer(palette = \"Dark2\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#patchwork-can-also-inset-plots",
+    "href": "Day3/02_ggplot_models.html#patchwork-can-also-inset-plots",
+    "title": "Additional ggplot things..",
+    "section": "Patchwork can also inset plots",
+    "text": "Patchwork can also inset plots\n\nplot3 &lt;- plot3 +\n  guides(colour = \"none\") +\n  labs(y = \"\") +\n  scale_x_log10(labels = scales::label_log(), \n                name = \"Population\")\n\nplot1 +\n  # get the legend back in\n  guides(colour = \"legend\") +\n  \n  # make some room\n  coord_cartesian(xlim = c(15, 90),\n                  ylim = c(150,1e6)) +\n  \n  # inset the plot\n  inset_element(\n    plot3,\n    left = 0.01,\n    right = 0.45,\n    top = 0.99,\n    bottom = 0.45\n    )  &\n  theme_bw() &\n  theme(legend.position = \"bottom\",\n        plot.caption = element_text(hjust=0)) &\n  scale_fill_brewer(palette = \"Dark2\") &\n  scale_colour_brewer(palette = \"Dark2\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#raincloud-plots",
+    "href": "Day3/02_ggplot_models.html#raincloud-plots",
+    "title": "Additional ggplot things..",
+    "section": "Raincloud Plots",
+    "text": "Raincloud Plots\nI love raincloud plots, so I have to shout them out here! They are unfortunately a bit tricky to create, and only work for some data types (real continuous data, not likert type data).\nBut to just give some inspiration.\nThere’s several ways to create raincloud plots. The easiest is probably via the ggrain package:\n\nlibrary(ggrain)\n\nggplot(iris, aes(Species, Sepal.Length, fill = Species)) + \n    geom_rain() +\n  coord_flip()\n\n\n\n\n\n\nBut it’s also possible with the ggdist and gghalves packages. See this great blog post by Cedric Scherer"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#the-ggstatsplot-package",
+    "href": "Day3/02_ggplot_models.html#the-ggstatsplot-package",
+    "title": "Additional ggplot things..",
+    "section": "The {ggstatsplot} package",
+    "text": "The {ggstatsplot} package\n{ggstatsplot} is amazing for plotting relatively simple tests (t-tests, ANOVA, simple correlations).\nThe default can look a bit unwieldy at times, but the plots can be highly customized.\n\nlibrary(ggstatsplot)\n\n\n# the default ANOVA\niris %&gt;% \n  ggstatsplot::ggbetweenstats(Species, Sepal.Length)"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#ggstatsplot---anova",
+    "href": "Day3/02_ggplot_models.html#ggstatsplot---anova",
+    "title": "Additional ggplot things..",
+    "section": "{ggstatsplot} - ANOVA",
+    "text": "{ggstatsplot} - ANOVA\n\n# changing things is super easy, as ggstatsplot outputs a ggplot object\niris %&gt;% \n  ggstatsplot::ggbetweenstats(Species, Sepal.Length) +\n  ggsci::scale_color_jama() +\n  labs(title = \"My new title!\",\n       y = \"Sepal length (mm)\") +\n  theme_light(base_size = 14) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#ggstatsplot---correlation",
+    "href": "Day3/02_ggplot_models.html#ggstatsplot---correlation",
+    "title": "Additional ggplot things..",
+    "section": "{ggstatsplot} - Correlation",
+    "text": "{ggstatsplot} - Correlation\n\niris %&gt;% \n  ggstatsplot::ggscatterstats(Sepal.Length, Sepal.Width, \n                              bf.message = FALSE)"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#ggstatsplot---model-parameters",
+    "href": "Day3/02_ggplot_models.html#ggstatsplot---model-parameters",
+    "title": "Additional ggplot things..",
+    "section": "{ggstatsplot} - model parameters",
+    "text": "{ggstatsplot} - model parameters\n\nmod &lt;- lm(formula = mpg ~ cyl * am, data = mtcars)\n\n# creating a plot\np &lt;- ggcoefstats(mod)\np"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#using-ggstatsplot-for-model-parameters",
+    "href": "Day3/02_ggplot_models.html#using-ggstatsplot-for-model-parameters",
+    "title": "Additional ggplot things..",
+    "section": "using {ggstatsplot} for model parameters",
+    "text": "using {ggstatsplot} for model parameters\nNot great for more complex models\n\n# predicting life expectancy in gapminder data\nmy_model &lt;- lme4::lmer(lifeExp ~ gdpPercap_log + year0 * continent + (1+year0|country),\n                       data = dat %&gt;% mutate(year0 = year - 1952,\n                                             gdpPercap_log = log10(gdpPercap)),\n                       control = lme4::lmerControl(optimizer = \"bobyqa\"))\n\n\n\n\n\nggcoefstats(my_model, effects = \"fixed\", sort = \"ascending\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#the-sjplot-package",
+    "href": "Day3/02_ggplot_models.html#the-sjplot-package",
+    "title": "Additional ggplot things..",
+    "section": "The {sjPlot} package",
+    "text": "The {sjPlot} package\nsjPlot is an amazing package that is particularly nice for plotting complexer models.\n\nmy_model %&gt;% sjPlot::plot_model()\n\n\n\n\n\n\n\nmy_model %&gt;% sjPlot::plot_model(type = \"pred\", terms = c(\"year0\", \"continent\"))"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#the-sjplot-package-1",
+    "href": "Day3/02_ggplot_models.html#the-sjplot-package-1",
+    "title": "Additional ggplot things..",
+    "section": "The {sjPlot} package",
+    "text": "The {sjPlot} package\n\nmy_model %&gt;% sjPlot::plot_model(type = \"pred\", terms = c(\"year0\", \"continent\")) +\n  scale_x_continuous(labels = \\(x) x + 1952) +\n  theme_light() +\n  theme(legend.position = \"top\") +\n  labs(x = \"year\",\n       y = \"Life Expectancy\",\n       title = \"Predicted life expectancy for different continents\",\n       subtitle = \"Model: lifeExp ~ gdpPercap_log + year0 * continent + (1 + year0 | country)\")"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#the-dotwhisker-package",
+    "href": "Day3/02_ggplot_models.html#the-dotwhisker-package",
+    "title": "Additional ggplot things..",
+    "section": "The {Dotwhisker} package",
+    "text": "The {Dotwhisker} package\nAlso used by some people…\n\nlibrary(dotwhisker)\n\ndotwhisker::dwplot(my_model)"
+  },
+  {
+    "objectID": "Day3/02_ggplot_models.html#modelsummary",
+    "href": "Day3/02_ggplot_models.html#modelsummary",
+    "title": "Additional ggplot things..",
+    "section": "Modelsummary",
+    "text": "Modelsummary\nModelplot from {modelsummary} can produce nice comparison plots from a set of models. Just provide a list of models to compare.\n\nlibrary(modelsummary)\nmodelplot(list(\"model 1\" = my_model, \n               \"model 2\" = my_model))"
+  },
+  {
+    "objectID": "Day3/03_practical_session.html#pick-one",
+    "href": "Day3/03_practical_session.html#pick-one",
+    "title": "Day 3 - Practical Session",
+    "section": "Pick one",
+    "text": "Pick one\n\n\nPlot your own data\n\nplot your data in nice ways\nplay with different themes\ntry to combine plots using the {patchwork} package\n\n\nRecreate the plot challenge\nSee next slides for examples of plots with the chocolate data."
+  },
+  {
+    "objectID": "Day3/03_practical_session.html#recreate-the-plot",
+    "href": "Day3/03_practical_session.html#recreate-the-plot",
+    "title": "Day 3 - Practical Session",
+    "section": "Recreate the plot!",
+    "text": "Recreate the plot!\nPlot 1 - using {ggalluvial}\n\nLink to twitter post\nLink to code\nPlot 2 - using {ggridges}\n Link to twitter post\nLink to code\nPlot 3\n Link to twitter post\nLink to code\nPlot 4 - using {waffle}\n Link to twitter\nLink to code\nGet the chocolate data like this:\n\nchocolate &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')"
+  },
+  {
+    "objectID": "Day4/principles_programming_solutions_exercises.html",
+    "href": "Day4/principles_programming_solutions_exercises.html",
+    "title": "Exercise",
+    "section": "",
+    "text": "Solution for practice: principles behind programming\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(glue)\n\n\nCreate a create_barchart() function that plots a bar chart of a given variable.\n\nBonus: make it so that bars are sorted by size (tip: use a function from the fct_ family)\n\ncreate_barplot &lt;- function(data, variable_to_plot){\n  data %&gt;% \n    mutate({{variable_to_plot}} := fct_rev(fct_infreq({{variable_to_plot}}))) %&gt;% \n    ggplot(aes(y = {{variable_to_plot}})) +\n    geom_bar() +\n    theme_light()\n}\n\ncreate_barplot(iris, Species)\n\n\n\n\n\nChange the create_scatterplot() function so that it has a title that describes which variables are plotted.\n\nTip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you.\n\ncreate_scatter_plot &lt;- function(data, variable1, variable2) {\n  variable_name1 &lt;- ensym(variable1)\n  variable_name2 &lt;- ensym(variable2)\n  \n  data %&gt;% \n    ggplot(aes({{variable1}}, {{variable2}})) +\n    geom_point() +\n    theme_light() +\n    labs(title = glue(\"Scatterplot between {variable_name1} and {variable_name2}\"))\n}\n\n\ncreate_scatter_plot(mtcars, mpg, cyl)"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#a-first-idea",
+    "href": "Day4/03_purrr.html#a-first-idea",
+    "title": "An intro to Purrr",
+    "section": "A first idea",
+    "text": "A first idea\n\n\nAfrica_dat &lt;- dat %&gt;% \n  filter(continent == \"Africa\")\n  \nAfrica_model &lt;- lm(lifeExp ~ year, \n                   data = Africa_dat)\n\ncoefficients(Africa_model)\n\n\n (Intercept)         year \n-524.2578461    0.2895293 \n\n\n\n\n\n\nslope_africa &lt;- coefficients(Africa_model)[[2]]\nslope_africa\n\n\n[1] 0.2895293\n\n\n\n\n\n\n\nEurope_dat &lt;- dat %&gt;% \n  filter(continent == \"Europe\")\n\n# ... and so on\n\n\n\n\n\n\nBut this is tedious and repeats a lot of code!"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#enter-the-for-loop",
+    "href": "Day4/03_purrr.html#enter-the-for-loop",
+    "title": "An intro to Purrr",
+    "section": "Enter the for loop",
+    "text": "Enter the for loop\n\n\n# split dataframe into a list of dataframes based on the continent\ncontinent_list &lt;- dat %&gt;% \n  split.data.frame(dat$continent)"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#enter-the-for-loop-1",
+    "href": "Day4/03_purrr.html#enter-the-for-loop-1",
+    "title": "An intro to Purrr",
+    "section": "Enter the for loop",
+    "text": "Enter the for loop\n\n# split dataframe into a list of dataframes based on the continent\ncontinent_list &lt;- dat %&gt;% \n  split.data.frame(dat$continent)\n\n# create empty list to store results in\ncoefficient_list &lt;- list()\n\n# do the loop de loop\nfor (continent in seq_along(continent_list)){\n  model &lt;- lm(lifeExp ~ year, data = continent_list[[continent]])\n  \n  coefficient_list[[continent]] &lt;- coefficients(model)[[2]]\n}"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#enter-the-for-loop-2",
+    "href": "Day4/03_purrr.html#enter-the-for-loop-2",
+    "title": "An intro to Purrr",
+    "section": "Enter the for loop",
+    "text": "Enter the for loop\n\n# split dataframe into a list of dataframes based on the continent\ncontinent_list &lt;- dat %&gt;% \n  split.data.frame(dat$continent)\n\n# create empty list to store results in\ncoefficient_list &lt;- list()\n\n# do the loop de loop\nfor (continent in seq_along(continent_list)){\n  model &lt;- lm(lifeExp ~ year, data = continent_list[[continent]])\n  \n  coefficient_list[[continent]] &lt;- coefficients(model)[[2]]\n}\n\n# et voila\ncoefficient_list\n\n[[1]]\n[1] 0.2895293\n\n[[2]]\n[1] 0.3676509\n\n[[3]]\n[1] 0.4531224\n\n[[4]]\n[1] 0.2219321\n\n[[5]]\n[1] 0.2102724"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#quick-aside-the-for-loop",
+    "href": "Day4/03_purrr.html#quick-aside-the-for-loop",
+    "title": "An intro to Purrr",
+    "section": "Quick aside: the for loop",
+    "text": "Quick aside: the for loop\nFor loops have a bad reputation in R. That’s a bit unfair.\n\nFor loops are great, and sometimes they are the best tool to use to make your code easy to write, understand, and execute.\n\n\nBut sometimes they can be tricky to write, understand, debug, and slow to execute."
+  },
+  {
+    "objectID": "Day4/03_purrr.html#purrr-basics",
+    "href": "Day4/03_purrr.html#purrr-basics",
+    "title": "An intro to Purrr",
+    "section": "Purrr basics",
+    "text": "Purrr basics\nthe map() function is actually a for loop*:\n\nsimple_map &lt;- function(x, f, ...) {\n  out &lt;- vector(\"list\", length(x))\n  for (i in seq_along(x)) {\n    out[[i]] &lt;- f(x[[i]], ...)\n  }\n  out\n}\n\n\n\n*The real purrr::map() is written in C, and allows a couple of other shortcuts, like specifying anonymous functions purrr style."
+  },
+  {
+    "objectID": "Day4/03_purrr.html#a-basic-example",
+    "href": "Day4/03_purrr.html#a-basic-example",
+    "title": "An intro to Purrr",
+    "section": "A basic example",
+    "text": "A basic example\n\nx &lt;- c(1:3)\ntriple &lt;- function(x) x * 3\nmap(x, triple)\n\n\n\n[[1]]\n[1] 3\n\n[[2]]\n[1] 6\n\n[[3]]\n[1] 9"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#additional-function-arguments-are-passed-along-with-the-syntax",
+    "href": "Day4/03_purrr.html#additional-function-arguments-are-passed-along-with-the-syntax",
+    "title": "An intro to Purrr",
+    "section": "Additional function arguments are passed along with the … syntax",
+    "text": "Additional function arguments are passed along with the … syntax\n\n\nsimple_map &lt;- function(x, f, ...) {\n  out &lt;- vector(\"list\", length(x))\n  for (i in seq_along(x)) {\n    out[[i]] &lt;- f(x[[i]], ...)\n  }\n  out\n}\n\n\n\n\nx &lt;- list(c(1,2,NA), c(NA, 5, NA))\n\nmap(x, mean, na.rm = TRUE)\n\n\n\n[[1]]\n[1] 1.5\n\n[[2]]\n[1] 5"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#you-dont-always-need-to-define-a-function",
+    "href": "Day4/03_purrr.html#you-dont-always-need-to-define-a-function",
+    "title": "An intro to Purrr",
+    "section": "You don’t always need to define a function",
+    "text": "You don’t always need to define a function\n\n\nmy_list &lt;- list(1:3)\n\nmap(my_list, function(x) x * 3)\n\n\n[[1]]\n[1] 3 6 9\n\n\n\n\n\n\n# purrr style: provide a formula\nmap(my_list, ~ .x * 3)\n\n\n[[1]]\n[1] 3 6 9\n\n\n\n\n\n\n\n# shorthand syntax: \\(x)\nmap(my_list, \\(x) x * 3)\n\n\n[[1]]\n[1] 3 6 9\n\n\n\n\n\nAny of these ways are fine. Personally, I like the shorthand version best. Note that this way to write anonymous functions is quite new. On stackoverflow, or chatGPT, you will likely get a lot of ~ notation."
+  },
+  {
+    "objectID": "Day4/03_purrr.html#a-slightly-more-complicated-example-mapping-over-two-attributes",
+    "href": "Day4/03_purrr.html#a-slightly-more-complicated-example-mapping-over-two-attributes",
+    "title": "An intro to Purrr",
+    "section": "A slightly more complicated example: mapping over two attributes",
+    "text": "A slightly more complicated example: mapping over two attributes\n\n\nmultiply &lt;- function(x, y) x * y\n\nmy_data_frame &lt;- tibble(col1 = c(1:3), col2 = c(4:6))\n\n\n\n\n\nmap(my_data_frame, multiply)\n\n\nError in `map()`:\nℹ In index: 1.\nℹ With name: col1.\nCaused by error in `.f()`:\n! argument \"y\" is missing, with no default\n\n\n\n\n\n\n\nmap2(my_data_frame$col1,\n     my_data_frame$col2,\n     multiply) %&gt;% \n  unlist()\n\n\n[1]  4 10 18\n\n\n\n\n\n\n\n# or in a mutate:\nmy_data_frame %&gt;% \n  mutate(multiplication = map2(\n    col1, \n    col2, \n    multiply))"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#map_-variants",
+    "href": "Day4/03_purrr.html#map_-variants",
+    "title": "An intro to Purrr",
+    "section": "map_ variants",
+    "text": "map_ variants\n\nmap() always returns a list, which is the most generic data structure in R. Almost anything can be saved in a list. But sometimes, we want something else.\n\n\nThat’s what map_lgl(), map_dbl(), map_dfr(), map_chr(), … are here for (see also ?map documentation).\n\n\n\n# much better\nmy_data_frame %&gt;% \n  mutate(multiplication = map2_dbl(col1, col2, multiply))"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#back-to-our-problem",
+    "href": "Day4/03_purrr.html#back-to-our-problem",
+    "title": "An intro to Purrr",
+    "section": "Back to our problem",
+    "text": "Back to our problem\nExercise: How would you do it?\n\ndat &lt;- gapminder::gapminder\n\ncontinet_list &lt;- split(dat, continent)"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#back-to-our-problem-1",
+    "href": "Day4/03_purrr.html#back-to-our-problem-1",
+    "title": "An intro to Purrr",
+    "section": "Back to our problem",
+    "text": "Back to our problem\nHere’s one idea:\n\ncontinent_list %&gt;% \n  map(\\(x) {lm(lifeExp ~ year, data = x)}) %&gt;% \n  map(coefficients) %&gt;% \n  map_dbl(\\(x) x[[2]])\n\n   Africa  Americas      Asia    Europe   Oceania \n0.2895293 0.3676509 0.4531224 0.2219321 0.2102724"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#a-final-way-all-in-one-go",
+    "href": "Day4/03_purrr.html#a-final-way-all-in-one-go",
+    "title": "An intro to Purrr",
+    "section": "A final way: all in one go!",
+    "text": "A final way: all in one go!\n\nThe previous idea was nice, but you still need to create a list of dataframes at the start (continent_list). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).\nHere’s where you can use the nest() function :)\n\n\n\ndat %&gt;% \n  nest(.by = continent)"
+  },
+  {
+    "objectID": "Day4/03_purrr.html#a-final-way-all-in-one-go-1",
+    "href": "Day4/03_purrr.html#a-final-way-all-in-one-go-1",
+    "title": "An intro to Purrr",
+    "section": "A final way: all in one go!",
+    "text": "A final way: all in one go!\nThe previous idea was nice, but you still need to create a list of dataframes at the start (continent list). This is not always desired, and sometimes it would be great to keep things all in one place (data, models, coefficients).\nHere’s where you can use the nest() function :)\n\ndat %&gt;% \n  nest(.by = continent) %&gt;% \n  mutate(model = map(data, \\(x) {lm(lifeExp ~ year, data = x)}),\n         model_coefficients = map(model, coefficients),\n         slope_year = map_dbl(model_coefficients, 2)) # shorthand for extracting 2nd component"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#what-well-do-today",
+    "href": "Day4/02_principles_programming.html#what-well-do-today",
+    "title": "Principles behind R programming",
+    "section": "What we’ll do today:",
+    "text": "What we’ll do today:\n\nPrinciples behind functional programming in R\nDefining your own functions\nAnonymous functions\nMaking your functions purrrrr\nExercise: simulate data"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#a-function-has-three-parts",
+    "href": "Day4/02_principles_programming.html#a-function-has-three-parts",
+    "title": "Principles behind R programming",
+    "section": "A function has three parts:",
+    "text": "A function has three parts:\n\nThe formals() - the list of arguments that control how you call the function.\nThe body() - the code inside the function.\nThe environment() - the data structure that determines how the function finds the values associated with the names."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#an-example",
+    "href": "Day4/02_principles_programming.html#an-example",
+    "title": "Principles behind R programming",
+    "section": "An example",
+    "text": "An example\n\n\nsum_two_numbers &lt;- function(x, y){\n  x + y\n}\n\n\n\n\nformals(sum_two_numbers)\n\n\n\n$x\n\n\n$y\n\n\n\n\n\nbody(sum_two_numbers)\n\n\n\n{\n    x + y\n}\n\n\n\n\n\nenvironment(sum_two_numbers)\n\n\n\n&lt;environment: R_GlobalEnv&gt;"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#an-exception-to-the-rule",
+    "href": "Day4/02_principles_programming.html#an-exception-to-the-rule",
+    "title": "Principles behind R programming",
+    "section": "An exception to the rule",
+    "text": "An exception to the rule\n\n\nbody(sum)\n\n\n\nNULL\n\n\n\n\nThere is one exception to the rule that a function has three components. Primitive functions, like sum() and [, call C code directly.\nThese functions exist primarily in C, not R, so their formals(), body(), and environment() return all NULL."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#functions-are-objects-too",
+    "href": "Day4/02_principles_programming.html#functions-are-objects-too",
+    "title": "Principles behind R programming",
+    "section": "Functions are objects, too",
+    "text": "Functions are objects, too\n\nsum_two_numbers &lt;- function(x, y){\n  x + y\n}\n\n\nMore or less anything you can do with other objects (dataframes, variables, …), you can also do with functions\n\n\n\na_list_of_functions &lt;- list(sum_two_numbers, mean, median)\n\na_list_of_functions[[1]](10,20)\n\n\n\n[1] 30\n\n\n\n\nBut not quite anything:\n\na_data_frame_with_functions &lt;- data.frame(functions = c(sum_two_numbers, mean, median))\n\nError in as.data.frame.default(x[[i]], optional = TRUE): cannot coerce class '\"function\"' to a data.frame"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#anonymous-functions",
+    "href": "Day4/02_principles_programming.html#anonymous-functions",
+    "title": "Principles behind R programming",
+    "section": "Anonymous functions",
+    "text": "Anonymous functions\n\nYou don’t always need to give your functions a name. If you just want to do something once, there’s no need to define it first and invoke it later. You can simply create it on the fly, and forget about it again.\nThis is called an anonymous function.\n\n\nThere’s several ways to write them:\n\n# long way\nfunction(x,y) {x + y}\n\nfunction(x,y) {x + y}\n\n# shorthand\n\\(x, y) {x+y}\n\n\\(x, y) {x+y}\n\n# purrr style\n~.x + .y\n\n~.x + .y\n\n\nWe’ll come back to those later."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#object-of-type-closure-is-not-subsettable",
+    "href": "Day4/02_principles_programming.html#object-of-type-closure-is-not-subsettable",
+    "title": "Principles behind R programming",
+    "section": "Object of type closure is not subsettable",
+    "text": "Object of type closure is not subsettable\nMaybe you’ve seen this error message before\n\nmean[1:3]\n\nError in mean[1:3]: object of type 'closure' is not subsettable\n\n\n\nThis sometimes happens when we mess up R syntax, which leads to R trying to do something to a function that it cannot do (e.g., subset it).\nThe error message is also obscure because we rarely encounter the name “closure”. But in fact, almost all (except some core R functions) functions are of type closure.\n\ntypeof(mean)\n\n[1] \"closure\"\n\n\n\n\nThe name closure is meant to signal that functions enclose their own environments."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#environments-1",
+    "href": "Day4/02_principles_programming.html#environments-1",
+    "title": "Principles behind R programming",
+    "section": "Environments",
+    "text": "Environments\n\nR operates with a hierarchy of environments.\n\n\nAt the root sits the global environment. This is what you can see in the environment pane in RStudio.\n\n\nAbove that, R can invoke any number of nested environments. One important type of environments are package environments. Whenever you load a package, R creates an environment for that package, in which all its functions and other objects are defined.*\n\n\nenvironment(sum_two_numbers)\n\n\n&lt;environment: R_GlobalEnv&gt;\n\n\n\n\n\n\n\nlibrary(dplyr)\nenvironment(mutate)\n\n\n&lt;environment: namespace:dplyr&gt;\n\n\n\n\n\n  *R actually creates two environments, a package environment, and a namespace environment, see more here"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#execution-environments",
+    "href": "Day4/02_principles_programming.html#execution-environments",
+    "title": "Principles behind R programming",
+    "section": "Execution environments",
+    "text": "Execution environments\nWhenever you execute a function, R creates a temporary environment in which the function is evaluated. When the function is complete, the environment gets destroyed.\nOnly the output of the function is printed or assigned to an object, if you specify this.\n\n\nmy_fun &lt;- function(){\n  # this assignment only happens in the temporary execution environment \n  x &lt;- 1\n}\n\nmy_fun()\n\n# even after running the function, the global environment will not know about the assignment\nx\n\n\n\nError in eval(expr, envir, enclos): object 'x' not found\n\n\n\n\n\nmy_fun &lt;- function(){\n  x &lt;- 1\n  x\n}\n\nx &lt;- my_fun()\nx\n\n\n\n[1] 1"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#a-short-quiz",
+    "href": "Day4/02_principles_programming.html#a-short-quiz",
+    "title": "Principles behind R programming",
+    "section": "A short quiz",
+    "text": "A short quiz\nGiven what we know about environments, what is the outcome of the following code?\n\n\nx &lt;- 10\nf01 &lt;- function() {\n  x &lt;- 20\n  x\n}\n\nf01()\n\n\n[1] 20\n\n\n\n\nWhat about calling x now?\n\n\nx \n\n\n[1] 10\n\n\n\n\n\nWhat happens here?\n\n\nx &lt;- 10\nf02 &lt;- function(){\n  y &lt;- 5\n  x + y\n}\nf02()\n\n\n[1] 15"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#lexical-scoping",
+    "href": "Day4/02_principles_programming.html#lexical-scoping",
+    "title": "Principles behind R programming",
+    "section": "Lexical scoping",
+    "text": "Lexical scoping\n\nScoping is the act of finding the value associated with a name.\nFor functions, the important thing to remember is that within a function, R will look first within the function execution environment, and then in its parent environments.\n\nx &lt;- 10\n\nf01 &lt;- function() {\n  x &lt;- 20\n  x\n}\n\n# this returns 20, because x is found first in the function execution environment\nf01()\n\n\n\n[1] 20\n\n\n\n\n\n# this returns 10, because outside of the function, R looks in the global environment\nx\n\n[1] 10"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#lazy-evaluation",
+    "href": "Day4/02_principles_programming.html#lazy-evaluation",
+    "title": "Principles behind R programming",
+    "section": "Lazy evaluation",
+    "text": "Lazy evaluation\n\nR function arguments are lazily evaluated: they’re only evaluated when accessed.\nFor example, this code doesn’t generate an error because my_undefined_argument is never used:\n\n\nh01 &lt;- function(my_undefined_argument) {\n  10\n}\nh01()\n\n\n[1] 10"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#lazy-evaluation-1",
+    "href": "Day4/02_principles_programming.html#lazy-evaluation-1",
+    "title": "Principles behind R programming",
+    "section": "Lazy evaluation",
+    "text": "Lazy evaluation\nThis behavior is great because it allows more computationally efficient functions. It also allows funky default arguments (but maybe not a great idea do this..)\n\n\n# A really weird function. Don't do this\nh02 &lt;- function(\n    x = 1, \n    y = x + 1, \n    a\n    ){\n  a &lt;- 5\n  a + x + y\n}\n\nh02()\n\n\n[1] 8\n\n\n\n\n\n\nh02(x = 2)\n\n\n[1] 10\n\n\n\n\n\nWhen defining your own function, it’s important you keep an eye on whether you actually use the arguments you’ve defined in the function body. R won’t tell you…"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#dot-dot-dot",
+    "href": "Day4/02_principles_programming.html#dot-dot-dot",
+    "title": "Principles behind R programming",
+    "section": "… dot-dot-dot",
+    "text": "… dot-dot-dot\n\nFunctions can be defined to take any number of additional unnamed arguments. This can be specified using the ... syntax.\n\n\ng01 &lt;- function(x, y, ...){\n  c(x,y,...)\n}\n\ng01(1,2,3,4,5,6,7)\n\n\n[1] 1 2 3 4 5 6 7"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#dot-dot-dot-1",
+    "href": "Day4/02_principles_programming.html#dot-dot-dot-1",
+    "title": "Principles behind R programming",
+    "section": "… dot-dot-dot",
+    "text": "… dot-dot-dot\nThis is often useful when a function calls another function (called “forwarding”), or has a function as one of its arguments. The ... can be used to allow users to pass on arguments to the other function:\n\n\ng02 &lt;- function(x, ...){\n  y &lt;- c(x, 5)\n  \n  # additional arguments are forwarded to mean\n  mean(y, ...)\n}\n\ng02(NA, na.rm = TRUE)\n\n\n[1] 5\n\n\n\n\n\n\nx &lt;- list(c(1, 3, NA), c(4, NA, 6))\nstr(lapply(x, mean, na.rm = TRUE))\n\n\nList of 2\n $ : num 2\n $ : num 5"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#practice",
+    "href": "Day4/02_principles_programming.html#practice",
+    "title": "Principles behind R programming",
+    "section": "Practice",
+    "text": "Practice\nDefine a function that calculates the standard error for a vector of numbers.\nBonus 1: make it so you can specify na.rm = TRUE\nBonus 2: make it so that it gives some informative errors when given wrong input (e.g. a character value). Tip: check out the stopifnot() function, or use an if statement."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#practice---solution",
+    "href": "Day4/02_principles_programming.html#practice---solution",
+    "title": "Principles behind R programming",
+    "section": "Practice - Solution",
+    "text": "Practice - Solution\n\n\nse &lt;- function(x, na.rm = FALSE) {\n  # stopifnot solution\n  # stopifnot(is.numeric(x))\n  \n  # with an if statement\n  if(!is.numeric(x)) {stop(\"x needs to be numeric\")}\n  \n  std.dev &lt;- sd(x, na.rm = na.rm)\n  \n  len &lt;- if (!na.rm) {\n    length(x)\n  } else {\n    length(x[!is.na(x)])\n  }\n  \n  out &lt;- std.dev / sqrt(len)\n  out\n}\n\n\nx &lt;- c(NA, 1, 5, 2, NA, -3)\n\nse(x)\n\n[1] NA\n\n\n\nse(x, na.rm = TRUE)\n\n[1] 1.652019"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#disclaimer",
+    "href": "Day4/02_principles_programming.html#disclaimer",
+    "title": "Principles behind R programming",
+    "section": "Disclaimer",
+    "text": "Disclaimer\nNon-standard evaluation (also called tidy evaluation) is a tricky concept, and to be honest, I haven’t understood it fully myself.\n\nFor most things you’re likely to do with R, you probably won’t need a deep understanding of it. However, if you want to program with tidyverse functions, you will need to understand a few tricks.\n\n\nTo learn more, Hadley Wickham’s book Advanced R gives a good introduction"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#non-standard-evaluation-light",
+    "href": "Day4/02_principles_programming.html#non-standard-evaluation-light",
+    "title": "Principles behind R programming",
+    "section": "Non-standard evaluation light",
+    "text": "Non-standard evaluation light\nHow does select() know what you are talking about?\n\n\nmy_data &lt;- tibble(col1 = c(1:5),\n                  col2 = rnorm(5))\n\nmy_data %&gt;% select(col2)\n\n\n\n\n  \n\n\n\n\n\nTidyverse functions blur the boundary between environment variables (variables that exist within the global or function environment) and data variables (variables that exist as named columns in a dataframe)."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#non-standard-evaluation-light-1",
+    "href": "Day4/02_principles_programming.html#non-standard-evaluation-light-1",
+    "title": "Principles behind R programming",
+    "section": "Non-standard evaluation light",
+    "text": "Non-standard evaluation light\nIn base R, you would need to quote column names to select them.\n\n\n# this does not work\nmy_data[col2]\n\n\nError in eval(expr, envir, enclos): object 'col2' not found\n\n\n\n\n\n\nmy_data[\"col2\"]"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#non-standard-evaluation-light-2",
+    "href": "Day4/02_principles_programming.html#non-standard-evaluation-light-2",
+    "title": "Principles behind R programming",
+    "section": "Non-standard evaluation light",
+    "text": "Non-standard evaluation light\nTidyverse code works by combining code expressions (capturing the intent of a piece of code without evaluating it), with a data mask (a special object that basically turn data columns into objects).\n\nIt does this to make working with these functions more convenient for you - so that you don’t need to use \"\" all the time.\n\n\nThis however comes at a cost when you define your own functions that use tidyverse functions."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#an-example-defining-a-grouped_mean-function",
+    "href": "Day4/02_principles_programming.html#an-example-defining-a-grouped_mean-function",
+    "title": "Principles behind R programming",
+    "section": "An example: defining a grouped_mean() function",
+    "text": "An example: defining a grouped_mean() function\n\n\n# Let's turn this following code into a function\niris %&gt;% \n  group_by(Species) %&gt;% \n  summarise(mean_sep_length = mean(Sepal.Length))\n\n\n\n\n  \n\n\n\n\n\n\ngrouped_mean &lt;- function(data, grouping_var, values_var) {\n  data %&gt;% \n    group_by(grouping_var) %&gt;% \n    summarise(mean_variable = mean(values_var))\n}\n\n\n\n\n\ngrouped_mean(iris, Species, Sepal.Length)\n\n\nError in `group_by()`:\n! Must group by variables found in `.data`.\n✖ Column `grouping_var` is not found.\n\n\n\n\n\nThis does not work because R will try to evaluate grouping_var and values_var as data variables, but won’t find them in the dataset."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#defining-a-grouped_mean-function",
+    "href": "Day4/02_principles_programming.html#defining-a-grouped_mean-function",
+    "title": "Principles behind R programming",
+    "section": "defining a grouped_mean() function",
+    "text": "defining a grouped_mean() function\n\nWe need to tell R that we want use grouping_var and values_var as hybrid variables. It should first treat them as environment variables, and make them refer to whatever you assign them to. Then, they should be treated as data variables.\n\n\nYou can do that easily with the {{}} operator (pronounce “curly curly”, or the embracing operator)\n\n\n\ngrouped_mean2 &lt;- function(data, grouping_var, values_var) {\n  data %&gt;% \n    group_by({{ grouping_var }}) %&gt;% \n    summarise(mean = mean({{ values_var }}))\n}\n\ngrouped_mean2(iris, Species, Sepal.Length)"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#a-final-complication",
+    "href": "Day4/02_principles_programming.html#a-final-complication",
+    "title": "Principles behind R programming",
+    "section": "A final complication",
+    "text": "A final complication\nUsing curly curly on the LHS of an assignment requires a special operator.\n\nlibrary(glue)\n\ngrouped_mean3 &lt;- function(data, grouping_var, values_var, prefix = \"avg\") {\n  data %&gt;% \n    group_by({{ grouping_var }}) %&gt;% \n    summarise(\"{prefix}_{{values_var}}\" := mean({{values_var}}))\n}\n\ngrouped_mean3(iris, Species, Sepal.Length)\n\n\n\n\n\n  \n\n\n\n\nThis code uses glue() syntax to specify a new name for the new column. It also uses the walrus operator := for assignment. The walrus operator is necessary whenever you use {{}} on the left hand side of an assignment."
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#another-example-programming-with-ggplot",
+    "href": "Day4/02_principles_programming.html#another-example-programming-with-ggplot",
+    "title": "Principles behind R programming",
+    "section": "Another example: programming with ggplot",
+    "text": "Another example: programming with ggplot\n\n\ncreate_scatter_plot &lt;- function(data, variable1, variable2) {\n  data %&gt;% \n    ggplot(aes(variable1, variable2)) +\n    geom_point() +\n    theme_light()\n}\n\n# hello darkness, my old friend\ncreate_scatter_plot(mtcars, mpg, cyl)\n\nError in `geom_point()`:\n! Problem while computing aesthetics.\nℹ Error occurred in the 1st layer.\nCaused by error:\n! object 'cyl' not found"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#another-example-programming-with-ggplot-1",
+    "href": "Day4/02_principles_programming.html#another-example-programming-with-ggplot-1",
+    "title": "Principles behind R programming",
+    "section": "Another example: programming with ggplot",
+    "text": "Another example: programming with ggplot\n\ncreate_scatter_plot &lt;- function(data, variable1, variable2) {\n  data %&gt;% \n    # Curly Curly to the rescue!\n    ggplot(aes({{variable1}}, {{variable2}})) +\n    geom_point() +\n    theme_light()\n}\n\ncreate_scatter_plot(mtcars, mpg, cyl)"
+  },
+  {
+    "objectID": "Day4/02_principles_programming.html#exercise",
+    "href": "Day4/02_principles_programming.html#exercise",
+    "title": "Principles behind R programming",
+    "section": "Exercise",
+    "text": "Exercise\n\nCreate a create_barchart() function that plots a bar chart of a given variable.\n\nBonus: make it so that bars are sorted by size (tip: use a function from the fct_ family)\n\nChange the create_scatterplot() function so that it has a title that describes which variables are plotted.\n\nTip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you."
+  },
+  {
+    "objectID": "Day4/04_simulations_example.html#a-simple-example",
+    "href": "Day4/04_simulations_example.html#a-simple-example",
+    "title": "Combining Functions & Purrr for simulations",
+    "section": "A simple example",
+    "text": "A simple example\n\nLet’s say we want to calculate the power to detect a correlation of .31\n\nlibrary(tidyverse)\n\n\nx &lt;- rnorm(100)\nerror &lt;- rnorm(100)\ny &lt;- x * 0.3 + error\n\ndat &lt;- data.frame(x = x, y = y)\n\nlm(y ~ x, data = dat) %&gt;% \n  broom::tidy()\n\n\n\n  \n\n\n\n\n\n\ndat %&gt;% \n  ggplot(aes(x,y)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n\n\n\n\n\n\nwe’re actually doing something slightly different, but it’s fine enough for our purposes. If you want to generate a precise correlation, use the MASS::mvnorm() function"
+  },
+  {
+    "objectID": "Day4/04_simulations_example.html#enter-purrr",
+    "href": "Day4/04_simulations_example.html#enter-purrr",
+    "title": "Combining Functions & Purrr for simulations",
+    "section": "enter purrr",
+    "text": "enter purrr\n\n\n# Define a function that generates a random dataset\ngenerate_data &lt;- function(x){\n  # adding the x as an argument is a bit of a hack because we don't need it\n  # there's an easier way to do this in R using the replicate function\n  measure_1 &lt;- rnorm(100) \n  measure_2 &lt;- measure_1 * 0.3 + rnorm(100)\n  \n  result &lt;- data.frame(measure_1, measure_2)\n}\n\n\n\n\nsimulations_data &lt;- tibble(simulation_id = c(1:1000)) %&gt;% \n  \n  mutate(sim_dat = map(simulation_id, generate_data),\n         model = map(sim_dat, \\(x) {lm(measure_2 ~ measure_1, data = x)}),\n         tidy_model = map(model, broom::tidy),\n         p_value_measure_2 = map_dbl(tidy_model, \\(x) x %&gt;% \n                                       filter(term == \"measure_1\") %&gt;%  \n                                       pull(p.value)))\n\n\n\n\nsimulations_data %&gt;% \n  summarise(power = mean(p_value_measure_2 &lt; 0.05))\n\n\n\n  \n\n\n\n\n\nThis is nice, but only for a fixed sample size…"
+  },
+  {
+    "objectID": "Day4/04_simulations_example.html#lets-try-and-make-it-better",
+    "href": "Day4/04_simulations_example.html#lets-try-and-make-it-better",
+    "title": "Combining Functions & Purrr for simulations",
+    "section": "Let’s try and make it better :)",
+    "text": "Let’s try and make it better :)\n\ngenerate_data2 &lt;- function(N){\n  measure_1 &lt;- rnorm(N) \n  measure_2 &lt;- measure_1 * 0.3 + rnorm(N, sd = 1)\n  \n  result &lt;- data.frame(measure_1, measure_2)\n}\n\n\n\nsimulations_data_2 &lt;- crossing(\n  simulation_id = c(1:500),\n  sample_size = seq(50, 150, by = 10)\n)\n\n\n\n\nsim_outcome &lt;- simulations_data_2 %&gt;% \n   mutate(sim_dat = map(sample_size, generate_data2),\n         model = map(sim_dat, \\(x) {lm(measure_2 ~ measure_1, data = x)}),\n         tidy_model = map(model, broom::tidy),\n         p_value_measure_2 = map_dbl(tidy_model, \\(x) x %&gt;% \n                                       filter(term == \"measure_1\") %&gt;%  \n                                       pull(p.value)))\n\n\n\n\nsim_outcome %&gt;% \n  group_by(sample_size) %&gt;% \n  summarise(n_sims = n(),\n            percent_significant = sum(p_value_measure_2 &lt; 0.05) / n_sims) %&gt;% \n  ggplot(aes(sample_size, percent_significant)) +\n  geom_point()\n\n\n\n\n\n\n\nsim_outcome %&gt;% \n  unnest(tidy_model) %&gt;% \n  filter(term == \"measure_1\") %&gt;% \n  group_by(sample_size) %&gt;% \n  summarise(across(c(estimate, std.error), c(\"mean\" = mean), .names = \"{.fn}_{.col}\")) %&gt;% \n  ggplot(aes(sample_size, mean_estimate, ymin = mean_estimate - mean_std.error, ymax = mean_estimate + mean_std.error)) +\n  geom_pointrange() +\n  expand_limits(y = c(0, 0.35))"
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#questions-before-we-begin",
+    "href": "Day3/01_ggplot_recap_Scherer.html#questions-before-we-begin",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "Questions before we begin?",
+    "text": "Questions before we begin?"
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#today---all-about-plotting-data",
+    "href": "Day3/01_ggplot_recap_Scherer.html#today---all-about-plotting-data",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "Today - all about plotting data",
+    "text": "Today - all about plotting data\nBut first, a crash course on using ChatGPT in R - by Julian Schüssler\n\nThen, we’re covering quite some ground regarding ggplot and its wider universe.\n\nRecap basic concepts: Data, Aesthetics, Layers\nRecap basic concepts: Facets, Scales, Coordinate Systems\nCombining plots using {patchwork}\nPlotting models\nPractice: plot your own data / Recreate the plot challenge"
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#a-quick-survey",
+    "href": "Day3/01_ggplot_recap_Scherer.html#a-quick-survey",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "A quick survey",
+    "text": "A quick survey\n\nWhat’s your previous experience with ggplot?\nWhat are your proudest moments?\nWhat have you been struggling with?"
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#what-is-ggplot2",
+    "href": "Day3/01_ggplot_recap_Scherer.html#what-is-ggplot2",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "What is ggplot2?",
+    "text": "What is ggplot2?\n\nggplot2 is an R package for creating data visualizations.\nIt follows the principles of the Grammar of Graphics."
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#lets-learn-from-a-professional",
+    "href": "Day3/01_ggplot_recap_Scherer.html#lets-learn-from-a-professional",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "Let’s learn from a professional",
+    "text": "Let’s learn from a professional\nTo cover the basic ground, we’re going through two slidedecks by the brilliant Cedric Scherer.\n\nThis is not because I’m lazy, but just because anything I’d done myself would have been worse than these beautiful slides.\n\n\nLink for slide deck 1: https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/02_concepts_pt1.html\n\n\nLink for slide deck 2: https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/03_concepts_pt2.html"
+  },
+  {
+    "objectID": "Day3/01_ggplot_recap_Scherer.html#the-grammar-of-ggplot2-1",
+    "href": "Day3/01_ggplot_recap_Scherer.html#the-grammar-of-ggplot2-1",
+    "title": "Day 3 - ggplot and beyond",
+    "section": "The Grammar of {ggplot2}",
+    "text": "The Grammar of {ggplot2}\n\n\n\n\n\nComponent\n\n\nFunction\n\n\nExplanation\n\n\n\n\nData\n\n\nggplot(data)         \n\n\nThe raw data that you want to visualise.\n\n\n\n\nAesthetics          \n\n\naes()\n\n\nAesthetic mappings between variables and visual properties.\n\n\n\nGeometries\n\n\ngeom_*()\n\n\nThe geometric shapes representing the data.\n\n\n\n\nStatistics\n\n\nstat_*()\n\n\nThe statistical transformations applied to the data.\n\n\n\n\nScales\n\n\nscale_*()\n\n\nMaps between the data and the aesthetic dimensions.\n\n\n\n\nCoordinate System\n\n\ncoord_*()\n\n\nMaps data into the plane of the data rectangle.\n\n\n\n\nFacets\n\n\nfacet_*()\n\n\nThe arrangement of the data into a grid of plots.\n\n\n\n\nVisual Themes\n\n\ntheme() and theme_*()\n\n\nThe overall visual defaults of a plot.\n\n\n\n\n\nfrom: Cedric Scherer https://rstudio-conf-2022.github.io/ggplot2-graphic-design/"
+  },
+  {
+    "objectID": "Day2/04_pracitcal_session.html#pick-one",
+    "href": "Day2/04_pracitcal_session.html#pick-one",
+    "title": "Day 2 - Practical Session",
+    "section": "Pick one",
+    "text": "Pick one\n\n\nWork on your own data\n\nhow can you use tidyverse to the best effect?\nuse across / rowwise / stringr whereever\nask others or me for help with your data cleaning problem :)\n\n\nWork with the chocolate data\n\nGet back to the chocolate data\nIf you haven’t done so, do the bonus task: the ingredients and characteristics column encode several observations. Separate out these columns, and make sure data is in long format - use your new knowledge about regular expressions :)\nDo some further data exploration (cleaning, plotting, …)\n\n\n\nGet the chocolate data like this:\n\nchocolate &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#what-is-tidy-data",
+    "href": "Day2/02_advanced_tidyverse.html#what-is-tidy-data",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "What is tidy data?",
+    "text": "What is tidy data?\nTidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In tidy data:\n\n\nEvery column is a variable.\nEvery row is an observation.\nEvery cell is a single value.\n\n\n\n\nSee more: https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#non-tidy-data-example",
+    "href": "Day2/02_advanced_tidyverse.html#non-tidy-data-example",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Non-Tidy data example",
+    "text": "Non-Tidy data example\n\nchocolate &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')\n\nhead(chocolate) %&gt;% DT::datatable(class = \"pagedtable-not-empty\")\n\n\n\n\n\n\n\nThis data is non-tidy because different observations are encoded in the same column (e.g. the ingredients).\n\n\n\nSee more: https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#non-tidy-data-example-.cont",
+    "href": "Day2/02_advanced_tidyverse.html#non-tidy-data-example-.cont",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Non-Tidy data example (.cont)",
+    "text": "Non-Tidy data example (.cont)\n\nclassroom &lt;- tribble(\n  ~assessment, ~Billy, ~Suzy, ~Lionel, ~Jenny,\n  \"quiz1\",     NA,     \"F\",   \"B\",     \"A\",\n  \"quiz2\",     \"D\",    NA,    \"C\",     \"A\",\n  \"test1\",     \"C\",    NA,    \"B\",     \"B\"\n  )\n\nclassroom\n\n\n\n  \n\n\n\n\n\nSee more: https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#tidy-data-example-.cont",
+    "href": "Day2/02_advanced_tidyverse.html#tidy-data-example-.cont",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Tidy data example (.cont)",
+    "text": "Tidy data example (.cont)\n\nMaking the classroom data tidy\n\nclassroom2 &lt;- classroom %&gt;% \n  pivot_longer(Billy:Jenny, names_to = \"student_name\", values_to = \"grade\") %&gt;% \n  arrange(student_name, assessment)\nclassroom2"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#tidyselection-example",
+    "href": "Day2/02_advanced_tidyverse.html#tidyselection-example",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Tidyselection example",
+    "text": "Tidyselection example\n\nchocolate %&gt;% \n  select(starts_with(\"comp\"))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#tidyselection-1",
+    "href": "Day2/02_advanced_tidyverse.html#tidyselection-1",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Tidyselection",
+    "text": "Tidyselection\n\n# also works with generic regular expressions\n# this is the same as starts_with(\"comp\")\nchocolate %&gt;% \n  select(matches(\"^comp\"))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#column-selection-based-on-characater-vectors",
+    "href": "Day2/02_advanced_tidyverse.html#column-selection-based-on-characater-vectors",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Column selection based on characater vectors",
+    "text": "Column selection based on characater vectors\n\nall_of()\nany_of()\n\n\nmy_column_vector &lt;- c(\"column_name1\", \"column_name2\")\n\ndata %&gt;% \n  select(all_of(my_column_vector))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#renaming-columns-while-selecting",
+    "href": "Day2/02_advanced_tidyverse.html#renaming-columns-while-selecting",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Renaming columns while selecting",
+    "text": "Renaming columns while selecting\n\nA neat trick is to rename a column when selecting it\n\nnames(mtcars)\n\n [1] \"mpg\"  \"cyl\"  \"disp\" \"hp\"   \"drat\" \"wt\"   \"qsec\" \"vs\"   \"am\"   \"gear\"\n[11] \"carb\"\n\n\n\n\n\nmtcars %&gt;% \n  select(miles_per_gallon = mpg)"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#reordering-columns-while-selecting",
+    "href": "Day2/02_advanced_tidyverse.html#reordering-columns-while-selecting",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Reordering columns while selecting",
+    "text": "Reordering columns while selecting\n\nnames(mtcars)\n\n [1] \"mpg\"  \"cyl\"  \"disp\" \"hp\"   \"drat\" \"wt\"   \"qsec\" \"vs\"   \"am\"   \"gear\"\n[11] \"carb\"\n\n\n\n\nmtcars %&gt;% \n  select(cyl, disp, mpg, everything()) %&gt;% \n  names\n\n [1] \"cyl\"  \"disp\" \"mpg\"  \"hp\"   \"drat\" \"wt\"   \"qsec\" \"vs\"   \"am\"   \"gear\"\n[11] \"carb\"\n\n\neverything() is a neat function to quickly select every column"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#a-quick-aside-reordering",
+    "href": "Day2/02_advanced_tidyverse.html#a-quick-aside-reordering",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "A quick aside: Reordering",
+    "text": "A quick aside: Reordering\nAlthough you can reorder columns using select(), if you only want to reorder things, the relocate() function works better.\n\ndf &lt;- tibble(a = 1, b = 1, c = 1, d = \"a\", e = \"a\", f = \"a\")\ndf %&gt;% relocate(f)\n\n\n\n  \n\n\n\n\n\ndf %&gt;% relocate(a, .after = c)\n\n\n\n  \n\n\n\n\n\n\ndf %&gt;% relocate(f, .before = b)\n\n\n\n  \n\n\n\n\n\n\ndf %&gt;% relocate(a, .after = last_col())"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#across-1",
+    "href": "Day2/02_advanced_tidyverse.html#across-1",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Across()",
+    "text": "Across()\nAcross allows you to do things (mutate/summarise/…) to multiple columns at the same time. You can combine this with tidyselection helpers :)\n\niris %&gt;%\n  mutate(across(starts_with(\"Sepal\"),\n                round)) %&gt;%\n  head()\n\n\n\n\n\n  \n\n\n\n\n\nThis replaces the old mutate_if(), mutate_at(), … family of functions."
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#across-2",
+    "href": "Day2/02_advanced_tidyverse.html#across-2",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Across()",
+    "text": "Across()\nYou can also select columns based on other criteria, when combined with where()\n\niris %&gt;% \n  mutate(across(.cols = where(is.numeric),\n                round)) %&gt;% \n  head()"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#across-3",
+    "href": "Day2/02_advanced_tidyverse.html#across-3",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Across()",
+    "text": "Across()\nYou can also specify multiple functions to do multiple things at once.\n\niris %&gt;%\n  group_by(Species) %&gt;% \n  summarise(across(starts_with(\"Sepal\"),\n                list(mean = mean,\n                     sd = sd),\n                .names = \"{col}_{fn}\"))\n\n\n\n\n\n  \n\n\n\n\n\nhttps://dplyr.tidyverse.org/reference/across.html"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#what-about-additional-function-arguments",
+    "href": "Day2/02_advanced_tidyverse.html#what-about-additional-function-arguments",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "What about additional function arguments?",
+    "text": "What about additional function arguments?\nProvide an anonymous function, using the purrr style lambda ~, or the shorthand \\(x)\n\n\niris %&gt;% \n  mutate(across(.cols = where(is.numeric),\n                # purrr style\n                .fns = ~round(.x, digits = 3)))\n\n\n\n\niris %&gt;% \n  mutate(across(.cols = where(is.numeric),\n                # anonymous function\n                .fns = \\(x) round(x, digits = 3)))\n\nWe’ll learn more about anonymous functions on Thursday :)"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#rowwise",
+    "href": "Day2/02_advanced_tidyverse.html#rowwise",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Rowwise()",
+    "text": "Rowwise()\nThe rowwise() function is a convenient way to group a dataframe by row, to do something for which a vectorised function does not exist.\n\ndf &lt;- tibble(x = runif(6), y = runif(6), z = runif(6))\n\ndf %&gt;% \n  rowwise() %&gt;% \n  mutate(m = mean(c(x,y,z)))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#rowwise-1",
+    "href": "Day2/02_advanced_tidyverse.html#rowwise-1",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Rowwise()",
+    "text": "Rowwise()\nYou can also use selection helpers using the c_across() function.\n\ndf %&gt;% \n  rowwise() %&gt;%\n  mutate(m = mean(c_across(x:z)))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#working-with-factors-using-the-forcats-package",
+    "href": "Day2/02_advanced_tidyverse.html#working-with-factors-using-the-forcats-package",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Working with factors using the {forcats} package",
+    "text": "Working with factors using the {forcats} package\n\nthe fct_ family helps dealing with factor variables, e.g. \n\nfct_reorder()\nfct_recode()\nfct_relevel()\nfct_collapse()\nfct_lump()\n… (not always the most helpful naming conventions, but good documentation)"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq",
+    "href": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Ordering columns in ggplot using fct_infreq()",
+    "text": "Ordering columns in ggplot using fct_infreq()\n\n\nmsleep %&gt;% \n  ggplot(aes(y = vore)) +\n  geom_bar(stat = \"count\") +\n  theme_light()"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq-1",
+    "href": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq-1",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Ordering columns in ggplot using fct_infreq()",
+    "text": "Ordering columns in ggplot using fct_infreq()\n\n\nmsleep %&gt;% \n  mutate(vore = fct_infreq(vore)) %&gt;% \n  ggplot(aes(y = vore)) +\n  geom_bar(stat = \"count\") +\n  theme_light()"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq-2",
+    "href": "Day2/02_advanced_tidyverse.html#ordering-columns-in-ggplot-using-fct_infreq-2",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Ordering columns in ggplot using fct_infreq()",
+    "text": "Ordering columns in ggplot using fct_infreq()\n\n\nmsleep %&gt;% \n  mutate(vore = fct_rev(fct_infreq(vore))) %&gt;% \n  ggplot(aes(y = vore)) +\n  geom_bar(stat = \"count\") +\n  theme_light()"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#case_when",
+    "href": "Day2/02_advanced_tidyverse.html#case_when",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "case_when()",
+    "text": "case_when()\nWhen using one ifelse() is not enough.\n\n\ndata &lt;- data.frame(x = 1:70)\n\ndata %&gt;%\n  mutate(fizzy = case_when(\n    x %% 35 == 0 ~ \"fizz buzz\",\n    x %% 7 == 0 ~ \"buzz\",\n    x %% 5 == 0 ~ \"fizz\",\n    .default = as.character(x)\n  ))"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#dates-time-and-the-lubridate-package",
+    "href": "Day2/02_advanced_tidyverse.html#dates-time-and-the-lubridate-package",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Dates, time, and the {lubridate} package",
+    "text": "Dates, time, and the {lubridate} package\nThe {lubridate} package provides super easy ways to detect and convert date variables into any format imaginable.\nIf you are working with data that has date/time information, you should work with lubridate.\nSee the introduction to lubridate to get started."
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#strings-using-the-stringr-package",
+    "href": "Day2/02_advanced_tidyverse.html#strings-using-the-stringr-package",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Strings using the stringr package",
+    "text": "Strings using the stringr package\nWe’ll come to that in the regex section later today."
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#tidying-your-models-with-broom-broomtidy",
+    "href": "Day2/02_advanced_tidyverse.html#tidying-your-models-with-broom-broomtidy",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "Tidying your models with broom broom::tidy()",
+    "text": "Tidying your models with broom broom::tidy()\nThe {broom} package has great functions for creating tidy dataframes for almost all models out there!\nSee the introduction to broom to get started"
+  },
+  {
+    "objectID": "Day2/02_advanced_tidyverse.html#broomtidy",
+    "href": "Day2/02_advanced_tidyverse.html#broomtidy",
+    "title": "Advanced Tidyverse Tips & Tricks",
+    "section": "broom::tidy()",
+    "text": "broom::tidy()\n\nlmfit &lt;- lm(mpg ~ wt, mtcars)\nlmfit\n\n\n\n\nCall:\nlm(formula = mpg ~ wt, data = mtcars)\n\nCoefficients:\n(Intercept)           wt  \n     37.285       -5.344  \n\n\n\n\nsummary(lmfit)\n\n\n\n\nCall:\nlm(formula = mpg ~ wt, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.5432 -2.3647 -0.1252  1.4096  6.8727 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***\nwt           -5.3445     0.5591  -9.559 1.29e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.046 on 30 degrees of freedom\nMultiple R-squared:  0.7528,    Adjusted R-squared:  0.7446 \nF-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10\n\n\n\n\n\nbroom::tidy(lmfit)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#writing-regular-expressions-is-hard",
+    "href": "Day2/03_regular_expressions.html#writing-regular-expressions-is-hard",
+    "title": "Regular Expressions",
+    "section": "Writing Regular Expressions is hard!",
+    "text": "Writing Regular Expressions is hard!\nI almost always have to look up how to specify a regular expression.\n\nAnd then I still almost always get it wrong…\n\n\n\n\n\n\n\n\nTip\n\n\nHere’s a few ideas to help you:\n\ncheck whether your regular expression works using this interactive online tool: https://regexr.com/\nConsult this helpful cheatsheet: https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf\nask ChatGPT to write the regex for you (regex are largely language agnostic, but still probably good to include R in the prompt)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#character-classes",
+    "href": "Day2/03_regular_expressions.html#character-classes",
+    "title": "Regular Expressions",
+    "section": "Character classes",
+    "text": "Character classes\nThese allow you to match specific sets of characters, for example “[a-z]” matches any lowercase character, “[A-z]” matches both lower and upper case.\n\n# Match any lowercase letter\npattern &lt;- \"[a-z]\"\nstr &lt;- \"Hello World\"\nstr_view(str, pattern, html = TRUE)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#character-classes-1",
+    "href": "Day2/03_regular_expressions.html#character-classes-1",
+    "title": "Regular Expressions",
+    "section": "Character classes",
+    "text": "Character classes\nYou can define your own classes using the [] notation. But there’s also quite a few pre-defined character classes to choose from, including:\n\n\n\n\nR regex\nWhat matches\n\n\n\n\n\\w\nAny word character (any letter, digit, or underscore)\n\n\n\\W\nAny non-word character\n\n\n\\d\nAny digit\n\n\n\\D\nAny non-digit\n\n\n\\s\nAny space character (a space, a tab, a new line, etc.)\n\n\n\\S\nAny non-space character"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#character-classes-2",
+    "href": "Day2/03_regular_expressions.html#character-classes-2",
+    "title": "Regular Expressions",
+    "section": "Character classes",
+    "text": "Character classes\nTo make things more confusing, there’s also other ways to specify classes.\n\n\n\nR regex\nWhat matches\n\n\n\n\n[:alpha:]\nAny letter\n\n\n[:lower:]\nAny lowercase letter\n\n\n[:upper:]\nAny uppercase letter\n\n\n[:digit:]\nAny digit (equivalent to \\d)\n\n\n[:alnum:]\nAny letter or number\n\n\n[:word:]\nAny letter or number, as well as underscores\n\n\n[:xdigit:]\nAny hexadecimal digit\n\n\n[:punct:]\nAny punctuation character\n\n\n[:graph:]\nAny letter, number, or punctuation character\n\n\n[:space:]\nA space, a tab, a new line, etc. (equivalent to \\s)\n\n\n\n\n\n\nNote that you often need to write double “[[]]” brackets when specifying your regular expressions, to make clear that you are defining a class, e.g. pattern = \"[[:lower:]]\""
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#example",
+    "href": "Day2/03_regular_expressions.html#example",
+    "title": "Regular Expressions",
+    "section": "Example",
+    "text": "Example\n\n# Match any A-z 0-9 and _\npattern &lt;- \"[[:word:]]\"\nstr &lt;- c(\"Hello World &!&!&1234\")\nstr_view(str, pattern, html = TRUE)\n\n\n\n\n\n\n\n\n\n# Match any space character\n# Note that you need two \"\\\" characters\n# otherwise you'll get an error: \"unrecognized escape in character string\"\npattern &lt;- \"\\\\s\"\nstr &lt;- \"Hello World\"\nstr_view(str, pattern, html = TRUE)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#metacharacters",
+    "href": "Day2/03_regular_expressions.html#metacharacters",
+    "title": "Regular Expressions",
+    "section": "Metacharacters",
+    "text": "Metacharacters\nThese are special characters with special meanings in regular expressions, including “.”, “-”, “\\”, “^”, “[]”, “()”, or “$”\n\n# Match any character\npattern &lt;- \".\"\nstr &lt;- \"Hello World\"\nstr_view(str, pattern, html = TRUE)\n\n\n\n\n\n\n\n\n\n# Match first character\npattern &lt;- \"^H\"\nstr &lt;- \"Hello Hello\"\nstr_view(str, pattern, html = TRUE)\n\n\n\n\n\n\n\n\n\n\n# Match last character\npattern &lt;- \"d$\"\nstr &lt;- \"World World\"\nstr_view(str, pattern, html = TRUE)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#anchors",
+    "href": "Day2/03_regular_expressions.html#anchors",
+    "title": "Regular Expressions",
+    "section": "Anchors",
+    "text": "Anchors\nThese allow you to specify where a match should occur within a string, e.g. at the start or end of the string.\n\n\n# Match the start of a string\npattern &lt;- \"^Hello\"\nstr &lt;- c(\"Hello World\", \"World Hello\")\nstr_view(str, pattern, html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Match the start of a string\npattern &lt;- \"Hello$\"\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#quantifiers",
+    "href": "Day2/03_regular_expressions.html#quantifiers",
+    "title": "Regular Expressions",
+    "section": "Quantifiers",
+    "text": "Quantifiers\nThese specify the number of times a pattern should repeat. Examples include\n\n“*” (zero or more occurrences)\n“+” (one or more occurrences)\n“?” (zero or one occurrence)\n\n\n\n# Match zero or more occurrences of \"o\" following a Y\npattern &lt;- \"Yo*\"\nstr &lt;- c(\"Yo World\", \"Yoooooo Wlrd\", \"Y world\")\nstr_view(str, pattern, html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Match one or more occurrences of \"o\" following a Y\npattern &lt;- \"Yo+\"\nstr &lt;- c(\"Yo World\", \"Yoooooo Wlrd\", \"Y world\")\nstr_view(str, pattern, html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Match zero or one occurrence of \"u\" \npattern &lt;- \"colou?r\"\nstr &lt;- c(\"colour\", \"color\", \"colouur\")\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#grouping-and-capturing",
+    "href": "Day2/03_regular_expressions.html#grouping-and-capturing",
+    "title": "Regular Expressions",
+    "section": "Grouping and capturing",
+    "text": "Grouping and capturing\nParentheses are used to group patterns together and capture specific parts of a match. This is useful for extracting specific information from a string.\n\n\n# Match and capture the word after \"Hello\"\npattern &lt;- \"Hello (\\\\w+)\"\nstr &lt;- c(\"Hello World\", \"Hello you\", \"Hello +1234\")\nstr_view(str, pattern, html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Access the groups\nstr_match_all(str, pattern)\n\n[[1]]\n     [,1]          [,2]   \n[1,] \"Hello World\" \"World\"\n\n[[2]]\n     [,1]        [,2] \n[1,] \"Hello you\" \"you\"\n\n[[3]]\n     [,1] [,2]"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#grouping",
+    "href": "Day2/03_regular_expressions.html#grouping",
+    "title": "Regular Expressions",
+    "section": "Grouping",
+    "text": "Grouping\nGrouping can also be used together with quantifiers to specify that a certain pattern will repeat\n\n\n# look for repetitions of the pattern \"ab\"\n\npattern &lt;- \"(ab)+\"\nstr &lt;- \"abba ababababa aaab\"\nstr_view(str, pattern, html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# compare this to:\npattern &lt;- \"[ab]+\"\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#alternation",
+    "href": "Day2/03_regular_expressions.html#alternation",
+    "title": "Regular Expressions",
+    "section": "Alternation",
+    "text": "Alternation\nThe pipe symbol “|” allows you to specify multiple alternative patterns. For example, “cat|dog” matches either “cat” or “dog”.\n\n\n# Match either \"cat\" or \"dog\"\npattern &lt;- \"cat|dog\"\nstr &lt;- c(\"I have a cat\", \"I have a dog\", \"I have a dog and a cat\")\n\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#escape-sequences",
+    "href": "Day2/03_regular_expressions.html#escape-sequences",
+    "title": "Regular Expressions",
+    "section": "Escape sequences",
+    "text": "Escape sequences\nThese are used to match special metacharacters that would otherwise have a special meaning in regular expressions. For example, to match a literal dot, you need to escape it as “\\\\.”\n\n\n# Match a literal dot\npattern &lt;- \"\\\\.\"\nstr &lt;- \"Hello. World\"\n\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#lookarounds",
+    "href": "Day2/03_regular_expressions.html#lookarounds",
+    "title": "Regular Expressions",
+    "section": "Lookarounds",
+    "text": "Lookarounds\nThese are used to perform lookahead and lookbehind assertions. They allow you to match patterns based on what comes before or after the current position without including it in the final match.\n\n# Match \"cat\" followed by \"s\"\npattern &lt;- \"cat(?=s)\"\nstr &lt;- c(\"cats\", \"cat\", \"caterpillars\")\nstr_view(str, pattern, html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#greedy-vs.-non-greedy-matching",
+    "href": "Day2/03_regular_expressions.html#greedy-vs.-non-greedy-matching",
+    "title": "Regular Expressions",
+    "section": "Greedy vs. non-greedy matching",
+    "text": "Greedy vs. non-greedy matching\nBy default, regular expressions are greedy, meaning they match as much as possible. Adding a “?” after a quantifier makes it non-greedy, matching as little as possible.\n\n\n# Greedy matching: match as much as possible\npattern &lt;- \"a.*b\"\nstr &lt;- \"an abnormally long sentence that ends with b\"\nstr_view(str, regex(pattern), html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Non-greedy matching: match as little as possible\npattern &lt;- \"a.*?b\"\nstr_view(str, regex(pattern), html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#modifiers",
+    "href": "Day2/03_regular_expressions.html#modifiers",
+    "title": "Regular Expressions",
+    "section": "Modifiers",
+    "text": "Modifiers\nRegular expressions often have modifiers that can change their behavior. Common modifiers include “i” (case-insensitive matching) and “g” (global matching).\nMost R functions allow you to specify to ignore case as an argument\n\n\n# Case-insensitive matching with argument\npattern &lt;- \"hello\"\nstr &lt;- \"Hello World\"\nstr_view(str, regex(pattern, ignore_case = TRUE), html = TRUE, match = NA)\n\n\n\n\n\n\n\n\n\n\n# Case-insensitive matching regex style\npattern &lt;- \"(?i)hello\"\nstr &lt;- \"Hello World\"\nstr_view(str, regex(pattern), html = TRUE, match = NA)"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#when-working-with-text-data-of-course",
+    "href": "Day2/03_regular_expressions.html#when-working-with-text-data-of-course",
+    "title": "Regular Expressions",
+    "section": "When working with text data of course…",
+    "text": "When working with text data of course…\nUse the great {stringr} package to do all sorts of things with strings..\n\nstr_remove()\nstr_replace()\nstr_extract()\nstr_detect()\nstr_split()"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#but-also-for-selecting-columns-using-tidyselect-functions",
+    "href": "Day2/03_regular_expressions.html#but-also-for-selecting-columns-using-tidyselect-functions",
+    "title": "Regular Expressions",
+    "section": "..but also for selecting columns using tidyselect functions :)",
+    "text": "..but also for selecting columns using tidyselect functions :)\n\nmtcars %&gt;% \n  select(matches(\"[t$]\")) %&gt;% \n  head"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#and-when-using-pivot_-or-separate_-function-families",
+    "href": "Day2/03_regular_expressions.html#and-when-using-pivot_-or-separate_-function-families",
+    "title": "Regular Expressions",
+    "section": "..and when using pivot_ , or separate_ function families",
+    "text": "..and when using pivot_ , or separate_ function families\n\nhead(who)\n\n\n\n  \n\n\n\n\n\nnames(who)\n\n [1] \"country\"      \"iso2\"         \"iso3\"         \"year\"         \"new_sp_m014\" \n [6] \"new_sp_m1524\" \"new_sp_m2534\" \"new_sp_m3544\" \"new_sp_m4554\" \"new_sp_m5564\"\n[11] \"new_sp_m65\"   \"new_sp_f014\"  \"new_sp_f1524\" \"new_sp_f2534\" \"new_sp_f3544\"\n[16] \"new_sp_f4554\" \"new_sp_f5564\" \"new_sp_f65\"   \"new_sn_m014\"  \"new_sn_m1524\"\n[21] \"new_sn_m2534\" \"new_sn_m3544\" \"new_sn_m4554\" \"new_sn_m5564\" \"new_sn_m65\"  \n[26] \"new_sn_f014\"  \"new_sn_f1524\" \"new_sn_f2534\" \"new_sn_f3544\" \"new_sn_f4554\"\n[31] \"new_sn_f5564\" \"new_sn_f65\"   \"new_ep_m014\"  \"new_ep_m1524\" \"new_ep_m2534\"\n[36] \"new_ep_m3544\" \"new_ep_m4554\" \"new_ep_m5564\" \"new_ep_m65\"   \"new_ep_f014\" \n[41] \"new_ep_f1524\" \"new_ep_f2534\" \"new_ep_f3544\" \"new_ep_f4554\" \"new_ep_f5564\"\n[46] \"new_ep_f65\"   \"newrel_m014\"  \"newrel_m1524\" \"newrel_m2534\" \"newrel_m3544\"\n[51] \"newrel_m4554\" \"newrel_m5564\" \"newrel_m65\"   \"newrel_f014\"  \"newrel_f1524\"\n[56] \"newrel_f2534\" \"newrel_f3544\" \"newrel_f4554\" \"newrel_f5564\" \"newrel_f65\"  \n\n\n\n\n\n\nwho %&gt;% pivot_longer(\n  cols = new_sp_m014:newrel_f65,\n  names_to = c(\"diagnosis\", \"gender\", \"age\"),\n  names_pattern = \"new_?(.*)_(.)(.*)\",\n  values_to = \"count\"\n)\n\n\n\n\n\n  \n\n\n\n\nSee the help documentation for the ?pivot_wider(), or related functions"
+  },
+  {
+    "objectID": "Day2/03_regular_expressions.html#exercise",
+    "href": "Day2/03_regular_expressions.html#exercise",
+    "title": "Regular Expressions",
+    "section": "Exercise",
+    "text": "Exercise\nUse the inbuilt sentences dataset (comes with the stringr package) and do the following:\n\nUse str_view() to find all sentences that start with the definite article “The”. Tip: be sure that you don’t accidentally capture sentences that start with “They”, or “These”…\n\n\nstr_view(sentences, pattern = \"\")\n\n\nUse str_view() to find all sentences that begin with a pronoun (He, She, It, They).\n\n\nstr_view(sentences, pattern = \"\")\n\n\n\nUse the words dataset and str_detect() to only get those words that are a colour. Tip, the colours() function prints a nice list of colours ;)\n\n\ncolors()\n\n\nwords[str_detect(words, pattern)]\n\n\nTry regex interactively: https://regexr.com/"
+  },
+  {
+    "objectID": "Day5/03_publishing_via_github.html#workflow",
+    "href": "Day5/03_publishing_via_github.html#workflow",
+    "title": "Publishing your website via github pages",
+    "section": "Workflow",
+    "text": "Workflow\nThis workflow sets up your quarto page as a github page. Please also refer to the resources below!\n\nCreate a repository on github first! The name of the github repository needs to be .github.io (see step 1 https://pages.github.com/) The repository needs to be public.\nCopy the link that github provides immediately after you create the repository\nClone the repo to your computer by using Rstudio. Open Rstudio, go to “create new project” –&gt; choose “version control: git” –&gt; enter the github url you just copied in there\nCopy paste all files over from your website R project into the newly created R project folder. Restart Rstudio, reopen the Rproject and check for the git pane to see whether it worked (it should show a “git” pane in the window where the environment pane sits))\nOpen the “_quarto.yml” file and change the output-location to “docs” (see resources below, and the _quarto.yml file for my website for an example)\nRender all your .qmd documents for your website. Check whether they appear in the /docs folder\nAdd an empty file called “.nojekyll” to the /docs folder (the . at start is important!)\nGo to the git pane within Rstudio, and push all files to the git repo. They should now appear when you look at the online repository on Github\nGo to your online github repo (within your browser): go to settings –&gt; pages –&gt; set branch to /docs\nYour site should be live. Go check..\n\nResource for step 1 (only do step 1 of this)! https://pages.github.com/\nResources for step 2 - 4: https://happygitwithr.com/existing-github-first.html\nResources for step 4 - 9: https://quarto.org/docs/publishing/github-pages.html#render-to-docs (only do the “render to docs” part)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "",
+    "text": "This course is a five-day intensive PhD level course designed for intermediate R users who want to take their skills to the next level. The course covers a range of topics, including project documentation, workflow optimization, ensuring reproducibility, data cleaning and manipulation, advanced plotting, advanced programming functions, and building websites with R.\nImportantly, this means this course is not primarily a statistics course, but rather a programming course, where participants learn helpful and important techniques for writing cleaner, more readable, more robust, and potentially faster code.\nOverall, the course is designed to provide participants with a comprehensive understanding of advanced R programming techniques, and to give them the skills and knowledge they need to use R effectively in their own projects. By the end of the course, participants will have a solid foundation in advanced R programming and will be able to use R to clean, manipulate, visualize, and analyze data, and to build custom functions and interactive web applications. This will allow them to get through the tedious parts of working with data faster, have more time to explore and analyze, as well as widen their horizon of what is possible in R. The course is also meant as a space for participants to explore and work with their own data, share struggles with the group, and learn together.\nThe course follows a five day structure, with each day consisting of 5 hours each that are divided in lecture style presentations, and hands-on exercise sessions.\n\n\nAfter this course, participants will be able to:\n\nClean and manipulate data efficiently, making use of advanced functions from the tidyverse and purrr packages\nWrite own functions using advanced concepts such as non-standard evaluation\nUse Markov-chain-monte-carlo simulation to conduct power analyses\nUse rmarkdown and quarto to output reproducible research reports and interactive websites\nCreate clear and visually appealing plots\n\nThis course ran from 12.06.2023-16.06.2023 at the Department of Political Science, Aarhus University."
+  },
+  {
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "",
+    "text": "After this course, participants will be able to:\n\nClean and manipulate data efficiently, making use of advanced functions from the tidyverse and purrr packages\nWrite own functions using advanced concepts such as non-standard evaluation\nUse Markov-chain-monte-carlo simulation to conduct power analyses\nUse rmarkdown and quarto to output reproducible research reports and interactive websites\nCreate clear and visually appealing plots\n\nThis course ran from 12.06.2023-16.06.2023 at the Department of Political Science, Aarhus University."
+  },
+  {
+    "objectID": "index.html#day-1-workflow-organization-and-reproducibility",
+    "href": "index.html#day-1-workflow-organization-and-reproducibility",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "Day 1: Workflow, Organization, and Reproducibility",
+    "text": "Day 1: Workflow, Organization, and Reproducibility\n\n\n    \n      \n        Introduction to the overall course\n      \n    \n    \n      \n        R project organization techniques\n      \n    \n    \n      \n        Good code\n      \n    \n    \n      \n        Reproducible documents using Quarto & Rmarkdown\n      \n    \n    \n      \n        Practical session: work on project organization\n      \n    \n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#day-2-tidyverse-basics-and-advanced-features",
+    "href": "index.html#day-2-tidyverse-basics-and-advanced-features",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "Day 2: Tidyverse basics and advanced features",
+    "text": "Day 2: Tidyverse basics and advanced features\n\n\n    \n      \n        A recap on most important tidyverse functions\n      \n    \n    \n      \n        Advanced tidyverse tips & tricks\n      \n    \n    \n      \n        Regular expressions\n      \n    \n    \n      \n        Practical session: clean your own data\n      \n    \n    \n      \n        Solution: tidyverse recap practice\n      \n    \n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#day-3-plotting",
+    "href": "index.html#day-3-plotting",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "Day 3: Plotting",
+    "text": "Day 3: Plotting\n\n\n    \n      \n        Ggplot2 basics by Cedric Scherer\n      \n    \n    \n      \n        Combining plots & plotting statistical models\n      \n    \n    \n      \n        Practical session: plot your own data\n      \n    \n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#day-4-functions-and-purrr",
+    "href": "index.html#day-4-functions-and-purrr",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "Day 4: Functions and Purrr",
+    "text": "Day 4: Functions and Purrr\n\n\n    \n      \n        Principles behind R programming\n      \n    \n    \n      \n        An intro to Purrr\n      \n    \n    \n      \n        Combining functions & purrr for simulations\n      \n    \n    \n      \n        Solution for practice: principles behind programming\n      \n    \n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#day-5-building-a-website-with-quarto",
+    "href": "index.html#day-5-building-a-website-with-quarto",
+    "title": "Course Material for PhD Course on Advanced R Programming",
+    "section": "Day 5: Building a website with Quarto",
+    "text": "Day 5: Building a website with Quarto\n\n\n    \n      \n        Building a Website with R\n      \n    \n    \n      \n        Intro to git & github - by \"happy git with R\"\n      \n    \n    \n      \n        Publishing your website via github pages\n      \n    \n\n\nNo matching items"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html",
+    "href": "Day1/example_rmd/example_rmd_file.html",
+    "title": "R Markdown Example",
+    "section": "",
+    "text": "This is an example of an Rmarkdown document. Rmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.\nIt is super versatile, and a lot of formatting and styling options can be specified using the YAML header (the section at the very top of this document)."
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#heading-2",
+    "href": "Day1/example_rmd/example_rmd_file.html#heading-2",
+    "title": "R Markdown Example",
+    "section": "Heading 2",
+    "text": "Heading 2\n\nHeading 3\nYou can also create a bullet list using -:\n\nitem 1\nitem 2\nitem 3"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#loading-data",
+    "href": "Day1/example_rmd/example_rmd_file.html#loading-data",
+    "title": "R Markdown Example",
+    "section": "Loading Data",
+    "text": "Loading Data\nHere, we load the raw data from URL.\n\nraw_data &lt;- read_csv(\"https://comparativeagendas.s3.amazonaws.com/datasetfiles/ECC_7.0_1975-2014_1.csv\")"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#preprocessing",
+    "href": "Day1/example_rmd/example_rmd_file.html#preprocessing",
+    "title": "R Markdown Example",
+    "section": "Preprocessing",
+    "text": "Preprocessing\nHere, we do some preprocessing of the data. For instance, we might get rid of a bunch of colums in the raw dataset that we do not need\n\ncleaned_dat &lt;- raw_data |&gt;\n  select(-starts_with(\"filter\"))"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#data-overview",
+    "href": "Day1/example_rmd/example_rmd_file.html#data-overview",
+    "title": "R Markdown Example",
+    "section": "Data overview",
+    "text": "Data overview\nHere, we give an overview of the data in the cleaned dataset. We’re using the skimr package, which does this automatically for you.\n\nskimr::skim(cleaned_dat)\n\n\nData summary\n\n\nName\ncleaned_dat\n\n\nNumber of rows\n48321\n\n\nNumber of columns\n15\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n12\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\ndescription\n0\n1\n3\n1005\n0\n46536\n0\n\n\ndate\n0\n1\n6\n10\n0\n149\n0\n\n\necprc\n0\n1\n2\n2\n0\n78\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1\n24161.00\n13949.22\n1\n12081\n24161\n36241\n48321\n▇▇▇▇▇\n\n\nyear\n0\n1\n1999.59\n9.08\n1975\n1994\n2000\n2006\n2014\n▁▂▆▇▆\n\n\nmajortopic\n0\n1\n11.79\n7.21\n0\n5\n15\n19\n23\n▆▅▂▅▇\n\n\nsubtopic\n0\n1\n1185.60\n722.93\n0\n500\n1500\n1900\n2311\n▆▅▂▅▇\n\n\nmajortopic_eu\n0\n1\n1188.64\n726.38\n0\n500\n1500\n1900\n2399\n▅▃▂▇▃\n\n\nsubtopic_eu\n0\n1\n11.78\n7.22\n0\n5\n15\n19\n23\n▆▅▂▅▇\n\n\nplace\n0\n1\n16.57\n12.40\n1\n8\n8\n26\n49\n▇▂▂▂▂\n\n\necprs\n0\n1\n16.12\n7.54\n3\n11\n15\n23\n29\n▅▇▆▅▆\n\n\nid_quasisentence\n0\n1\n307.09\n325.85\n1\n89\n213\n410\n2259\n▇▂▁▁▁\n\n\nfiler_meetinfor\n0\n1\n0.01\n0.11\n0\n0\n0\n0\n1\n▇▁▁▁▁\n\n\nfiler_meetextr\n0\n1\n0.02\n0.14\n0\n0\n0\n0\n1\n▇▁▁▁▁\n\n\nfiler_meetcoun\n0\n1\n0.00\n0.03\n0\n0\n0\n0\n1\n▇▁▁▁▁"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#external-resources",
+    "href": "Day1/example_rmd/example_rmd_file.html#external-resources",
+    "title": "R Markdown Example",
+    "section": "External resources",
+    "text": "External resources\nThere’s a ton of stuff to learn with rmarkdown. Get inspiration here: https://rmarkdown.rstudio.com/index.html"
+  },
+  {
+    "objectID": "Day1/example_rmd/example_rmd_file.html#practical-tips",
+    "href": "Day1/example_rmd/example_rmd_file.html#practical-tips",
+    "title": "R Markdown Example",
+    "section": "Practical tips",
+    "text": "Practical tips\n\nYAML header options\nHere’s the YAML header options I like to specify for my projects (see also above):\ntitle: \"Heading of your document\"\nauthor: \"Your Name\"\ndate: \"Date\" \noutput:\n  html_document:\n    toc: true\n    toc_float:\n      collapsed: true\n    toc_depth: 4\n    theme: flatly\n    code_folding: hide\n    number_sections: true\n    df_print: paged\n  editor_options:\n    chunk_output_type: console\n\n\nHTML Styling\nIn addition, I like to add in this special html block for styling (view rmd document to see this chunk):\n\n\n\nTabulated content\nWorking with tabulated content. You can do so by adding {.tabset} to your heading.\nEvery subheading on that level will now be in a tab, like so:\n\nTab 1\nSome content for tab 1\n\n\nTab 2\nDifferent content for tab 2\n\n\nTab 3\nYet other content content for tab 3\n\n\n\n\nNeat, right?"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#working-with-r-projects",
+    "href": "Day1/02_working_with_projects.html#working-with-r-projects",
+    "title": "Project organization",
+    "section": "Working with R projects",
+    "text": "Working with R projects\n\nAlways work within an R project!\nThe R.project file should sit in the root folder of your project"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#use-the-same-folder-structure-for-all-of-your-projects",
+    "href": "Day1/02_working_with_projects.html#use-the-same-folder-structure-for-all-of-your-projects",
+    "title": "Project organization",
+    "section": "Use the same folder structure for all of your projects",
+    "text": "Use the same folder structure for all of your projects\n\nMake subfolders for\n\ndata (and also raw and processed data)\nscripts\n… other folders as needed\n\n\n\n\nIf you want to go full on out, you can use project templates when setting up an R project to automatically create folders, files and other structures for you."
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#use-the-same-folder-structure-for-all-of-your-projects-1",
+    "href": "Day1/02_working_with_projects.html#use-the-same-folder-structure-for-all-of-your-projects-1",
+    "title": "Project organization",
+    "section": "Use the same folder structure for all of your projects",
+    "text": "Use the same folder structure for all of your projects\n\nThis could look something like this:\n-- project_directory/\n | -- data/\n    | -- raw/\n    | -- processed/\n | -- scripts/\n    | -- cleaning/\n    | -- analysis/\n | -- writeup/\n -- .gitignore\n -- r_project_file.Rproj"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#for-each-project-create-a-readme-file-or-other-kind-of-documentation",
+    "href": "Day1/02_working_with_projects.html#for-each-project-create-a-readme-file-or-other-kind-of-documentation",
+    "title": "Project organization",
+    "section": "For each project, create a readme file, or other kind of documentation",
+    "text": "For each project, create a readme file, or other kind of documentation\n\nA good readme should include\n\n\ndescription: what is the project about\ncontributors: who is working on this project\nrequirements: particular dependencies / software that needs to be installed?\nRoadmap: current stage of the project, and planned stuff (e.g. a todo list)"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#section",
+    "href": "Day1/02_working_with_projects.html#section",
+    "title": "Project organization",
+    "section": "",
+    "text": "Always start R with a blank slate"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#restart-r-often-during-work",
+    "href": "Day1/02_working_with_projects.html#restart-r-often-during-work",
+    "title": "Project organization",
+    "section": "Restart R often during work",
+    "text": "Restart R often during work\n\nIf you use RStudio, use the menu item Session &gt; Restart R or the associated keyboard shortcut Ctrl+Shift+F10 (Windows and Linux) or Command+Shift+0 (Mac OS).\n\n\nAdditional keyboard shortcuts make it easy to restart development where you left off, i.e. to say “re-run all the code up to HERE”:\n\nIn an R script, use Ctrl+Alt+B (Windows / Linux) or Command+Option+B (Mac OS)\nIn R markdown, use Ctrl+Alt+P (Windows / Linux) or Command+Option+P (Mac OS)\n\n(We’ll get back to this when talking about working with rmarkdown / quarto)"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#dont-use-rmlist-ls-in-your-scripts",
+    "href": "Day1/02_working_with_projects.html#dont-use-rmlist-ls-in-your-scripts",
+    "title": "Project organization",
+    "section": "Don’t use rm(list = ls()) in your scripts",
+    "text": "Don’t use rm(list = ls()) in your scripts\n\nrm(list = ls()) does not remove everything in your environment (e.g. library calls, setting of working environment..)!\n\n\n\n\n\n\n\n\nCaution\n\n\n\nrm(list = ls()) does not guarantee reproducibility\nInstead, just make sure that you are working from a restarted R session, and don’t save your workspace"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#questions-for-you",
+    "href": "Day1/02_working_with_projects.html#questions-for-you",
+    "title": "Project organization",
+    "section": "Questions for you",
+    "text": "Questions for you\n\nHow have you organized your projects in the past?\nHave you ever lost track of things? If so, how and why?\nWhat changes are you thinking about implementing?"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#relative-file-paths",
+    "href": "Day1/02_working_with_projects.html#relative-file-paths",
+    "title": "Project organization",
+    "section": "Relative file paths",
+    "text": "Relative file paths\n\nUse relative paths to read in data and save stuff\n\n\n\n# this is an absolute path that only exists on my machine\n# don't use these!\nmy_file &lt;- read.csv(\"/Users/my_user_id/path/on/my/computer/data/my_file.csv\")"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#relative-file-paths-1",
+    "href": "Day1/02_working_with_projects.html#relative-file-paths-1",
+    "title": "Project organization",
+    "section": "Relative file paths",
+    "text": "Relative file paths\n\nUse relative paths to read in data and save stuff\n\n\n# this is an absolute path that only exists on my machine\n# don't use these!\nmy_file &lt;- read.csv(\"/Users/my_user_id/path/on/my/computer/data/my_file.csv\")\n\n# instead, use relative paths:\nmy_file &lt;- read.csv(\"data/my_file.csv\")"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#relative-file-paths-2",
+    "href": "Day1/02_working_with_projects.html#relative-file-paths-2",
+    "title": "Project organization",
+    "section": "Relative file paths",
+    "text": "Relative file paths\n\n\n\n\n\n\nTip\n\n\nUse the auto-completion function in Rstudio: type ““, move the insertion point in there, and then press the tab key"
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#understanding-working-directories",
+    "href": "Day1/02_working_with_projects.html#understanding-working-directories",
+    "title": "Project organization",
+    "section": "Understanding working directories",
+    "text": "Understanding working directories\n\nRelative file paths work because they extend on your working directory. This is one reason why you should work in an R project - it sets a working directory for you, i.e. the directory where your R project is sitting in.\n\n\n\n# this function prints your current working directory\ngetwd()\n\n\n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials/Day1\""
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#the-here-package",
+    "href": "Day1/02_working_with_projects.html#the-here-package",
+    "title": "Project organization",
+    "section": "The {here} package",
+    "text": "The {here} package\nThe here() function retrieves your current working directory, at the time the package was loaded.\nThe {here} package helps especially when not working with R interactively (e.g. knitting an rmarkdown / quarto file)\n\n# this function gets your project directory\nhere::here()\n\n\n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials\"\n\n\n\n\n# you can simply add folders and file names to complete a path\nhere::here(\"data\", \"my_data_file.csv\")\n\n\n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials/data/my_data_file.csv\"\n\n\n\n\n\n# this works, too\nhere::here(\"data/my_data_file.csv\") \n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials/data/my_data_file.csv\""
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#compare-here-with-getwd",
+    "href": "Day1/02_working_with_projects.html#compare-here-with-getwd",
+    "title": "Project organization",
+    "section": "Compare here() with getwd()",
+    "text": "Compare here() with getwd()\n\nhere::here()\n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials\"\n\n\n\n\ngetwd()\n\n[1] \"/Users/au525642/Dropbox/postdoc/teaching & talks/23_PhD_R_course/course_materials/Day1\"\n\n\n\nThe output differs because the working directory changes when the document is knitted by knitr. The here() function still produces the expected output."
+  },
+  {
+    "objectID": "Day1/02_working_with_projects.html#practice",
+    "href": "Day1/02_working_with_projects.html#practice",
+    "title": "Project organization",
+    "section": "Practice",
+    "text": "Practice\n\nWhat’s your previous way to specify paths for reading and saving files?\nTry and implement the here::here() function in an existing (or new) script\n\nload some data using a relative path\nplay around with the autocompletion"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#working-in-rmarkdown",
+    "href": "Day1/04_markdown_reproducibility.html#working-in-rmarkdown",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Working in RMarkdown",
+    "text": "Working in RMarkdown\n\nRmarkdown is a powerful tool for combining code, text, and visualizations in a single document. It allows you to create documents that are reproducible, dynamic, and interactive.\n\n\nThere’s a ton of stuff to learn with rmarkdown. Get inspiration here"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#brief-intro-to-rmarkdown",
+    "href": "Day1/04_markdown_reproducibility.html#brief-intro-to-rmarkdown",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Brief intro to RMarkdown",
+    "text": "Brief intro to RMarkdown\nRmarkdown documents have 3 basic ingredients\n\n\na YAML header - specifying general output options\nText in markdown format - any explanatory text you like to add, e.g. documentation\nCode chunks - your R code (can also run python, Stan, …)"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#quarto-vs.-rmarkdown",
+    "href": "Day1/04_markdown_reproducibility.html#quarto-vs.-rmarkdown",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Quarto vs. Rmarkdown",
+    "text": "Quarto vs. Rmarkdown\n\nQuarto is the new cool kid in town.\n\n\nFor all intends and purposes, quarto and rmarkdown are practically interchangeable. Rmarkdown will not be deprecated, but Quarto is likely to see more development in the future than rmarkdown.\n\n\nRight now, rmarkdown has a bit more user friendliness within RStudio (clearing knitr cache, and setting knitr working directory), but quarto has nicer defaults regarding outputs.\n\n\nIf you’ve never used rmarkdown, it’s probably a good idea to start with quarto. I will use Quarto going forward. But it’s totally fine for you to continue with rmarkdown.\n\n\nSee also the FAQ from posit"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#look-at-an-example",
+    "href": "Day1/04_markdown_reproducibility.html#look-at-an-example",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Look at an example",
+    "text": "Look at an example\nRmarkdown\n-&gt; open example_rmd_file.Rmd and example_rmd_file.html in example_rmd folder\nQuarto\n\nopen example_quarto.qmd and example_quarto.html in example_quarto folder"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#markdown-syntax-basics",
+    "href": "Day1/04_markdown_reproducibility.html#markdown-syntax-basics",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Markdown syntax basics",
+    "text": "Markdown syntax basics\n\n# is used to define headlines\n- creates an unordered list\n1. creates ordererd lists\n*one asterisk* makes text italics\n**two asterisks** makes text bold\nNB: for html documents, you can also use &lt;html&gt; tags if you prefer (e.g. I often use &lt;br&gt; to add a line break)\n\nFor more, see this markdown guide"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-neat-feature-tabbed-content",
+    "href": "Day1/04_markdown_reproducibility.html#a-neat-feature-tabbed-content",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A neat feature: Tabbed Content",
+    "text": "A neat feature: Tabbed Content\n\n\n\n\n\n\nTip\n\n\nHtml Documents allow you to use tabs to let viewers compare different types of things.\nI love this feature to contrast and compare plots or models that rely on similar but different data, e.g. subsamples, or robustness checks.\nFor .rmd documents you can use tabs by writing {.tabset} after a heading. Then, the next sub-headings after this will be tabbed (see next slide)."
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#example",
+    "href": "Day1/04_markdown_reproducibility.html#example",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Example",
+    "text": "Example\n# My Heading {.tabset}\n## This is tab 1\niris %&gt;% \n  ggplot(aes(Sepal.Length, Sepal.Width)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") +\n  theme_bw()\n## This is tab 2\niris %&gt;% \n  ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") +\n  theme_bw() +\n  theme(legend.position = c(.8, .15),\n        legend.direction = \"horizontal\")"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#my-heading",
+    "href": "Day1/04_markdown_reproducibility.html#my-heading",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "My Heading",
+    "text": "My Heading\n\nThis is tab 1This is tab 2\n\n\n\n\nCode\niris %&gt;% \n  ggplot(aes(Sepal.Length, Sepal.Width)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nCode\niris %&gt;% \n  ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") +\n  theme_bw() +\n  theme(legend.position = c(.8, .15),\n        legend.direction = \"horizontal\")"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#my-go-to-rmarkdown-file-snippets",
+    "href": "Day1/04_markdown_reproducibility.html#my-go-to-rmarkdown-file-snippets",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "My go to rmarkdown file snippets:",
+    "text": "My go to rmarkdown file snippets:\n---\ntitle: \"Title...\"\nauthor: \"--redacted for anonymous peer review--\"\ndate: \"date\"\noutput:\n  html_document:\n    toc: true\n    toc_float: \n      collapsed: true\n    toc_depth: 4\n    theme: flatly\n    code_folding: show\n    number_sections: false\n    keep_md: yes\n    df_print: paged\neditor_options: \n  chunk_output_type: console \n---\n\n```{=html}\n&lt;style type=\"text/css\"&gt;\n.main-container {\n  max-width: 1400px !important;\n  width: 1400px !important;\n  margin-left: auto;\n  margin-right: auto;\n}\nbody {\n  font-size: 14pt;\n  max-width: 1400px !important;\n  width: 1400px;\n}\np {\n  padding-bottom: 12px;\n  padding-top: 12px;\n  line-height: 1.15em;\n}\n&lt;/style&gt;\n```\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE, \n                      message = FALSE, \n                      warning = FALSE,\n                      fig.width = 10, \n                      fig.height = 7,\n                      cache = TRUE,\n                      # this requires \"styler\" package\n                      tidy = \"styler\")\n\noptions(width = 200)\n```"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#section",
+    "href": "Day1/04_markdown_reproducibility.html#section",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "",
+    "text": "Tip: save your favorite rmarkdown format as a template\n\n\nSaving your go-to approach as a template helps you be more consistent and faster.\nSee here for a guide on how to set things up :)\nBonus experience: doing this will let you create your own first (?) package!"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#my-go-to-.qmd-snippet-yaml-header",
+    "href": "Day1/04_markdown_reproducibility.html#my-go-to-.qmd-snippet-yaml-header",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "My go to .qmd snippet yaml header",
+    "text": "My go to .qmd snippet yaml header\n---\ntitle: \"Title\"\nformat: \n  html:\n    toc: true\n    self-contained: true\n    code-fold: true\n    code-tools: true\neditor: source\nauthor: Author\ntheme: flatly\nexecute: \n  cache: true\n  warning: false\n  message: false\n  fig-width: 12 \n  fig-height: 9\n---"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#tip-browse-the-pre-installed-themes-for-rmarkdown-quarto",
+    "href": "Day1/04_markdown_reproducibility.html#tip-browse-the-pre-installed-themes-for-rmarkdown-quarto",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "Tip: browse the pre-installed themes for rmarkdown & quarto",
+    "text": "Tip: browse the pre-installed themes for rmarkdown & quarto"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-quick-aside-set.seed",
+    "href": "Day1/04_markdown_reproducibility.html#a-quick-aside-set.seed",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A quick aside: set.seed()",
+    "text": "A quick aside: set.seed()\n\nThis function sets a seed that lets you reproduce random outcomes.\n\n\nsample(letters, size = 2)\n\n\n[1] \"v\" \"j\"\n\n\n\n\n\n\n\nsample(letters, size = 2)\n\n\n[1] \"y\" \"m\"\n\n\n\n\n\n\n\nset.seed(1)\nsample(letters, size = 2)\n\n\n[1] \"y\" \"d\"\n\n\n\n\n\n\n\nset.seed(1)\nsample(letters, size = 2)\n\n\n[1] \"y\" \"d\""
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-quick-aside-set.seed-1",
+    "href": "Day1/04_markdown_reproducibility.html#a-quick-aside-set.seed-1",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A quick aside: set.seed()",
+    "text": "A quick aside: set.seed()\n\n\n\n\n\n\nWarning\n\n\nbe aware: the following code chunk does not work as perhaps intended:\n```{r}\nset.seed(1)\nsample(letters, size = 2)\nsample(letters, size = 2)\n```\n\n\n\n\nThis will evaluate as:\n\nset.seed(1)\nsample(letters, size = 2)\n\n[1] \"y\" \"d\"\n\nsample(letters, size = 2)\n\n[1] \"g\" \"a\""
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#how-can-we-ensure-that-the-work-were-doing-is-computationally-reproducible-in-5-years",
+    "href": "Day1/04_markdown_reproducibility.html#how-can-we-ensure-that-the-work-were-doing-is-computationally-reproducible-in-5-years",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "How can we ensure that the work we’re doing is computationally reproducible in 5 years?",
+    "text": "How can we ensure that the work we’re doing is computationally reproducible in 5 years?"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-maximum-effort-approach",
+    "href": "Day1/04_markdown_reproducibility.html#a-maximum-effort-approach",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A maximum effort approach",
+    "text": "A maximum effort approach\n\n\nSource"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-minimal-requirement-sessioninfo",
+    "href": "Day1/04_markdown_reproducibility.html#a-minimal-requirement-sessioninfo",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A minimal requirement: sessionInfo()",
+    "text": "A minimal requirement: sessionInfo()\n\n–&gt; prints information about your R session.\n\nsessionInfo()\n\n\n\nR version 4.3.0 (2023-04-21)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Ventura 13.4\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Europe/Copenhagen\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n [1] lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2    \n [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   \n [9] ggplot2_3.4.2   tidyverse_2.0.0\n\nloaded via a namespace (and not attached):\n [1] Matrix_1.5-4     gtable_0.3.3     jsonlite_1.8.4   compiler_4.3.0  \n [5] tidyselect_1.2.0 splines_4.3.0    scales_1.2.1     yaml_2.3.7      \n [9] fastmap_1.1.1    lattice_0.21-8   R6_2.5.1         labeling_0.4.2  \n[13] generics_0.1.3   knitr_1.42       munsell_0.5.0    pillar_1.9.0    \n[17] tzdb_0.4.0       rlang_1.1.1      utf8_1.2.3       stringi_1.7.12  \n[21] xfun_0.39        timechange_0.2.0 cli_3.6.1        mgcv_1.8-42     \n[25] withr_2.5.0      magrittr_2.0.3   digest_0.6.31    grid_4.3.0      \n[29] rstudioapi_0.14  hms_1.1.3        nlme_3.1-162     lifecycle_1.0.3 \n[33] vctrs_0.6.2      evaluate_0.21    glue_1.6.2       farver_2.1.1    \n[37] fansi_1.0.4      colorspace_2.1-0 rmarkdown_2.21   tools_4.3.0     \n[41] pkgconfig_2.0.3  htmltools_0.5.5"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#a-golden-middle",
+    "href": "Day1/04_markdown_reproducibility.html#a-golden-middle",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "A golden middle?",
+    "text": "A golden middle?\n\n\nThe {renv} package allows you to save a snapshot of your packages used, and track versions of packages\n(this is the former {packrat} package)\nDocumentation: https://rstudio.github.io/renv/articles/renv.html#workflow"
+  },
+  {
+    "objectID": "Day1/04_markdown_reproducibility.html#the-renv-workflow",
+    "href": "Day1/04_markdown_reproducibility.html#the-renv-workflow",
+    "title": "Reproducible Documents using Quarto & Rmarkdown",
+    "section": "The {Renv} workflow",
+    "text": "The {Renv} workflow\n\n\nCall renv::init() to initialize a new project-local environment with a private R library\nWork in the project as normal, installing and removing new R packages as they are needed in the project\nCall renv::snapshot() to save the state of the project library to the lockfile (called renv.lock)\nContinue working on your project, installing and updating R packages as needed\nCall renv::snapshot() again to save the state of your project library if your attempts to update R packages were successful, or call renv::restore() to revert to the previous state as encoded in the lockfile if your attempts to update packages introduced some new problems."
+  }
+]

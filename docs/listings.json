@@ -1,0 +1,27 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/Day1/01_intro.html",
+      "/Day1/02_working_with_projects.html",
+      "/Day1/03_good_code.html",
+      "/Day1/04_markdown_reproducibility.html",
+      "/Day1/05_exercise.html",
+      "/Day2/01_tidyverse_recap.html",
+      "/Day2/02_advanced_tidyverse.html",
+      "/Day2/03_regular_expressions.html",
+      "/Day2/04_pracitcal_session.html",
+      "/Day2/01_tidyverse_recap_solution_bonus_question.html",
+      "/Day3/01_ggplot_recap_Scherer.html",
+      "/Day3/02_ggplot_models.html",
+      "/Day3/03_practical_session.html",
+      "/Day4/02_principles_programming.html",
+      "/Day4/03_purrr.html",
+      "/Day4/04_simulations_example.html",
+      "/Day4/principles_programming_solutions_exercises.html",
+      "/Day5/01_creating_websites_with_R.html",
+      "/Day5/02_intro_git_github.html",
+      "/Day5/03_publishing_via_github.html"
+    ]
+  }
+]
