@@ -10,16 +10,12 @@ All presentations are done with Quarto + Reveal.js. You can find both the knitte
 
 ## Please note:
 
-I'm not completely done with developing all materials! :/ 
+This course also has a website. Please see here: https://simonkarg.github.io/advanced_r_course/
 
-If you download everything now, please make sure that you update course materials at the start of each day. 
+This course ran from 12.06.23 - 16.06.23. 
 
+I am planning to hold this course again in the future. If you would like to take attend this course in the future, or invite me to host at your own institution, [please reach out](https://pure.au.dk/portal/da/persons/simon-tobias-schulz-karg(535467e3-c79a-4be4-aa51-1192cc38be7a).html).
 
-## Practical info
-
-This course runs from 12.06-16.06. 
-
-Room: 1330-024 (Department of Political Science - downstairs)
 
 ### Schedule Overview
 
