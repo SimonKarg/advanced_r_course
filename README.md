@@ -14,7 +14,7 @@ This course also has a website. Please see here: https://simonkarg.github.io/adv
 
 This course ran from 12.06.23 - 16.06.23. 
 
-I am planning to hold this course again in the future. If you would like to take attend this course in the future, or invite me to host at your own institution, [please reach out](https://pure.au.dk/portal/da/persons/simon-tobias-schulz-karg(535467e3-c79a-4be4-aa51-1192cc38be7a).html).
+I am planning to hold this course again in the future. If you would like to take attend this course in the future, or invite me to host it at your own institution, [please reach out](https://pure.au.dk/portal/da/persons/simon-tobias-schulz-karg(535467e3-c79a-4be4-aa51-1192cc38be7a).html).
 
 
 ### Schedule Overview
