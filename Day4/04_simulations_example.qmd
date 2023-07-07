@@ -1,5 +1,7 @@
 ---
 title: "Combining Functions & Purrr for simulations"
+description: "Combining functions & purrr for simulations"
+sort-key: "03"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

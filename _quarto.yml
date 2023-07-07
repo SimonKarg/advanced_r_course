@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Advanced R"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Course Home
+      - href: https://simonkarg.github.io/
+        text: About Simon
+    right:
+      - icon: twitter
+        href: https://twitter.com/simanfication
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/SimonKarg/advanced_r_course
+          - text: Report a Bug
+            url:  https://github.com/SimonKarg/advanced_r_course/issues
+  twitter-card:
+    creator: "@simanfication"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+

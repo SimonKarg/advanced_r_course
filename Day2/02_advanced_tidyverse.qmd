@@ -1,5 +1,7 @@
 ---
 title: "Advanced Tidyverse Tips & Tricks"
+description: "Advanced tidyverse tips & tricks"
+sort-key: "02"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

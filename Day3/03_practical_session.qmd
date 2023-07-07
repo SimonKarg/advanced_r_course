@@ -1,5 +1,7 @@
 ---
 title: "Day 3 - Practical Session"
+description: "Practical session: plot your own data"
+sort-key: "03"
 format: 
   revealjs:
     theme: [simple]

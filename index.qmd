@@ -1,0 +1,394 @@
+---
+title: "Course Material for PhD Course on Advanced R Programming"
+author: "Simon Karg"
+listing:
+  - id: day1_listing
+    contents: 
+      - "Day1/*.qmd"
+    sort: "sort-key"
+    template: listing_grid.ejs
+  - id: day2_listing
+    contents:
+      - "Day2/*.qmd"
+    sort: "sort-key"
+    template: listing_grid.ejs
+  - id: day3_listing
+    contents:
+      - "Day3/*.qmd"
+    sort: "sort-key"
+    template: listing_grid.ejs
+  - id: day4_listing
+    contents:
+      - "Day4/*.qmd"
+    sort: "sort-key"
+    template: listing_grid.ejs
+  - id: day5_listing
+    contents:
+      - "Day5/*.qmd"
+    sort: "sort-key"
+    template: listing_grid.ejs
+link-external-newwindow: true
+---
+
+
+
+# Course description
+
+This course is a five-day intensive PhD level course designed for intermediate R users who want to take their skills to the next level. The course covers a range of topics, including project documentation, workflow optimization, ensuring reproducibility, data cleaning and manipulation, advanced plotting, advanced programming functions, and building websites with R.
+
+Importantly, this means this course is not primarily a statistics course, but rather a programming course, where participants learn helpful and important techniques for writing cleaner, more readable, more robust, and potentially faster code. 
+
+Overall, the course is designed to provide participants with a comprehensive understanding of advanced R programming techniques, and to give them the skills and knowledge they need to use R effectively in their own projects. By the end of the course, participants will have a solid foundation in advanced R programming and will be able to use R to clean, manipulate, visualize, and analyze data, and to build custom functions and interactive web applications. This will allow them to get through the tedious parts of working with data faster, have more time to explore and analyze, as well as widen their horizon of what is possible in R. The course is also meant as a space for participants to explore and work with their own data, share struggles with the group, and learn together.
+
+The course follows a five day structure, with each day consisting of 5 hours each that are divided in lecture style presentations, and hands-on exercise sessions. 
+
+## Learning objectives
+
+After this course, participants will be able to:
+
+-	Clean and manipulate data efficiently, making use of advanced functions from the tidyverse and purrr packages
+-	Write own functions using advanced concepts such as non-standard evaluation
+-	Use Markov-chain-monte-carlo simulation to conduct power analyses
+-	Use rmarkdown and quarto to output reproducible research reports and interactive websites
+-	Create clear and visually appealing plots
+
+
+This course ran from 12.06.2023-16.06.2023 at the Department of Political Science, Aarhus University.  
+
+
+# Course materials
+
+Below are links to the slides I used for the course. Slides are built using Quarto and Reveal.js. 
+
+To **download** these materials, please head over to the **[github repository.](https://github.com/SimonKarg/advanced_r_course)**
+
+The course builds upon a host of amazing free books and tutorials from the R community. Thank you to all who provide their material online for free! Here is a non-complete list of sources used:
+
+-	Bryan, J., Hester, J., Pileggi, S., Aja D. E., What They Forgot to Teach You About R (<https://rstats.wtf/>)
+- Ismay, C. Kim, A. Y., A Modern Dive into R and the Tidyverse (<https://moderndive.com/index.html>)
+- Rapp, A., diverse blog posts and tutorials: <https://albert-rapp.de/>
+- Scherer, C., graphic design with ggplot2: <https://rstudio-conf-2022.github.io/ggplot2-graphic-design/>
+-	Wickham, H. Grolemund, G., R for data science (second edition – <https://r4ds.hadley.nz/>)
+- Wickham, H., Advanced R (second edition <https://adv-r.hadley.nz/>)
+-	Xie, Yihui. 2016. Bookdown: Authoring Books and Technical Documents with R Markdown. Boca Raton, Florida: Chapman; Hall/CRC, (<https://github.com/rstudio/bookdown>).
+
+
+
+## Day 1: Workflow, Organization, and Reproducibility
+
+::: {#day1_listing}
+
+:::
+
+
+## Day 2: Tidyverse basics and advanced features
+
+::: {#day2_listing}
+
+:::
+
+
+## Day 3: Plotting
+
+::: {#day3_listing}
+
+:::
+
+
+## Day 4: Functions and Purrr
+
+::: {#day4_listing}
+
+:::
+
+
+## Day 5: Building a website with Quarto
+
+::: {#day5_listing}
+
+:::
+
+
+
+# Schedule Overview
+
+<table class="MsoTableGrid" style="border-collapse:collapse;border:none;mso-yfti-tbllook:1184;mso-padding-alt:
+ 4.25pt 7.1pt 4.25pt 7.1pt" cellspacing="0" cellpadding="0" border="0">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><b><span style="font-size:10.5pt;font-family:
+  &quot;Bierstadt&quot;,sans-serif" lang="EN-US">Monday<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:73.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><b><span style="font-size:10.5pt;font-family:
+  &quot;Bierstadt&quot;,sans-serif" lang="EN-US">Tuesday<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:80.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><b><span style="font-size:10.5pt;font-family:
+  &quot;Bierstadt&quot;,sans-serif" lang="EN-US">Wednesday<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:73.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><b><span style="font-size:10.5pt;font-family:
+  &quot;Bierstadt&quot;,sans-serif" lang="EN-US">Thursday<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:72.1pt;border:none;border-bottom:solid windowtext 1.0pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="96" valign="top">
+  <p class="MsoNormal"><b><span style="font-size:10.5pt;font-family:
+  &quot;Bierstadt&quot;,sans-serif" lang="EN-US">Friday<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">09:15
+  – 10:00<o:p></o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Introduction<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Recap
+  Tidy Data &amp; <span class="SpellE">Tidyverse</span><o:p></o:p></span></p>
+  </td>
+  <td style="width:80.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span class="SpellE"><span style="font-size:10.5pt;
+  font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">ChatGPT</span></span><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"> &amp; R (guest
+  lecture by Julian <span class="SpellE">Schüssler</span>)<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Defining
+  Functions<o:p></o:p></span></p>
+  </td>
+  <td rowspan="2" style="width:72.1pt;border:none;border-bottom:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:
+  solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:
+  solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;padding:
+  4.25pt 7.1pt 4.25pt 7.1pt" width="96" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Build
+  your own website with quarto<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">10:15
+  – 11:00<o:p></o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Project
+  setup and general workflow<o:p></o:p></span></p>
+  </td>
+  <td rowspan="2" style="width:73.65pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Advanced
+  <span class="SpellE">Tidyverse</span> concepts and practice<o:p></o:p></span></p>
+  </td>
+  <td style="width:80.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span class="SpellE"><span style="font-size:10.5pt;
+  font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">ggplot</span></span><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"> Recap<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">PURRR
+  &amp; anonymous functions<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">11:15
+  – 12:00<o:p></o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Good
+  Code<o:p></o:p></span></p>
+  </td>
+  <td style="width:80.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Advanced
+  <span class="SpellE">ggplot</span> functionalities &amp; packages<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Tidy
+  Simulations<o:p></o:p></span></p>
+  </td>
+  <td style="width:72.1pt;border:none;border-bottom:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="96" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Intro
+  to <span class="SpellE">Github</span> and version control<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#D9E2F3;mso-background-themecolor:accent1;mso-background-themetint:
+  51;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif;
+  color:black;mso-color-alt:windowtext" lang="EN-US">12:00 – 12:45</span><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"><o:p></o:p></span></p>
+  </td>
+  <td colspan="5" style="width:370.75pt;border:none;
+  border-bottom:solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;
+  background:#D9E2F3;mso-background-themecolor:accent1;mso-background-themetint:
+  51;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="494" valign="top">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif;
+  color:black;mso-color-alt:windowtext" lang="EN-US">Lunch</span></b><b><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"><o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5">
+  <td style="width:80.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">12:45
+  – 13:45<o:p></o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Reproducible
+  documents with <span class="SpellE">rmarkdown</span> / quarto<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Regular
+  Expressions<o:p></o:p></span></p>
+  </td>
+  <td rowspan="2" style="width:80.1pt;border:none;
+  border-right:solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;
+  padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Exercise:
+  <br>
+  Plot your own data / Recreate the plot challenge<o:p></o:p></span></p>
+  </td>
+  <td rowspan="2" style="width:73.5pt;border:none;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:
+  solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:
+  solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;padding:
+  4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Exercise:
+  simulation / work on your own code<o:p></o:p></span></p>
+  </td>
+  <td style="width:72.1pt;border:none;border-bottom:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="96" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Host
+  your website via <span class="SpellE">github</span><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6;mso-yfti-lastrow:yes">
+  <td style="width:80.05pt;border:none;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="107" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">14:00
+  – 15:00<o:p></o:p></span></p>
+  </td>
+  <td style="width:71.4pt;border:none;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="95" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Exercise:
+  <o:p></o:p></span></p>
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Reproducible
+  Documents<o:p></o:p></span></p>
+  </td>
+  <td style="width:73.65pt;border:none;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="98" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">Exercise:
+  Bring your own problem / clean your own data<o:p></o:p></span></p>
+  </td>
+  <td style="width:72.1pt;border:none;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;padding:4.25pt 7.1pt 4.25pt 7.1pt" width="96" valign="top">
+  <p class="MsoNormal"><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US">End
+  early </span><span style="font-size:10.5pt;font-family:Wingdings;
+  mso-ascii-font-family:Bierstadt;mso-hansi-font-family:Bierstadt;mso-char-type:
+  symbol;mso-symbol-font-family:Wingdings" lang="EN-US"><span style="mso-char-type:symbol;
+  mso-symbol-font-family:Wingdings"></span></span><span style="font-size:10.5pt;font-family:&quot;Bierstadt&quot;,sans-serif" lang="EN-US"><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+
+# License
+
+
+![](https://i.creativecommons.org/l/by/4.0/88x31.png)
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+

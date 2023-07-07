@@ -1,5 +1,7 @@
 ---
 title: "Project organization"
+description: "R project organization techniques"
+sort-key: "02"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

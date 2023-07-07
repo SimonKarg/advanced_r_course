@@ -1,5 +1,7 @@
 ---
 title: "Principles behind R programming"
+description: "Principles behind R programming"
+sort-key: "01"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]
@@ -10,6 +12,21 @@ execute:
   echo: true
 link-external-newwindow: true
 ---
+
+# Today
+
+## What we'll do today:
+
+1. Principles behind functional programming in R
+
+2. Defining your own functions
+
+3. Anonymous functions
+
+4. Making your functions purrrrr
+
+5. Exercise: simulate data
+
 
 # What is a function anyway?
 

@@ -1,5 +1,7 @@
 ---
 title: "Advanced R programming"
+description: "Introduction to the overall course"
+sort-key: "01"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

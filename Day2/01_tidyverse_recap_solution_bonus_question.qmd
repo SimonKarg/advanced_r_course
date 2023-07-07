@@ -1,5 +1,7 @@
 ---
 title: "01_tidyverse_recap_practice_solution"
+description: "Solution: tidyverse recap practice"
+sort-key: "05"
 format: html
 ---
 

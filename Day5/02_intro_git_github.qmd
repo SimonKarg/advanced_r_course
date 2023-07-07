@@ -1,5 +1,7 @@
 ---
 title: "Intro to git & github"
+description: "Intro to git & github - by \"happy git with R\""
+sort-key: "02"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

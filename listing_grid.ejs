@@ -1,0 +1,14 @@
+```{=html}
+
+<ol>
+  <% for (const item of items) { %>
+    <li <%=metadataAttrs(item) %>>
+      <a href="<%- item.path %>" target="_blank">
+        <%= item.description %>
+      </a>
+
+    </li>
+    <% } %>
+</ol>
+
+```

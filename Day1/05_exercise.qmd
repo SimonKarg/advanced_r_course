@@ -1,5 +1,7 @@
 ---
 title: "Day 1 - Practical Session"
+description: "Practical session: work on project organization"
+sort-key: "05"
 format: 
   revealjs:
     theme: [simple]

@@ -1,5 +1,7 @@
 ---
 title: "Day 3 - ggplot and beyond"
+description: "Ggplot2 basics by Cedric Scherer"
+sort-key: "01"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

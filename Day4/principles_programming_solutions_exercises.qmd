@@ -1,10 +1,17 @@
 ---
-title: "Untitled"
+title: "Exercise"
+description: "Solution for practice: principles behind programming"
+sort-key: "04"
 format: html
 ---
 
 
-# Exercise 
+# Solution for practice: principles behind programming 
+```{r}
+library(tidyverse)
+library(glue)
+```
+
 
 1. Create a create_barchart() function that plots a bar chart of a given variable.
 
@@ -27,9 +34,6 @@ create_barplot(iris, Species)
 Tip: this requires treating the name of the objects as a string. Perhaps a quick google search can help you.
 
 ```{r}
-library(tidyverse)
-library(glue)
-
 create_scatter_plot <- function(data, variable1, variable2) {
   variable_name1 <- ensym(variable1)
   variable_name2 <- ensym(variable2)

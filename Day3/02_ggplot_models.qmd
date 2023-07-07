@@ -1,5 +1,7 @@
 ---
 title: "Additional ggplot things.."
+description: "Combining plots & plotting statistical models"
+sort-key: "02"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

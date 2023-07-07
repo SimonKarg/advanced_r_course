@@ -1,5 +1,7 @@
 ---
 title: "An intro to Purrr"
+description: "An intro to Purrr"
+sort-key: "02"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]

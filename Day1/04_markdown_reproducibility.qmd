@@ -1,5 +1,7 @@
 ---
 title: "Reproducible Documents using Quarto & Rmarkdown"
+description: "Reproducible documents using Quarto & Rmarkdown"
+sort-key: "04"
 format: 
   revealjs:
     theme: [simple, ../assets/custom.scss]
